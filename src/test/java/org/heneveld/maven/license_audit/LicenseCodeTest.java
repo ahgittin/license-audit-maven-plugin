@@ -10,6 +10,7 @@ public class LicenseCodeTest extends TestCase {
         assertEquals("EPL1", LicenseCodes.getLicenseCode("Eclipse Public License, Version 1.0"));
         assertEquals("EPL1", LicenseCodes.getLicenseCode("\nEclipse Public License, Version 1.0  "));
         assertEquals("EPL1", LicenseCodes.getLicenseCode("Eclipse Public License (EPL), v 1 (EPL1)"));
+        assertEquals("EPL1", LicenseCodes.getLicenseCode("Eclipse Public License - v 1.0"));
         assertEquals("EPL1", LicenseCodes.getLicenseCode("EPL v.1.0"));
         assertEquals("EPL1", LicenseCodes.getLicenseCode("EPL1"));
         

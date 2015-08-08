@@ -15,9 +15,9 @@ import java.util.Set;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Contributor;
 import org.apache.maven.model.License;
-import org.apache.maven.model.building.ModelBuildingRequest;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -26,17 +26,15 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.DefaultDependencyResolutionRequest;
-import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.DependencyResolutionException;
 import org.apache.maven.project.DependencyResolutionResult;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
-import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.project.ProjectDependenciesResolver;
-import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.artifact.Artifact;
+import org.eclipse.aether.graph.DependencyFilter;
 import org.eclipse.aether.graph.DependencyNode;
 
 @Mojo( name = "report", defaultPhase = LifecyclePhase.PROCESS_SOURCES,
@@ -69,6 +67,9 @@ public class LicenseAuditMojo extends AbstractMojo
     MavenProject project;
 
     @Component
+    MavenSession mavenSession;
+    
+    @Component
     private ProjectBuilder projectBuilder;
     @Component
     private ProjectDependenciesResolver depsResolver;
@@ -78,14 +79,7 @@ public class LicenseAuditMojo extends AbstractMojo
     @Parameter(property = "project.remoteArtifactRepositories")
     protected List<ArtifactRepository> remoteRepositories;
 
-    @Parameter(property = "localRepository")
-    private ArtifactRepository localRepository;
-
-    @Parameter( readonly = true, defaultValue = "${repositorySystemSession}" )
-    private RepositorySystemSession repoSession;
-
     public void execute() throws MojoExecutionException {
-            
         // wrap in commas lower case so our contains works
         scopes = ","+scopes.toLowerCase()+",";
         if (scopes.contains(",all,")) allScopes = true;
@@ -147,19 +141,46 @@ public class LicenseAuditMojo extends AbstractMojo
             projectByIdCache.put(id(p), p);
             unversionedProjectsLoaded.add(p.getGroupId()+":"+p.getArtifactId());
 
-            DependencyResolutionResult depRes;
+            final List<DependencyNode> backupDepsList = new ArrayList<DependencyNode>();
+            DependencyResolutionResult depRes = null;
+            DefaultDependencyResolutionRequest depReq = new DefaultDependencyResolutionRequest(p, mavenSession.getRepositorySession());
             try {
-                DefaultDependencyResolutionRequest depReq = new DefaultDependencyResolutionRequest(p, repoSession);
                 depRes = depsResolver.resolve(depReq);
 
             } catch (DependencyResolutionException e) {
-                getLog().debug("Error resolving "+id(p)+": "+e, e);
-                addError(id(p), e);
-                continue;
-            }
-            projectDepsCache.put(id(p), depRes.getDependencyGraph().getChildren());
+                getLog().debug("Error resolving "+id(p)+", now trying with scope partially limited: "+e, e);
+                getLog().warn("Error resolving "+id(p)+", now trying with scope partially limited: "+e);
+                
+                depReq.setResolutionFilter(new DependencyFilter() {
+                    public boolean accept(DependencyNode node, List<DependencyNode> parents) {
+                        if (node==null) return false;
+                        if (node.getDependency()==null) {
+                            getLog().warn("Missing dependency for "+node);
+                            return false;
+                        }
+                        backupDepsList.add(node);
+                        if (!acceptScope(node.getDependency().getScope())) return false;
+                        if (Boolean.TRUE.equals(node.getDependency().getOptional())) return false;
+                        return true;
+                    }
+                });
+                try {
+                    depRes = depsResolver.resolve(depReq);
+                    getLog().debug("Successfully resolved "+id(p)+" with scope limited");
+                    addError(id(p), "One or more excluded scope or optional dependencies could not be resolved: "+e);
 
-            for (DependencyNode dn: depRes.getDependencyGraph().getChildren()) {
+                } catch (DependencyResolutionException e2) { 
+                    getLog().debug("Dependency resolution failed for "+id(p)+", even with limited scope: "+e2, e2);
+                    getLog().error("Dependency resolution failed for "+id(p)+", even with limited scope: "+e2);
+                    addError(id(p), "Dependency resolution failed: "+e2);
+                }
+            }
+            List<DependencyNode> depsList;
+            if (depRes!=null) depsList = depRes.getDependencyGraph().getChildren();
+            else depsList = backupDepsList;
+            projectDepsCache.put(id(p), depsList);
+
+            for (DependencyNode dn: depsList) {
                 boolean acceptsScope = acceptScope(dn.getDependency().getScope());
                 boolean excludeBecauseOptional = !includeOptionalDependencies && Boolean.TRUE.equals(dn.getDependency().getOptional());
                 
@@ -180,12 +201,8 @@ public class LicenseAuditMojo extends AbstractMojo
                 if (cdp!=null || cacheError!=null) continue;
                 
                 try {
-                    ProjectBuildingRequest req = new DefaultProjectBuildingRequest();
-                    req.setRepositorySession(repoSession);
-                    req.setLocalRepository(localRepository);
-                    req.setRemoteRepositories(remoteRepositories);
-                    req.setValidationLevel( ModelBuildingRequest.VALIDATION_LEVEL_MINIMAL );
-                    ProjectBuildingResult res = projectBuilder.build(mda, true, req);
+                    // older code creates a new PBReq but it lacks user props; this seems to work better
+                    ProjectBuildingResult res = projectBuilder.build(mda, true, mavenSession.getProjectBuildingRequest());
                     if (res.getProject()==null) {
                         throw new IllegalStateException("No project was built");
                     } else {
