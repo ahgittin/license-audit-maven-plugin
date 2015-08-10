@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.maven.Maven;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -26,7 +27,6 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.DefaultDependencyResolutionRequest;
 import org.apache.maven.project.DependencyResolutionException;
 import org.apache.maven.project.DependencyResolutionResult;
@@ -35,43 +35,50 @@ import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.project.ProjectDependenciesResolver;
-import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.DefaultRepositorySystemSession;
 import org.eclipse.aether.artifact.Artifact;
-import org.eclipse.aether.graph.DependencyFilter;
+import org.eclipse.aether.collection.DependencyCollectionContext;
+import org.eclipse.aether.collection.DependencySelector;
 import org.eclipse.aether.graph.DependencyNode;
 
-@Mojo( name = "report", defaultPhase = LifecyclePhase.PROCESS_SOURCES,
-    requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME,
-    requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
+@Mojo( name = "report", defaultPhase = LifecyclePhase.COMPILE)
 public class LicenseAuditMojo extends AbstractMojo
 {
 
-    @Parameter( defaultValue = "", property = "license-audit.outputFile", required = false )
+    @Parameter( defaultValue = "", property = "output", required = false )
     private String outputFilePath;
     protected FileWriter outputFileWriter = null;
 
-    @Parameter( defaultValue = "tree", property = "license-audit.format", required = true )
+    @Parameter( defaultValue = "tree", property = "format", required = true )
     private String format;
 
-    @Parameter( defaultValue = "-1", property = "license-audit.depth", required = true )
+    @Parameter( defaultValue = "-1", property = "depth", required = true )
     private int maxDepth;
 
-    @Parameter( defaultValue = "compile,runtime", property = "license-audit.includeDependencyScopes", required = true )
+    @Parameter( defaultValue = "compile,runtime", property = "includeDependencyScopes", required = true )
     private String includeDependencyScopes;
     private boolean includeAllDependencyScopes;
 
-    @Parameter( defaultValue = "false", property = "license-audit.includeOptionalDependencies", required = true )
-    private boolean includeOptionalDependencies;
+    @Parameter( defaultValue = "false", property = "excludeRootOptionalDependencies", required = true )
+    private boolean excludeRootOptionalDependencies;
 
-    @Parameter( defaultValue = "false", property = "license-audit.listOnlyIncludedDependencies", required = true )
-    private boolean listOnlyIncludedDependencies;
+    @Parameter( defaultValue = "false", property = "suppressExcludedDependencies", required = true )
+    private boolean suppressExcludedDependencies;
+    
+    @Parameter( defaultValue = "false", property = "listUnusedNestedOptionalDependencies", required = true )
+    private boolean listUnusedNestedOptionalDependencies;
 
-    @Parameter( defaultValue = "false", property = "license-audit.listIdOnly", required = true )
-    private boolean listIdOnly;
+    @Parameter( defaultValue = "false", property = "listDependencyIdOnly", required = true )
+    private boolean listDependencyIdOnly;
 
-    @Parameter( defaultValue = "false", property = "license-audit.suppressLicenseInfo", required = true )
+    @Parameter( defaultValue = "false", property = "suppressLicenseInfo", required = true )
     private boolean suppressLicenseInfo;
 
+//    @Requirement
+//    private DefaultRepositorySystemSessionFactory repositorySessionFactory;
+    @Component
+    private Maven defaultMaven;
+    
     @Component
     MavenProject project;
 
@@ -121,22 +128,17 @@ public class LicenseAuditMojo extends AbstractMojo
         }
         
         DependencyResolutionResult depRes;
-        RepositorySystemSession repositorySession = mavenSession.getRepositorySession();
-        DefaultDependencyResolutionRequest depReq = new DefaultDependencyResolutionRequest(project, repositorySession);
         try {
-            depReq.setResolutionFilter(new DependencyFilter() {
-                public boolean accept(DependencyNode node, List<DependencyNode> parents) {
-//System.out.println("AH? - "+node+"/"+node.getDependency()+" <- "+parents);
-//                    if (node.getDependency()==null) return true;
-//                    return includeScope(node.getDependency().getScope());
-                    return true;
-                }
-            });
+            DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession(mavenSession.getRepositorySession());
+            ((DefaultRepositorySystemSession)repositorySession).setDependencySelector(newRootScopeDependencySelector(repositorySession.getDependencySelector(), 0));
+            DefaultDependencyResolutionRequest depReq = new DefaultDependencyResolutionRequest(project, repositorySession);
             depRes = depsResolver.resolve(depReq);
         } catch (DependencyResolutionException e) {
             throw new MojoExecutionException("Cannot resolve dependencies for "+project, e);
         }
         rootDependencyGraph = depRes.getDependencyGraph();
+        getLog().debug("Dependency graph with scopes "+includeDependencyScopes+":");
+        dump("", rootDependencyGraph);
         
         projectByIdCache.put(Coords.of(project).normal(), project);
         collectDeps(rootDependencyGraph, project, 0);
@@ -160,6 +162,28 @@ public class LicenseAuditMojo extends AbstractMojo
                 throw new MojoExecutionException("Error closing "+outputFilePath, e);
             }
         }
+    }
+
+    private DependencySelector newRootScopeDependencySelector(final DependencySelector base, final int depth) {
+        return new DependencySelector() {
+            public boolean selectDependency(org.eclipse.aether.graph.Dependency dependency) {
+                // use these root scopes
+                return includeScope(dependency.getScope()) && (!dependency.isOptional() || !excludeRootOptionalDependencies);
+            }
+            public DependencySelector deriveChildSelector(DependencyCollectionContext context) {
+                // scope is applied to root, thereafter we revert to the base scopes
+                if (depth<1)
+                    return newRootScopeDependencySelector( base.deriveChildSelector(context), depth+1 );
+                else
+                    return base.deriveChildSelector(context);
+            }
+        };
+    }
+    
+    private void dump(String prefix, DependencyNode n) {
+        getLog().debug(prefix+n+": "+n.getDependency()+" / "+n.getArtifact());
+        for (DependencyNode nn: n.getChildren())
+            dump(prefix+"  ", nn);
     }
 
     protected void addError(String id, Object error) {
@@ -202,7 +226,7 @@ public class LicenseAuditMojo extends AbstractMojo
         depNodesByIdCache.put(Coords.of(n0).normal(), n0);
         
         if (n0.getDependency()!=null) {
-            if (n0.getDependency().isOptional() && !includeOptionalDependencies) {
+            if (n0.getDependency().isOptional() && (depth>1 || excludeRootOptionalDependencies)) {
                 getLog().warn("Optional dependency found in dependency tree: "+n0);
                 return;
             }
@@ -232,7 +256,7 @@ public class LicenseAuditMojo extends AbstractMojo
         return includeDependencyScopes.contains(","+scope+",");
     }
 
-    protected enum DetailLevel { OMITTED, EXCLUDED_SUMMARY, INCLUDED_SUMMARY, INCLUDED_DETAIL }
+    protected enum DetailLevel { OMITTED, EXCLUDE_FROM_SUMMARY, INCLUDE_IN_SUMMARY_BUT_NOT_USED_OR_EXPANDED, INCLUDE_IN_SUMMARY_EXPANDED_ELSEWHERE, INCLUDE_WITH_DETAIL }
     protected static class DependencyDetail {
         public final String scope;
         public final boolean optional;
@@ -284,12 +308,12 @@ public class LicenseAuditMojo extends AbstractMojo
                 addProjectEntry("ERROR", err.toString());
             }
             if (p!=null) {
-                addProjectEntry("Name", p.getName());
                 if (p.getArtifact()!=null && !p.getArtifact().getVersion().equals(p.getArtifact().getBaseVersion())) {
                     addProjectEntry("Version Resolved", p.getArtifact().getVersion());
                 }
-                if (!suppressLicenseInfo) addLicenseInfoEntries(p);
+                addProjectEntry("Name", p.getName());
                 addProjectEntry("URL", p.getUrl());
+                if (!suppressLicenseInfo) addLicenseInfoEntries(p);
                 addVerboseEntries(p);
                 
                 Map<String,DependencyNode> depsInGraphHere = new LinkedHashMap<String,DependencyNode>();
@@ -321,26 +345,28 @@ public class LicenseAuditMojo extends AbstractMojo
                 } else {
                     List<String> depsLine = new ArrayList<String>();
                     for (Dependency d: deps) {
-
                         DependencyNode nodeInGraphHere = depsInGraphHere.remove(Coords.of(d).baseArtifact());
                         boolean excludedScope = !includeScope(d.getScope());
                         String reportInclusionMessage;
                         DetailLevel level = null;
                         if (nodeInGraphHere!=null) {
                             if (excludedScope) {
-                                reportInclusionMessage = "excluded from report";
-                                level = DetailLevel.EXCLUDED_SUMMARY;
+                                reportInclusionMessage = "used but excluded from report";
+                                level = DetailLevel.EXCLUDE_FROM_SUMMARY;
                             } else {
                                 if (includedBaseArtifactsCoordsToProject.containsKey(Coords.of(d).baseArtifact())) {
                                     reportInclusionMessage = "included"+getInclusionMessageForDetailFromThisNode();
-                                    level = DetailLevel.INCLUDED_DETAIL;
+                                    level = DetailLevel.INCLUDE_WITH_DETAIL;
                                 } else {
                                     reportInclusionMessage = "not included in report";
-                                    level = DetailLevel.INCLUDED_SUMMARY;
+                                    level = DetailLevel.INCLUDE_IN_SUMMARY_EXPANDED_ELSEWHERE;
                                 }
                             }
+                        } else if (excludedScope) {
+                            level = DetailLevel.OMITTED;
+                            reportInclusionMessage = "excluded from report scope";
                         } else {
-                            level = DetailLevel.INCLUDED_SUMMARY;
+                            level = DetailLevel.INCLUDE_IN_SUMMARY_EXPANDED_ELSEWHERE;
                             if (includedBaseArtifactsCoordsToProject.containsKey(Coords.of(d).baseArtifact())) {
                                 reportInclusionMessage = "included"+getInclusionMessageForDetailElsewhere(Coords.of(d).normal());
                             } else if (includedProjects.contains(Coords.of(d).normal())) reportInclusionMessage = "project included"+getInclusionMessageForDetailElsewhere(Coords.of(d).normal());
@@ -362,19 +388,30 @@ public class LicenseAuditMojo extends AbstractMojo
                                 } else {
                                     reportInclusionMessage = "not included in report";
                                 }
-                                level = DetailLevel.EXCLUDED_SUMMARY;
+                                level = DetailLevel.EXCLUDE_FROM_SUMMARY;
                             }
                         }
                         
-                        if (listOnlyIncludedDependencies && level == DetailLevel.EXCLUDED_SUMMARY) {
-                            // should cover test deps and optional deps
-                            level = DetailLevel.OMITTED;
+                        if (level == DetailLevel.EXCLUDE_FROM_SUMMARY) {
+                            if (d.isOptional()) {
+                                if (!listUnusedNestedOptionalDependencies) {
+                                    getLog().debug("Omitting "+d+" because it is optional and listUnusedNested="+listUnusedNestedOptionalDependencies);
+                                    // default is to omit nested optional deps
+                                    level = DetailLevel.OMITTED;
+                                } else {
+                                    // show it
+                                    level = DetailLevel.INCLUDE_IN_SUMMARY_BUT_NOT_USED_OR_EXPANDED;
+                                }
+                            } else if (suppressExcludedDependencies) {
+                                // this flag removes any dependency which isn't used 
+                                level = DetailLevel.OMITTED;
+                            }
                         }
                         
-                        depsResult.put(Coords.of(d).normal(), new DependencyDetail(d.getScope(), d.isOptional(), level));
                         if (level != DetailLevel.OMITTED) {
+                            depsResult.put(Coords.of(d).normal(), new DependencyDetail(d.getScope(), d.isOptional(), level));
                             depsLine.add(Coords.of(d).baseArtifact()+
-                                (listIdOnly ? "" :
+                                (listDependencyIdOnly ? "" :
                                 " ("+d.getScope()+
                                     (d.isOptional() ? ", optional" : "")+
                                     ", "+reportInclusionMessage+")"));
@@ -385,7 +422,7 @@ public class LicenseAuditMojo extends AbstractMojo
                             // shouldn't happen
                             org.eclipse.aether.graph.Dependency d = dd.getValue().getDependency();
                             depsLine.add(dd.getKey()+" ("+d.getScope()+", excluded from report because in graph but not on project)");
-                            depsResult.put(Coords.of(dd.getValue()).normal(), new DependencyDetail(d.getScope(), d.isOptional(), DetailLevel.EXCLUDED_SUMMARY));
+                            depsResult.put(Coords.of(dd.getValue()).normal(), new DependencyDetail(d.getScope(), d.isOptional(), DetailLevel.EXCLUDE_FROM_SUMMARY));
                         }
                     }
                     dep = "";
@@ -418,7 +455,9 @@ public class LicenseAuditMojo extends AbstractMojo
             return "";
         }
 
-        protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
+        protected abstract void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException;
+        
+        protected void addCompleteLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
             addProjectEntry("License Code", licensesCode(p.getLicenses()));
             addProjectEntry("License", licensesString(p.getLicenses()));
             if (p.getLicenses()!=null && p.getLicenses().size()==1) {
@@ -428,6 +467,10 @@ public class LicenseAuditMojo extends AbstractMojo
                 addProjectEntry("License Comments", license.getComments());
                 addProjectEntry("License Distribution", license.getDistribution());
             }
+        }
+        
+        protected void addSummaryLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
+            addProjectEntry("License", licensesSummaryString(p.getLicenses()));
         }
         
         protected void addVerboseEntries(MavenProject p) throws MojoExecutionException {
@@ -491,6 +534,14 @@ public class LicenseAuditMojo extends AbstractMojo
                         ri.append(l.getUrl());
                     }
                 }
+                if (isNonEmpty(l.getComments())) {
+                    if (ri.length()>0) {
+                        if (summaryOnly) { /* nothing */ }
+                        else { ri.append("; "+l.getComments()); }
+                    } else {
+                        ri.append("Comment: "+l.getComments());
+                    }
+                }
 
                 if (ri.toString().trim().length()>0) {
                     result.add(ri.toString().trim());
@@ -542,6 +593,11 @@ public class LicenseAuditMojo extends AbstractMojo
     public class ListReport extends AbstractReport {
         
         @Override
+        protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
+            addSummaryLicenseInfoEntries(p);
+        }
+
+        @Override
         public void startProject(String id, MavenProject p) throws MojoExecutionException {
             super.startProject(id, p);
             output("Project: "+id);
@@ -578,7 +634,12 @@ public class LicenseAuditMojo extends AbstractMojo
         Map<String,Map<String,String>> allProjectsData = new LinkedHashMap<String, Map<String,String>>();
         
         Map<String,String> thisProjectData;
-        
+
+        @Override
+        protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
+            addCompleteLicenseInfoEntries(p);
+        }
+
         @Override
         public void startProject(String id, MavenProject p) throws MojoExecutionException {
             super.startProject(id, p);
@@ -670,12 +731,12 @@ public class LicenseAuditMojo extends AbstractMojo
         public void run() throws MojoExecutionException {
             setup();
             
-            runProjectRecursively(Coords.of(project).normal(), project, 0, Collections.singleton(new DependencyDetail(null, false, DetailLevel.INCLUDED_DETAIL)));
+            runProjectRecursively(Coords.of(project).normal(), project, 0, Collections.singleton(new DependencyDetail(null, false, DetailLevel.INCLUDE_WITH_DETAIL)));
 
             for (String id: ids) {
                 if (!reportedProjects.contains(id)) {
                     // shouldn't happen; will log errors because no DN info avail and project not supplied
-                    runProjectRecursively(id, null, 0, Collections.singleton(new DependencyDetail(null, false, DetailLevel.INCLUDED_DETAIL)));
+                    runProjectRecursively(id, null, 0, Collections.singleton(new DependencyDetail(null, false, DetailLevel.INCLUDE_WITH_DETAIL)));
                 }
             }            
         }
@@ -685,7 +746,7 @@ public class LicenseAuditMojo extends AbstractMojo
                 if (ids.contains(id)) {
                     DetailLevel level = best(details);
                     getLog().debug("Details of "+id+": "+details+" ("+level+")");
-                    if (level==DetailLevel.INCLUDED_DETAIL) {
+                    if (level==DetailLevel.INCLUDE_WITH_DETAIL) {
                         if (!deferSummary) output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, null));
                         reportedProjects.add(id);
                         
@@ -708,11 +769,17 @@ public class LicenseAuditMojo extends AbstractMojo
                         if (depsShown) {
                             currentPrefix = currentPrefix.substring(0, currentPrefix.length()-linePrefix.length());
                         } else {
-                            if (deferSummary) output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "no relevant dependencies"));
+                            if (deferSummary) output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "no dependencies"));
                         }
-                    } else {
-                        // if reported later
+                    } else if (level==DetailLevel.INCLUDE_IN_SUMMARY_EXPANDED_ELSEWHERE) {
+                        // reported later
                         output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "reported below"));
+                    } else {
+                        if (level==DetailLevel.INCLUDE_IN_SUMMARY_BUT_NOT_USED_OR_EXPANDED) {
+                            // shouldn't happen -- unincluded optionals should not be in 'ids' and so will be treated as unexpected
+                        }
+                        // for optional dependencies we want to include
+                        output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "unknown inclusion"));
                     }
                 } else {
                     onUnexpectedDependency(id, p, details);
@@ -723,7 +790,14 @@ public class LicenseAuditMojo extends AbstractMojo
         }
 
         protected void onUnexpectedDependency(String id, MavenProject p, Set<DependencyDetail> details) throws MojoExecutionException {
-            output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "excluded from report"));
+            String message;
+            if (best(details)==DetailLevel.INCLUDE_IN_SUMMARY_BUT_NOT_USED_OR_EXPANDED) {
+                message = "not used";
+            } else {
+                // due to depth etc; would be good to get confirmation of which cases this comes up and more elaborate messages
+                message = "excluded from report";
+            }
+            output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, message));
         }
 
         protected abstract void introduceDependenciesDetail() throws MojoExecutionException;
@@ -754,7 +828,7 @@ public class LicenseAuditMojo extends AbstractMojo
         
         @Override
         protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
-            addProjectEntry("License", licensesSummaryString(p.getLicenses()));
+            addSummaryLicenseInfoEntries(p);
         }
         
         @Override
@@ -762,7 +836,7 @@ public class LicenseAuditMojo extends AbstractMojo
         
         @Override
         protected void introduceDependenciesDetail() throws MojoExecutionException {
-            output(currentPrefix + "  Dependent projects detail:");
+            output(currentPrefix + "  Dependencies pulled in here detail:");
         }
 
         @Override
@@ -783,7 +857,7 @@ public class LicenseAuditMojo extends AbstractMojo
         
         @Override
         protected boolean isIncluded(DetailLevel level) {
-            return level==DetailLevel.INCLUDED_DETAIL;
+            return level==DetailLevel.INCLUDE_WITH_DETAIL;
         }
     }
     
@@ -805,7 +879,7 @@ public class LicenseAuditMojo extends AbstractMojo
         protected void introduceDependenciesDetail() {}
         
         protected void onUnexpectedDependency(String id, MavenProject p, Set<DependencyDetail> details) throws MojoExecutionException {
-            // will happen for wrong version of project
+            // will happen for wrong version of project due to how summary tree is made
             String unversionedId = id.substring(0, id.lastIndexOf(":"));
             String realP = includedProjectsUnversionedToVersioned.get(unversionedId);
             if (realP!=null) {
@@ -831,10 +905,7 @@ public class LicenseAuditMojo extends AbstractMojo
                     licenseLine;                
             }
 
-//            Set<DependencyNode> deps = depNodesByIdCache.get(id);
             return " ("+
-//                allScopes(deps) + 
-//                (isOptional(deps) ? ", optional" : "")+
                 (projectErrors.get(id)!=null ? "ERROR; " : "") +
                 allScopesFromDetails(details) + 
                 (isOptionalFromDetails(details) ? ", optional" : "")+
@@ -842,33 +913,34 @@ public class LicenseAuditMojo extends AbstractMojo
                 licenseLine;
         }
 
-        private boolean isOptional(Set<DependencyNode> deps) {
-            if (deps==null || deps.isEmpty()) return false;
-            for (DependencyNode d: deps) {
-                if (d.getDependency()!=null && !d.getDependency().isOptional()) return false;
-                if (d.getDependency()==null) {
-                    getLog().warn("Missing dependency info for "+d+"; assuming not optional");
-                    return false;
-                }
-            }
-            // at least one, and all explicitly optional
-            return true;
-        }
-
-        private String allScopes(Set<DependencyNode> deps) {
-            if (deps==null || deps.isEmpty()) {
-                return "unknown scope";
-            }
-            Set<String> scopes = new LinkedHashSet<String>();
-            for (DependencyNode d: deps) {
-                if (d.getDependency()==null) {
-                    scopes.add("unknown");
-                } else {
-                    scopes.add(d.getDependency().getScope());
-                }
-            }
-            return join(scopes, "+");
-        }
+        // if we use dependency nodes instead of DependencyDetail:
+//        private boolean isOptional(Set<DependencyNode> deps) {
+//            if (deps==null || deps.isEmpty()) return false;
+//            for (DependencyNode d: deps) {
+//                if (d.getDependency()!=null && !d.getDependency().isOptional()) return false;
+//                if (d.getDependency()==null) {
+//                    getLog().warn("Missing dependency info for "+d+"; assuming not optional");
+//                    return false;
+//                }
+//            }
+//            // at least one, and all explicitly optional
+//            return true;
+//        }
+//
+//        private String allScopes(Set<DependencyNode> deps) {
+//            if (deps==null || deps.isEmpty()) {
+//                return "unknown scope";
+//            }
+//            Set<String> scopes = new LinkedHashSet<String>();
+//            for (DependencyNode d: deps) {
+//                if (d.getDependency()==null) {
+//                    scopes.add("unknown");
+//                } else {
+//                    scopes.add(d.getDependency().getScope());
+//                }
+//            }
+//            return join(scopes, "+");
+//        }
 
         private boolean isOptionalFromDetails(Set<DependencyDetail> deps) {
             if (deps==null || deps.isEmpty()) return false;
@@ -896,7 +968,7 @@ public class LicenseAuditMojo extends AbstractMojo
 
         @Override
         protected boolean isIncluded(DetailLevel level) {
-            return level.compareTo(DetailLevel.INCLUDED_SUMMARY) >= 0;
+            return level.compareTo(DetailLevel.INCLUDE_IN_SUMMARY_BUT_NOT_USED_OR_EXPANDED) >= 0;
         }
     }
 

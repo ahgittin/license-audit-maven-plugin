@@ -2,8 +2,16 @@ License Audit Maven Plugin
 ---
 
 This maven plugin shows dependencies of a project and metadata including license information,
-either as a *tree*, a *list*, or as a *CSV* formatted text file suitable for inclusion in
+either as a detailed *tree*, a *summary* tree, a detailed *list*, or a *CSV* formatted text file.
+The last one, and some of the options, are designed to facilitate making
 the types of spreadsheets and reports big companies typically want.
+
+It's also useful -- the *summary* tree in particular -- to debug version conflict woes,
+making it easy to see where different versions are coming from.
+An irritation with `mvn dependency:tree` is that it only lists each dependency once,
+where it is actually pulled in; other items which depend on it are suppressed.
+It quickly gets very complicated; this seems to work nicely even on a big project,
+but there may be bugs. 
 
 Note this requires Maven version 3.1.
 
@@ -17,7 +25,9 @@ This project is not currently uploaded to maven central, so you'll need to downl
 It should now be ready for use.
 
 
-# Basic Usage
+# Usage Examples
+
+## Detail Tree View
 
 To run the plugin and show dependency information, once it's installed,
 simply go to the directory of the project you're interested in, 
@@ -25,9 +35,14 @@ and run:
 
     mvn org.heneveld.maven:license-audit-maven-plugin:report
 
-This generates a detailed tree view of the project and 
-all the dependencies (transitive) which will bundled with it,
-including license information and project authors/URL info, of the form:
+This generates a detailed **tree** view of the project and 
+all the dependencies (transitive) which will bundled with it.
+For each, license information and project authors/URL info is included,
+a summary explanation of every dependency it declares,
+and detail of those dependencies which maven/aether deems "pulled in" by this node.
+(Where a dependency is referenced in multiple places, it is "pulled in" by exactly one referent,
+usually the first, as shown by `mvn dependency:tree`.)  
+This tree looks like:
 
 ```
 org.heneveld.maven:license-audit-maven-plugin:1.0-SNAPSHOT
@@ -41,14 +56,14 @@ org.heneveld.maven:license-audit-maven-plugin:1.0-SNAPSHOT
     org.apache.maven:maven-core:jar:3.3.3 (compile, included, detail below)
     ...
     junit:junit:jar:4.8.2 (test, excluded from report)
-  Dependent projects detail:
+  Dependencies pulled in here detail:
   +-org.apache.maven:maven-compat:3.3.3
   |   ...
   |   Dependencies:
   |     org.apache.maven:maven-model:jar:3.3.3 (compile, included, detail below)
   |     org.codehaus.plexus:plexus-utils:jar:3.0.20 (compile, version 3.0.15 included, from org.heneveld.maven:license-audit-maven-plugin:1.0-SNAPSHOT)
   |     ...
-  |   Dependent projects detail:
+  |   Dependencies pulled in here detail:
   |   +-org.apache.maven:maven-model:3.3.3
   |   |   ...
   :
@@ -60,24 +75,31 @@ org.heneveld.maven:license-audit-maven-plugin:1.0-SNAPSHOT
   |     org.apache.maven:maven-model:jar:3.3.3 (compile, included, from org.apache.maven:maven-compat:3.3.3)
   |     org.apache.maven:maven-settings-builder:jar:3.3.3 (compile, included, detail below)
   |     ...
-  |   Dependent projects detail:
+  |   Dependencies pulled in here detail:
   |   +-org.apache.maven:maven-settings-builder:3.3.3
   |   |  ...
   :
 ```
 
-## Summary
+## Summary Tree View
 
-You can also create a summary tree showing info for test and optional dependencies,
+You can also create a **summary** tree giving one-line info for each dependency,
+merging the info of the detail tree so that all included dependencies are shown,
+each expanded only once, where it is pulled in.
+This example creates such a tree with all dependencies in scope at the root,
 including those which won't be bundled (test, provided, and runtime),
-without license information -- like `mvn dependency:tree` on steroids:
+without license information, and 
+with info on optional dependencies in dependent projects:
 
     mvn org.heneveld.maven:license-audit-maven-plugin:report \
-        -Dlicense-audit.format=summary \
-        -Dlicense-audit.suppressLicenseInfo=true \
-        -Dlicense-audit.includeDependencyScopes=all \
-        -Dlicense-audit.includeOptionalDependencies=true
+        -Dformat=summary \
+        -DincludeDependencyScopes=all \
+        -DsuppressLicenseInfo=true \
+        -DlistUnusedNestedOptionalDependencies=true
 
+It's like `mvn dependency:tree` on steroids,
+much terser than *tree* (or *list*) but giving much of the same information
+once you know how to read it.
 The output looks like this:
 
 ```
@@ -97,17 +119,20 @@ org.heneveld.maven:license-audit-maven-plugin:1.0-SNAPSHOT
 :
 ```
 
-## CSV
+## CSV for Enterprise License Reports
 
-Or you can generate a CSV report to a file,
-omitting dependencies which are not bundled
-and simplifying the dependency list to show only the dependency ID's: 
+Here's a syntax for generating a **CSV** report to a file,
+omitting any mention of dependencies which are not bundled: 
 
     mvn org.heneveld.maven:license-audit-maven-plugin:report \
-        -Dlicense-audit.format=csv \
-        -Dlicense-audit.listOnlyIncludedDependencies=true \
-        -Dlicense-audit.listIdsOnly=true \
-        -Dlicense-audit.outputFile=dependencies-licenses.csv
+        -Dformat=csv \
+        -DlistDependencyIdOnly=true \
+        -DsuppressExcludedDependencies=true \
+        -Doutput=dependencies-licenses.csv
+
+If you're generating a report for a project used as a dependency instead of as a binary,
+you would normally also add `-DsuppressExcludedDependencies=true` (because the optional
+dependencies won't be transitively required).
 
 
 # Report Types
@@ -121,36 +146,41 @@ The following report types are supported:
 * `list` - even more detail of each dependency, listed one after the other (no tree structure)
 * `csv` - a comma-separated-values file with all details from `list`, suitable for importing into a spreadsheet
 
-These can be set with `-Dlicense-audit.format=csv`. The default is `tree`.
+These can be set with `-Dformat=csv`. The default is `tree`.
 
 
 # Other Configuration
 
 This plugin supports the following additional configuration:
 
-* `license-audit.format` - the format of the report (see above)
-* `license-audit.outputFile` - write a report to this file, in addition to logging it
-* `license-audit.depth` - maximum depth to traverse, or -1 for full depth
-* `license-audit.includeDependencyScopes` - which dependency scopes should be reported, defaulting to `compile,runtime`,
-  with `all` recognized as a synonym for `compile,runtime,test,system,provided`
-* `license-audit.includeOptionalDependencies` - whether to report on optional dependencies on the project, defaulting to `false`
-* `license-audit.listOnlyIncludedDependencies` - whether to omit any mention of dependencies which are not included;
-  by default (`false`), the report mentions all dependencies, not just those which are included in the report's traversal
-  (i.e. by default *test* dependencies will be mentioned, but will not be included as nodes with their dependencies);
-  this can be useful for generating reports for audiences who might be scared by a LGPL test depencency
-* `license-audit.listIdsOnly` - whether to omit detail of dependencies in the dependencies list, 
-  again useful for some audiences, and for CSV reports
-* `license-audit.suppressLicenseInfo` - don't show any license details
+* `output` - write a report to this file, in addition to logging it
+* `format` - the format of the report (see above)
+* `depth` - maximum depth to traverse, or -1 for full depth
+* `includeDependencyScopes` - which dependency scopes should be reported, 
+  defaulting to `compile,runtime`,
+  with `all` recognized as a synonym for `compile,runtime,test,system,provided`;
+  this affects both resolution and reporting,
+  with dependencies restricted to these scopes on the root project (but not transitive) to resolve dependencies,
+  and then these scopes shown on all nodes (transitively) when reporting
+  (NB: omitting `compile` is likely to yield a rather useless report) 
+* `excludeRootOptionalDependencies` - whether to report on optional dependencies on the project, defaulting to `false`
+* `listUnusedNestedOptionalDependencies` - whether to show optional dependencies below the root which are not used, 
+  defaulting to `false`,
+  but useful when you want to see what optional dependencies and versions are suggested by included projects;
+  if an optional dependency *is* included elsewhere, even if a different version, it will always be listed;
+  if this is specified along with `suppressExcludedDependencies`, this one dominates, 
+  and all optional dependencies will be listed 
+* `suppressExcludedDependencies` - whether to omit any mention of dependencies which are not included;
+  by default (`false`), the report mentions non-optional excluded dependencies
+  (i.e. by default *test* dependencies will be mentioned, but *their* dependencies will not be listed);
+  this can be useful for generating reports for audiences who might be scared by a LGPL test dependency
+* `listDependencyIdOnly` - whether to omit detail of dependencies in the dependencies list, 
+  again useful for some audiences and for CSV reports; default `false` (no effect on the *summary* format)
+* `suppressLicenseInfo` - don't show any license details
 
 
 # Copyright and License
 
-This software is copyright (c) 2015 by Alex Heneveld.
+This software is copyright (c) 2015 by Alex Heneveld and Cloudsoft Corporation.
 
 This software is released under the Apache Software License, v2.
-
-
-# TODO
-
-* "reported below" mistaken
-* compile dep in test dep not included 
