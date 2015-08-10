@@ -20,7 +20,7 @@ public class LicenseCodeTest extends TestCase {
         assertEquals("ASL2", LicenseCodes.getLicenseCode("Apache 2"));
         
         assertEquals("GPL", LicenseCodes.getLicenseCode("GNU license (gpl)"));
-        assertEquals("LGPL3", LicenseCodes.getLicenseCode("lesser GNU license (lgpl3) 3"));
+        assertEquals("LGPL3", LicenseCodes.getLicenseCode("GNU lesser license (lgpl3) 3"));
         assertNull(LicenseCodes.getLicenseCode("lesser GNU license (gpl3) 3"));
     }
 

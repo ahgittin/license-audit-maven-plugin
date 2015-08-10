@@ -3,6 +3,7 @@ package org.heneveld.maven.license_audit;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,6 +18,7 @@ import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Contributor;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.License;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -33,6 +35,7 @@ import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.project.ProjectDependenciesResolver;
+import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.graph.DependencyFilter;
 import org.eclipse.aether.graph.DependencyNode;
@@ -50,18 +53,24 @@ public class LicenseAuditMojo extends AbstractMojo
     @Parameter( defaultValue = "tree", property = "license-audit.format", required = true )
     private String format;
 
-    @Parameter( defaultValue = "true", property = "license-audit.recurse", required = true )
-    private boolean recurse;
+    @Parameter( defaultValue = "-1", property = "license-audit.depth", required = true )
+    private int maxDepth;
 
     @Parameter( defaultValue = "compile,runtime", property = "license-audit.includeDependencyScopes", required = true )
-    private String scopes;
-    private boolean allScopes = false;
+    private String includeDependencyScopes;
+    private boolean includeAllDependencyScopes;
 
     @Parameter( defaultValue = "false", property = "license-audit.includeOptionalDependencies", required = true )
     private boolean includeOptionalDependencies;
 
     @Parameter( defaultValue = "false", property = "license-audit.listOnlyIncludedDependencies", required = true )
     private boolean listOnlyIncludedDependencies;
+
+    @Parameter( defaultValue = "false", property = "license-audit.listIdOnly", required = true )
+    private boolean listIdOnly;
+
+    @Parameter( defaultValue = "false", property = "license-audit.suppressLicenseInfo", required = true )
+    private boolean suppressLicenseInfo;
 
     @Component
     MavenProject project;
@@ -78,12 +87,27 @@ public class LicenseAuditMojo extends AbstractMojo
 
     @Parameter(property = "project.remoteArtifactRepositories")
     protected List<ArtifactRepository> remoteRepositories;
+    
+    protected DependencyNode rootDependencyGraph;
+    // keyed on groupId + artifactId + version 
+    protected Set<String> includedProjects = new LinkedHashSet<String>();
+    // keyed on groupId + artifactId + packaging + classifier + version, to project id 
+    protected Map<String,String> includedBaseArtifactsCoordsToProject = new LinkedHashMap<String,String>();
+    // keyed on groupId + artifactId + packaging + classifier 
+    protected Map<String,String> includedArtifactsUnversionedToBaseArtifactCoords = new LinkedHashMap<String,String>();
+    // keyed on groupId + artifactId 
+    protected Map<String,String> includedProjectsUnversionedToVersioned = new LinkedHashMap<String,String>();
+    protected SimpleMultiMap<String,String> projectToDependencyGraphParent = new SimpleMultiMap<String,String>();
 
+    // keyed by groupId + artifactId + version
+    Map<String,MavenProject> projectByIdCache = new LinkedHashMap<String,MavenProject>();
+    SimpleMultiMap<String,Object> projectErrors = new SimpleMultiMap<String,Object>();
+    SimpleMultiMap<String,DependencyNode> depNodesByIdCache = new SimpleMultiMap<String,DependencyNode>();
+    
     public void execute() throws MojoExecutionException {
-        // wrap in commas lower case so our contains works
-        scopes = ","+scopes.toLowerCase()+",";
-        if (scopes.contains(",all,")) allScopes = true;
-        
+        includeDependencyScopes = ","+includeDependencyScopes.toLowerCase()+",";
+        includeAllDependencyScopes = includeScope("all");
+            
         if (isNonEmpty(outputFilePath)) {
             try {
                 outputFileWriter = new FileWriter(outputFilePath);
@@ -91,7 +115,31 @@ public class LicenseAuditMojo extends AbstractMojo
                 throw new MojoExecutionException("Error creating "+outputFilePath);
             }
         }
-        buildDeps(Collections.singleton(project), recurse ? -1 : 1);
+        
+        if (maxDepth<0) {
+            maxDepth = Integer.MAX_VALUE;
+        }
+        
+        DependencyResolutionResult depRes;
+        RepositorySystemSession repositorySession = mavenSession.getRepositorySession();
+        DefaultDependencyResolutionRequest depReq = new DefaultDependencyResolutionRequest(project, repositorySession);
+        try {
+            depReq.setResolutionFilter(new DependencyFilter() {
+                public boolean accept(DependencyNode node, List<DependencyNode> parents) {
+//System.out.println("AH? - "+node+"/"+node.getDependency()+" <- "+parents);
+//                    if (node.getDependency()==null) return true;
+//                    return includeScope(node.getDependency().getScope());
+                    return true;
+                }
+            });
+            depRes = depsResolver.resolve(depReq);
+        } catch (DependencyResolutionException e) {
+            throw new MojoExecutionException("Cannot resolve dependencies for "+project, e);
+        }
+        rootDependencyGraph = depRes.getDependencyGraph();
+        
+        projectByIdCache.put(Coords.of(project).normal(), project);
+        collectDeps(rootDependencyGraph, project, 0);
 
         if ("tree".equalsIgnoreCase(format)) {
             new TreeReport().run();
@@ -114,12 +162,6 @@ public class LicenseAuditMojo extends AbstractMojo
         }
     }
 
-    // contains MavenProject or Throwable
-    Map<String,MavenProject> projectByIdCache = new LinkedHashMap<String,MavenProject>();
-    Map<String,Set<Object>> projectErrors = new LinkedHashMap<String,Set<Object>>();
-    Map<String,List<DependencyNode>> projectDepsCache = new LinkedHashMap<String, List<DependencyNode>>();
-    Set<String> unversionedProjectsLoaded = new LinkedHashSet<String>();
-    
     protected void addError(String id, Object error) {
         Set<Object> ee = projectErrors.get(id);
         if (ee==null) ee = new LinkedHashSet<Object>();
@@ -127,106 +169,85 @@ public class LicenseAuditMojo extends AbstractMojo
         projectErrors.put(id, ee);
     }
     
-    protected boolean acceptScope(String scope) {
-        if (allScopes) return true;
-        if (scopes.contains(","+scope.toLowerCase()+",")) return true;
-        return false;
+    protected MavenProject getProject(String projectId) {
+        return projectByIdCache.get(projectId);
     }
     
-    protected void buildDeps(Collection<MavenProject> projects, int depth) {
-        Set<MavenProject> nextDepthProjects = new LinkedHashSet<MavenProject>();
+    protected MavenProject loadProject(org.apache.maven.artifact.Artifact mda) {
+        // older code creates a new PBReq but it lacks user props; this seems to work better
+        String projectId = Coords.of(mda).normal();
+        MavenProject p = projectByIdCache.get(projectId);
+        if (p!=null) return p;
         
-        for (MavenProject p: projects) {
-            getLog().debug("Loaded "+id(p));
-            projectByIdCache.put(id(p), p);
-            unversionedProjectsLoaded.add(p.getGroupId()+":"+p.getArtifactId());
-
-            final List<DependencyNode> backupDepsList = new ArrayList<DependencyNode>();
-            DependencyResolutionResult depRes = null;
-            DefaultDependencyResolutionRequest depReq = new DefaultDependencyResolutionRequest(p, mavenSession.getRepositorySession());
-            try {
-                depRes = depsResolver.resolve(depReq);
-
-            } catch (DependencyResolutionException e) {
-                getLog().debug("Error resolving "+id(p)+", now trying with scope partially limited: "+e, e);
-                getLog().warn("Error resolving "+id(p)+", now trying with scope partially limited: "+e);
-                
-                depReq.setResolutionFilter(new DependencyFilter() {
-                    public boolean accept(DependencyNode node, List<DependencyNode> parents) {
-                        if (node==null) return false;
-                        if (node.getDependency()==null) {
-                            getLog().warn("Missing dependency for "+node);
-                            return false;
-                        }
-                        backupDepsList.add(node);
-                        if (!acceptScope(node.getDependency().getScope())) return false;
-                        if (Boolean.TRUE.equals(node.getDependency().getOptional())) return false;
-                        return true;
-                    }
-                });
-                try {
-                    depRes = depsResolver.resolve(depReq);
-                    getLog().debug("Successfully resolved "+id(p)+" with scope limited");
-                    addError(id(p), "One or more excluded scope or optional dependencies could not be resolved: "+e);
-
-                } catch (DependencyResolutionException e2) { 
-                    getLog().debug("Dependency resolution failed for "+id(p)+", even with limited scope: "+e2, e2);
-                    getLog().error("Dependency resolution failed for "+id(p)+", even with limited scope: "+e2);
-                    addError(id(p), "Dependency resolution failed: "+e2);
-                }
-            }
-            List<DependencyNode> depsList;
-            if (depRes!=null) depsList = depRes.getDependencyGraph().getChildren();
-            else depsList = backupDepsList;
-            projectDepsCache.put(id(p), depsList);
-
-            for (DependencyNode dn: depsList) {
-                boolean acceptsScope = acceptScope(dn.getDependency().getScope());
-                boolean excludeBecauseOptional = !includeOptionalDependencies && Boolean.TRUE.equals(dn.getDependency().getOptional());
-                
-                Artifact da = dn.getArtifact();
-                org.apache.maven.artifact.Artifact mda = newMavenArtifact(da);
-                
-                if (!id(mda).equals(id(dn))) getLog().warn("ID mismatch: dependency "+dn+" and artifact "+mda+" ("+id(dn)+" / "+id(mda)+")");
-                MavenProject cdp = projectByIdCache.get(id(mda));
-                Object cacheError = projectErrors.get(id(mda));
-                getLog().debug("Resolving dependency "+id(mda)+" dependency of "+id(p)+": "+
-                    (!acceptsScope ? "ignored scope ("+dn.getDependency().getScope()+")"
-                        : excludeBecauseOptional ? "excluded because optional"
-                        : cdp!=null ? "already loaded in cache" 
-                        : cacheError!=null ? "previous failure cached" 
-                        : "loading required"));
-                if (!acceptsScope) continue;
-                if (excludeBecauseOptional) continue;
-                if (cdp!=null || cacheError!=null) continue;
-                
-                try {
-                    // older code creates a new PBReq but it lacks user props; this seems to work better
-                    ProjectBuildingResult res = projectBuilder.build(mda, true, mavenSession.getProjectBuildingRequest());
-                    if (res.getProject()==null) {
-                        throw new IllegalStateException("No project was built");
-                    } else {
-                        if (!id(res.getProject()).equals(id(dn))) {
-                            getLog().warn("ID mismatch: dependency "+dn+" and project "+res.getProject()+" ("+id(dn)+" / "+id(res.getProject())+"); "
-                                + "replacing artifact "+res.getProject().getArtifact()+" with "+mda);
-                            addError(id(dn), "Project POM declares ID "+id(res.getProject())+" different to artifact");
-                            res.getProject().setArtifact(mda);
-                        }
-                        nextDepthProjects.add(res.getProject());
-                    }
-                } catch (ProjectBuildingException e) {
-                    getLog().warn("Error resolving "+id(mda)+" dependency of "+id(p)+": "+e);
-                    addError(id(mda), "Error resolving "+id(mda)+" dependency of "+id(p)+": "+e);
-                }
-            }
+        try {
+            getLog().debug("Loading project for "+mda);
+            ProjectBuildingResult res = projectBuilder.build(mda, true, mavenSession.getProjectBuildingRequest());
+            p = res.getProject();
+        } catch (ProjectBuildingException e) {
+            getLog().error("Unable to load project of "+mda+": "+e);
+            addError(projectId, e);
+            return null;
+        }
+        if (p==null) {
+            addError(projectId, "Failure with no data when trying to load project");
+            return null;
         }
         
-        getLog().debug("Next depth ("+depth+") unresolved project count: "+nextDepthProjects);
-        if (depth!=0 && !nextDepthProjects.isEmpty()) {
-            buildDeps(nextDepthProjects, depth>0 ? depth-1 : -1);
+        projectByIdCache.put(projectId, p);
+        return p;
+    }
+    
+    protected void collectDeps(DependencyNode n0, MavenProject p, int depth) {
+        getLog().debug("Collecting dependencies of "+n0+"/"+p+" at depth "+depth);
+        depNodesByIdCache.put(Coords.of(n0).normal(), n0);
+        
+        if (n0.getDependency()!=null) {
+            if (n0.getDependency().isOptional() && !includeOptionalDependencies) {
+                getLog().warn("Optional dependency found in dependency tree: "+n0);
+                return;
+            }
+            if (!includeScope(n0.getDependency().getScope())) {
+                getLog().debug("Skipping "+n0.getDependency().getScope()+" dependency: "+n0);
+                return;
+            }
+        }
+
+        if (p==null && n0.getArtifact()!=null) p = loadProject(newMavenArtifact(n0.getArtifact()));
+        
+        includedBaseArtifactsCoordsToProject.put(Coords.of(n0).baseArtifact(), Coords.of(n0).normal());
+        includedProjects.add(Coords.of(n0).normal());
+        includedArtifactsUnversionedToBaseArtifactCoords.put(Coords.of(n0).unversionedArtifact(), Coords.of(n0).baseArtifact());
+        includedProjectsUnversionedToVersioned.put(Coords.of(n0).unversioned(), Coords.of(n0).normal());
+        
+        if (depth>=this.maxDepth) return;
+        
+        for (DependencyNode n: n0.getChildren()) {
+            projectToDependencyGraphParent.put(Coords.of(n).normal(), Coords.of(n0).normal());
+            collectDeps(n, null, depth+1);
         }
     }
 
+    protected boolean includeScope(String scope) {
+        if (includeAllDependencyScopes) return true;
+        return includeDependencyScopes.contains(","+scope+",");
+    }
+
+    protected enum DetailLevel { OMITTED, EXCLUDED_SUMMARY, INCLUDED_SUMMARY, INCLUDED_DETAIL }
+    protected static class DependencyDetail {
+        public final String scope;
+        public final boolean optional;
+        public final DetailLevel level;
+        public DependencyDetail(String scope, boolean optional, DetailLevel level) {
+            this.scope = scope;
+            this.optional = optional;
+            this.level = level;
+        }
+        @Override
+        public String toString() {
+            return "DependencyDetail [scope=" + scope + ", optional=" + optional + ", level=" + level + "]";
+        }
+    }
+    
     public abstract class AbstractReport {
         String currentProject;
         Set<String> ids;
@@ -234,6 +255,8 @@ public class LicenseAuditMojo extends AbstractMojo
         public void setup() {
             ids = new LinkedHashSet<String>();
             ids.addAll(projectByIdCache.keySet());
+            getLog().debug("Report collected projects for: "+ids);
+            getLog().debug("Report collected project error reports for: "+projectErrors.keySet());
             ids.addAll(projectErrors.keySet());
         }
         
@@ -246,11 +269,15 @@ public class LicenseAuditMojo extends AbstractMojo
         public void endProject() throws MojoExecutionException {}
         public abstract void addProjectEntry(String key, String value) throws MojoExecutionException;
         
-        protected List<DependencyNode> runProject(String id) throws MojoExecutionException {
-            List<DependencyNode> depsResult = new ArrayList<DependencyNode>();
+        /** returns dependent projects and the level of detail required for each */
+        protected SimpleMultiMap<String,DependencyDetail> runProject(String id) throws MojoExecutionException {
+            SimpleMultiMap<String,DependencyDetail> depsResult = new SimpleMultiMap<String,DependencyDetail>();
             
-            MavenProject p = projectByIdCache.get(id);
+            MavenProject p = getProject(id);
             startProject(id, p);
+            
+            Set<DependencyNode> dn0 = depNodesByIdCache.get(id);
+            if (dn0==null) addError(id, "No dependency node in tree; should this be included?");
             
             Object err = projectErrors.get(id);
             if (err!=null) {
@@ -258,47 +285,115 @@ public class LicenseAuditMojo extends AbstractMojo
             }
             if (p!=null) {
                 addProjectEntry("Name", p.getName());
-                addLicenseInfoEntries(p);
+                if (p.getArtifact()!=null && !p.getArtifact().getVersion().equals(p.getArtifact().getBaseVersion())) {
+                    addProjectEntry("Version Resolved", p.getArtifact().getVersion());
+                }
+                if (!suppressLicenseInfo) addLicenseInfoEntries(p);
                 addProjectEntry("URL", p.getUrl());
                 addVerboseEntries(p);
                 
+                Map<String,DependencyNode> depsInGraphHere = new LinkedHashMap<String,DependencyNode>();
+                Set<String> artifactsIncluded = new LinkedHashSet<String>();
+                if (dn0!=null) {
+                    for (DependencyNode dn1: dn0) {
+                        String artifact = 
+                            (dn1.getArtifact()==null ? "unknown" : 
+                                dn1.getArtifact().getExtension()+
+                                (isNonEmpty(dn1.getArtifact().getClassifier()) ? ":"+dn1.getArtifact().getClassifier() : "")) 
+                                + " "
+                                + "("+(dn1.getDependency()==null ? "unknown" : dn1.getDependency().getScope())+")";
+                        artifactsIncluded.add(artifact);
+                        for (DependencyNode dn2: dn1.getChildren()) {
+                            depsInGraphHere.put(Coords.of(dn2).baseArtifact(), dn2);
+                        }
+                    }
+                    getLog().debug("Dependencies of "+id+": in graph: "+dn0+"->"+depsInGraphHere);
+                }
+                
+                addProjectEntry("Artifacts Included", isRoot(id) ? "(root)" : join(artifactsIncluded, "\n"));
+                
                 String dep;
-                List<DependencyNode> deps = projectDepsCache.get(id(p));
+                List<Dependency> deps = p.getDependencies();
+                
                 if (deps==null || deps.isEmpty()) {
-                    if (p.getDependencies()==null || p.getDependencies().isEmpty()) {
-                        dep = "(none)";
-                    } else {
-                        getLog().error("No dependencies cached for "+id(p)+" but it reports "+p.getDependencies());
-                        dep = "(errors)";
-                    }
+                    dep = "(none)";
+                    
                 } else {
-                    int count = 0;
                     List<String> depsLine = new ArrayList<String>();
-                    for (DependencyNode dn: deps) {
-                        org.eclipse.aether.graph.Dependency d = dn.getDependency();
-                        boolean excludeBecauseOptional = !includeOptionalDependencies && Boolean.TRUE.equals(d.getOptional());
-                        boolean included = !excludeBecauseOptional && acceptScope(d.getScope());
-                        if (!listOnlyIncludedDependencies || included) {
-                            String depId = id(dn);
-                            depsLine.add(depId
-                                +(d.getArtifact()!=null && d.getArtifact().getClassifier()!=null && d.getArtifact().getClassifier().length()>0 ? " "+d.getArtifact().getClassifier() : "")
-                                +" ("+d.getScope()+")"
-                                +(Boolean.TRUE.equals(d.getOptional()) ? " OPTIONAL" : "")
-                                );
-                            if (included) {
-                                depsResult.add(dn);
+                    for (Dependency d: deps) {
+
+                        DependencyNode nodeInGraphHere = depsInGraphHere.remove(Coords.of(d).baseArtifact());
+                        boolean excludedScope = !includeScope(d.getScope());
+                        String reportInclusionMessage;
+                        DetailLevel level = null;
+                        if (nodeInGraphHere!=null) {
+                            if (excludedScope) {
+                                reportInclusionMessage = "excluded from report";
+                                level = DetailLevel.EXCLUDED_SUMMARY;
+                            } else {
+                                if (includedBaseArtifactsCoordsToProject.containsKey(Coords.of(d).baseArtifact())) {
+                                    reportInclusionMessage = "included"+getInclusionMessageForDetailFromThisNode();
+                                    level = DetailLevel.INCLUDED_DETAIL;
+                                } else {
+                                    reportInclusionMessage = "not included in report";
+                                    level = DetailLevel.INCLUDED_SUMMARY;
+                                }
                             }
-                            count++;
+                        } else {
+                            level = DetailLevel.INCLUDED_SUMMARY;
+                            if (includedBaseArtifactsCoordsToProject.containsKey(Coords.of(d).baseArtifact())) {
+                                reportInclusionMessage = "included"+getInclusionMessageForDetailElsewhere(Coords.of(d).normal());
+                            } else if (includedProjects.contains(Coords.of(d).normal())) reportInclusionMessage = "project included"+getInclusionMessageForDetailElsewhere(Coords.of(d).normal());
+                            else if (includedArtifactsUnversionedToBaseArtifactCoords.containsKey(Coords.of(d).unversionedArtifact())) 
+                                reportInclusionMessage = "version "+v(includedArtifactsUnversionedToBaseArtifactCoords.get(Coords.of(d).unversionedArtifact()))+" included"+getInclusionMessageForDetailElsewhere(
+                                    includedBaseArtifactsCoordsToProject.get(includedArtifactsUnversionedToBaseArtifactCoords.get(Coords.of(d).unversionedArtifact())));
+                            else if (includedProjectsUnversionedToVersioned.containsKey(Coords.of(d).unversioned())) 
+                                reportInclusionMessage = "version "+v(includedProjectsUnversionedToVersioned.get(Coords.of(d).unversioned()))+" included"+getInclusionMessageForDetailElsewhere(includedProjectsUnversionedToVersioned.get(Coords.of(d).unversioned()));
+                            else {
+                                if (maxDepth == Integer.MAX_VALUE) {
+                                    if ("compile".equals(d.getScope()) || "runtime".equals(d.getScope())) {
+                                        // if these two are not present it must be an exclusion
+                                        reportInclusionMessage = "excluded from build";
+                                    } else {
+                                        // could be an exclusion rule or natural consequence e.g. a test dep in a compile dep
+                                        // (we don't do the significant amount of work to distinguish)
+                                        reportInclusionMessage = "not included in build";
+                                    }
+                                } else {
+                                    reportInclusionMessage = "not included in report";
+                                }
+                                level = DetailLevel.EXCLUDED_SUMMARY;
+                            }
+                        }
+                        
+                        if (listOnlyIncludedDependencies && level == DetailLevel.EXCLUDED_SUMMARY) {
+                            // should cover test deps and optional deps
+                            level = DetailLevel.OMITTED;
+                        }
+                        
+                        depsResult.put(Coords.of(d).normal(), new DependencyDetail(d.getScope(), d.isOptional(), level));
+                        if (level != DetailLevel.OMITTED) {
+                            depsLine.add(Coords.of(d).baseArtifact()+
+                                (listIdOnly ? "" :
+                                " ("+d.getScope()+
+                                    (d.isOptional() ? ", optional" : "")+
+                                    ", "+reportInclusionMessage+")"));
                         }
                     }
-                    if (count==0) {
-                        dep = "(none relevant)";
-                    } else {
-                        dep = "";
-                        for (String d: depsLine) {
-                            if (dep.length()>0) dep += "\n";
-                            dep += d;
+                    if (!depsInGraphHere.isEmpty()) {
+                        for (Map.Entry<String,DependencyNode> dd: depsInGraphHere.entrySet()) {
+                            // shouldn't happen
+                            org.eclipse.aether.graph.Dependency d = dd.getValue().getDependency();
+                            depsLine.add(dd.getKey()+" ("+d.getScope()+", excluded from report because in graph but not on project)");
+                            depsResult.put(Coords.of(dd.getValue()).normal(), new DependencyDetail(d.getScope(), d.isOptional(), DetailLevel.EXCLUDED_SUMMARY));
                         }
+                    }
+                    dep = "";
+                    if (depsLine.isEmpty()) {
+                        dep = "(none in report scope)";
+                    } else for (String d: depsLine) {
+                        if (dep.length()>0) dep += "\n";
+                        dep += d;
                     }
                 }
                 addProjectEntry("Dependencies", dep);
@@ -309,15 +404,29 @@ public class LicenseAuditMojo extends AbstractMojo
             return depsResult;
         }
 
+        private String v(String id) {
+            if (id==null) return null;
+            String[] parts = id.split(":");
+            return parts[parts.length-1];
+        }
+
+        protected String getInclusionMessageForDetailElsewhere(String includedProjectId) {
+            return "";
+        }
+
+        protected String getInclusionMessageForDetailFromThisNode() {
+            return "";
+        }
+
         protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
-            addProjectEntry("LicenseCode", licensesCode(p.getLicenses()));
+            addProjectEntry("License Code", licensesCode(p.getLicenses()));
             addProjectEntry("License", licensesString(p.getLicenses()));
             if (p.getLicenses()!=null && p.getLicenses().size()==1) {
                 License license = p.getLicenses().iterator().next();
-                addProjectEntry("LicenseName", license.getName());
-                addProjectEntry("LicenseUrl", license.getUrl());
-                addProjectEntry("LicenseComments", license.getComments());
-                addProjectEntry("LicenseDistribution", license.getDistribution());
+                addProjectEntry("License Name", license.getName());
+                addProjectEntry("License URL", license.getUrl());
+                addProjectEntry("License Comments", license.getComments());
+                addProjectEntry("License Distribution", license.getDistribution());
             }
         }
         
@@ -329,7 +438,7 @@ public class LicenseAuditMojo extends AbstractMojo
 
         protected String contributorsString(Iterable<? extends Contributor> contributors) {
             if (contributors==null) return null;
-            StringBuilder result = new StringBuilder();
+            Set<String> result = new LinkedHashSet<String>();
             for (Contributor c: contributors) {
                 StringBuilder ri = new StringBuilder();
                 if (isNonEmpty(c.getName())) ri.append(c.getName());
@@ -350,10 +459,9 @@ public class LicenseAuditMojo extends AbstractMojo
                 }
                 if (ri.length() > nameOrgLen) ri.append(")");
                 
-                if (result.length()>0) result.append(", ");
-                result.append(ri.toString().trim());
+                result.add(ri.toString().trim());
             }
-            if (result.length()>0) return result.toString();
+            if (result.size()>0) return join(result, "\n");
             return null;
         }
 
@@ -361,13 +469,20 @@ public class LicenseAuditMojo extends AbstractMojo
             return licensesStringInternal(licenses, false);
         }
 
-        protected String licensesStringInternal(Iterable<? extends License> licenses, boolean summaryOnly) {
+        private String licensesStringInternal(Iterable<? extends License> licenses, boolean summaryOnly) {
             // NB: subtly different messages if things are empty 
             if (licenses==null) return "<no license info>";
-            StringBuilder result = new StringBuilder();
+            Set<String> result = new LinkedHashSet<String>();
             for (License l: licenses) {
                 StringBuilder ri = new StringBuilder();
-                if (isNonEmpty(l.getName())) ri.append(l.getName());
+                if (isNonEmpty(l.getName())) {
+                    if (summaryOnly) {
+                        String code = LicenseCodes.getLicenseCode(l.getName());
+                        ri.append(isNonEmpty(code) ? code : l.getName());
+                    } else {
+                        ri.append(l.getName());
+                    }
+                }
                 if (isNonEmpty(l.getUrl())) {
                     if (ri.length()>0) {
                         if (summaryOnly) { /* nothing */ }
@@ -377,14 +492,13 @@ public class LicenseAuditMojo extends AbstractMojo
                     }
                 }
 
-                if (result.length()>0) result.append(", ");
                 if (ri.toString().trim().length()>0) {
-                    result.append(ri.toString().trim());
+                    result.add(ri.toString().trim());
                 } else {
-                    result.append("<no info on license>");
+                    result.add("<no info on license>");
                 }
             }
-            if (result.length()>0) return result.toString();
+            if (result.size()>0) return join(result, "\n");
             return "<no licenses>";
         }
 
@@ -396,10 +510,18 @@ public class LicenseAuditMojo extends AbstractMojo
             return code;
         }
 
-        /** null unless there is a known code */
+        /** null unless there is a single entry with code are known for all entries */
         protected String licensesCode(Iterable<? extends License> licenses) {
-            String summary = licensesStringInternal(licenses, true);
-            String code = LicenseCodes.getLicenseCode(summary);
+            if (licenses==null) return null;
+            Iterator<? extends License> li = licenses.iterator();
+            // no entries?
+            if (!li.hasNext()) return null;
+            li.next();
+            // 2 or more entries?
+            if (li.hasNext()) return null;
+            // now see if there is a code for this one
+            li = licenses.iterator();
+            String code = LicenseCodes.getLicenseCode(li.next().getName());
             if (code==null || code.length()==0) return null;
             return code;
         }
@@ -417,24 +539,6 @@ public class LicenseAuditMojo extends AbstractMojo
         }
     }
     
-    protected static String id(org.apache.maven.model.Dependency d) {
-        return d.getGroupId()+":"+d.getArtifactId()+":"+d.getVersion();
-    }
-    
-    protected static String id(org.apache.maven.artifact.Artifact a) {
-        return a.getGroupId()+":"+a.getArtifactId()+":"+a.getVersion();
-    }
-
-    protected String id(DependencyNode dn) {
-        return id(newMavenArtifact(dn.getArtifact()));
-    }
-
-    protected static String id(MavenProject p) {
-        if (p.getArtifact()!=null) return id(p.getArtifact());
-        // fall back to this, but the artifact ID is the canonical one; it may differ from what is declared in the project pom
-        return p.getGroupId()+":"+p.getArtifactId()+":"+p.getVersion();
-    }
-    
     public class ListReport extends AbstractReport {
         
         @Override
@@ -443,6 +547,7 @@ public class LicenseAuditMojo extends AbstractMojo
             output("Project: "+id);
         }
         
+        @Override
         public void addProjectEntry(String key, String value) throws MojoExecutionException {
             if (value==null) {
                 getLog().debug("Ignoring null entry for "+currentProject+" "+key);
@@ -483,7 +588,7 @@ public class LicenseAuditMojo extends AbstractMojo
                 // the artifact is a more reliable indicator of its coordinates
                 addProjectEntry("GroupId", p.getArtifact().getGroupId());
                 addProjectEntry("ArtifactId", p.getArtifact().getArtifactId());
-                addProjectEntry("Version", p.getArtifact().getVersion());
+                addProjectEntry("Version", p.getArtifact().getBaseVersion());
             }
             allProjectsData.put(id, thisProjectData);
         }
@@ -503,6 +608,7 @@ public class LicenseAuditMojo extends AbstractMojo
             thisProjectData = null;
         }
         
+        @Override
         public void run() throws MojoExecutionException {
             setup();
             for (String id: ids) {
@@ -546,71 +652,92 @@ public class LicenseAuditMojo extends AbstractMojo
 
         final String projectPrefix;
         final String linePrefix;
+        final boolean deferSummary;
         
-        public AbstractTreeReport(String projectPrefix, String linePrefix) {
+        public AbstractTreeReport(String projectPrefix, String linePrefix, boolean deferSummary) {
             this.projectPrefix = projectPrefix;
             this.linePrefix = linePrefix;
+            this.deferSummary = deferSummary;
         }
         
         Set<String> reportedProjects = new LinkedHashSet<String>();
         String currentPrefix = "";
 
-        private String prefixWithPlus() {
+        protected String prefixWithPlus() {
             return currentPrefix.length() >= linePrefix.length() ? currentPrefix.substring(0, currentPrefix.length()-linePrefix.length()) + projectPrefix : currentPrefix;
         }
         
         public void run() throws MojoExecutionException {
             setup();
-            runProjects(ids);
-        }
-        
-        protected void runProjects(Collection<String> projects) throws MojoExecutionException {
-            Iterator<String> pi = projects.iterator();
-            runProjectRecursively(pi.next(), null, true);
             
-            for (String id: projects) {
+            runProjectRecursively(Coords.of(project).normal(), project, 0, Collections.singleton(new DependencyDetail(null, false, DetailLevel.INCLUDED_DETAIL)));
+
+            for (String id: ids) {
                 if (!reportedProjects.contains(id)) {
-                    runProjectRecursively(id, null, false);
+                    // shouldn't happen; will log errors because no DN info avail and project not supplied
+                    runProjectRecursively(id, null, 0, Collections.singleton(new DependencyDetail(null, false, DetailLevel.INCLUDED_DETAIL)));
                 }
             }            
         }
         
-        protected void runProjectRecursively(String id, DependencyNode dep, boolean isFirst) throws MojoExecutionException {
+        protected void runProjectRecursively(String id, MavenProject p, int depth, Set<DependencyDetail> details) throws MojoExecutionException {
             if (!reportedProjects.contains(id)) {
                 if (ids.contains(id)) {
-                    reportedProjects.add(id);
-                    output(prefixWithPlus() + id + extraInfoForProjectLineInfo(dep, null, isFirst));
-
-                    List<DependencyNode> deps = runProject(id);
-                    if (!deps.isEmpty()) {
-                        introduceDependenciesDetail();
-                        currentPrefix = currentPrefix + linePrefix;
-                        for (DependencyNode d: deps) {
-                            runProjectRecursively(id(d), d, false);
+                    DetailLevel level = best(details);
+                    getLog().debug("Details of "+id+": "+details+" ("+level+")");
+                    if (level==DetailLevel.INCLUDED_DETAIL) {
+                        if (!deferSummary) output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, null));
+                        reportedProjects.add(id);
+                        
+                        SimpleMultiMap<String, DependencyDetail> deps = runProject(id);
+                        boolean depsShown = false;
+                        if (!deps.isEmpty() && depth <= maxDepth) {
+                            for (Map.Entry<String,Set<DependencyDetail>> d: deps.entrySet()) {
+                                DetailLevel dl = best(d.getValue());
+                                if (isIncluded(dl)) {
+                                    if (!depsShown) {
+                                        depsShown = true;
+                                        if (deferSummary) output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, null));
+                                        introduceDependenciesDetail();
+                                        currentPrefix = currentPrefix + linePrefix;
+                                    }
+                                    runProjectRecursively(d.getKey(), null, depth+1, d.getValue());
+                                }
+                            }
                         }
-                        currentPrefix = currentPrefix.substring(0, currentPrefix.length()-linePrefix.length());
+                        if (depsShown) {
+                            currentPrefix = currentPrefix.substring(0, currentPrefix.length()-linePrefix.length());
+                        } else {
+                            if (deferSummary) output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "no relevant dependencies"));
+                        }
+                    } else {
+                        // if reported later
+                        output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "reported below"));
                     }
                 } else {
-                    String reasonNotInScope =
-                        (dep!=null && unversionedProjectsLoaded.contains(dep.getArtifact().getGroupId()+":"+dep.getArtifact().getArtifactId())
-                            ? "other version loaded"
-                            : "excluded from report");
-                    output(prefixWithPlus() + id + extraInfoForProjectLineInfo(dep, reasonNotInScope, isFirst));
+                    onUnexpectedDependency(id, p, details);
                 }
             } else {
-                output(prefixWithPlus() + id + extraInfoForProjectLineInfo(dep, "reported above", isFirst));
+                output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "reported above"));
             }
+        }
+
+        protected void onUnexpectedDependency(String id, MavenProject p, Set<DependencyDetail> details) throws MojoExecutionException {
+            output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "excluded from report"));
         }
 
         protected abstract void introduceDependenciesDetail() throws MojoExecutionException;
 
-        protected abstract String extraInfoForProjectLineInfo(DependencyNode dep, String exclusionInfo, boolean isFirst);
+        protected abstract String extraInfoForProjectLineInfo(String id, MavenProject p, Set<DependencyDetail> details, String exclusionInfo);
+        
+        protected abstract boolean isIncluded(DetailLevel level);
     }
 
     public class TreeReport extends AbstractTreeReport {
         
-        public TreeReport() { super("  +-", "  | "); }
+        public TreeReport() { super("  +-", "  | ", false); }
 
+        @Override
         public void addProjectEntry(String key, String value) throws MojoExecutionException {
             if (value==null) {
                 getLog().debug("Ignoring null entry for "+currentProject+" "+key);
@@ -630,54 +757,181 @@ public class LicenseAuditMojo extends AbstractMojo
             addProjectEntry("License", licensesSummaryString(p.getLicenses()));
         }
         
+        @Override
         protected void addVerboseEntries(MavenProject p) {}
         
+        @Override
         protected void introduceDependenciesDetail() throws MojoExecutionException {
-            output(currentPrefix + "  Dependencies detail:");
+            output(currentPrefix + "  Dependent projects detail:");
         }
 
-        protected String extraInfoForProjectLineInfo(DependencyNode dep, String exclusionInfo, boolean isFirst) {
+        @Override
+        protected String extraInfoForProjectLineInfo(String id, MavenProject p, Set<DependencyDetail> detail, String exclusionInfo) {
             if (exclusionInfo==null) return "";
             return " ("+exclusionInfo+")";
+        }
+
+        @Override
+        protected String getInclusionMessageForDetailElsewhere(String id) {
+            return ", from "+join(projectToDependencyGraphParent.get(id), " ");
+        }
+
+        @Override
+        protected String getInclusionMessageForDetailFromThisNode() {
+            return ", detail below";
+        }
+        
+        @Override
+        protected boolean isIncluded(DetailLevel level) {
+            return level==DetailLevel.INCLUDED_DETAIL;
         }
     }
     
     public class SummaryReport extends AbstractTreeReport {
 
-        public SummaryReport() { super("+-", "| "); }
+        public SummaryReport() { super("+-", "| ", true); }
         
+        @Override
         public void addProjectEntry(String key, String value) {
         }
         
+        @Override
         protected void addLicenseInfoEntries(MavenProject p) {}
+        
+        @Override
         protected void addVerboseEntries(MavenProject p) {}
         
+        @Override
         protected void introduceDependenciesDetail() {}
         
-        protected String extraInfoForProjectLineInfo(DependencyNode dep, String exclusionInfo, boolean isFirst) {
-            if (dep==null) {
-                if (isFirst) {
-                    return (isNonEmpty(exclusionInfo) ? "("+exclusionInfo+")" : "")+": "+
-                        licensesSummaryString(project.getLicenses());
-                } else { 
-                    return " (unknown scope"+(isNonEmpty(exclusionInfo) ? ", "+exclusionInfo : "")+")";
-                }
+        protected void onUnexpectedDependency(String id, MavenProject p, Set<DependencyDetail> details) throws MojoExecutionException {
+            // will happen for wrong version of project
+            String unversionedId = id.substring(0, id.lastIndexOf(":"));
+            String realP = includedProjectsUnversionedToVersioned.get(unversionedId);
+            if (realP!=null) {
+                String v = realP.split(":")[realP.split(":").length-1];
+                output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "v "+v+" used"));
+            } else {
+                super.onUnexpectedDependency(id, p, details);
             }
-            
-            MavenProject p = projectByIdCache.get(id(dep));
+        }
+
+        @Override
+        protected String extraInfoForProjectLineInfo(String id, MavenProject p, Set<DependencyDetail> details, String exclusionInfo) {
+            if (p==null) p = projectByIdCache.get(id);
             List<License> lics = p!=null ? p.getLicenses() : null;
             if (p==null) {
-                getLog().debug("Not loaded "+id(dep));
+                getLog().debug("No project loaded: "+id);
             }
-            
-            return " ("+dep.getDependency().getScope()+
-                (Boolean.TRUE.equals(dep.getDependency().getOptional()) ? ", optional" : "")+
-                (isNonEmpty(exclusionInfo) ? ", "+exclusionInfo : "")+"): "+
-                (p!=null ? licensesSummaryString(lics) : "<not loaded>");
+            String licenseLine = (suppressLicenseInfo ? "" : ": "+(p!=null ? oneLine(licensesSummaryString(lics), "; ") : "<not loaded>"));
+            if (isRoot(id)) {
+                // root project, no need to show deps info
+                return
+                    (isNonEmpty(exclusionInfo) ? "("+exclusionInfo+")" : "")+
+                    licenseLine;                
+            }
+
+//            Set<DependencyNode> deps = depNodesByIdCache.get(id);
+            return " ("+
+//                allScopes(deps) + 
+//                (isOptional(deps) ? ", optional" : "")+
+                (projectErrors.get(id)!=null ? "ERROR; " : "") +
+                allScopesFromDetails(details) + 
+                (isOptionalFromDetails(details) ? ", optional" : "")+
+                (isNonEmpty(exclusionInfo) ? ", "+exclusionInfo : "")+")"+
+                licenseLine;
+        }
+
+        private boolean isOptional(Set<DependencyNode> deps) {
+            if (deps==null || deps.isEmpty()) return false;
+            for (DependencyNode d: deps) {
+                if (d.getDependency()!=null && !d.getDependency().isOptional()) return false;
+                if (d.getDependency()==null) {
+                    getLog().warn("Missing dependency info for "+d+"; assuming not optional");
+                    return false;
+                }
+            }
+            // at least one, and all explicitly optional
+            return true;
+        }
+
+        private String allScopes(Set<DependencyNode> deps) {
+            if (deps==null || deps.isEmpty()) {
+                return "unknown scope";
+            }
+            Set<String> scopes = new LinkedHashSet<String>();
+            for (DependencyNode d: deps) {
+                if (d.getDependency()==null) {
+                    scopes.add("unknown");
+                } else {
+                    scopes.add(d.getDependency().getScope());
+                }
+            }
+            return join(scopes, "+");
+        }
+
+        private boolean isOptionalFromDetails(Set<DependencyDetail> deps) {
+            if (deps==null || deps.isEmpty()) return false;
+            for (DependencyDetail d: deps) {
+                if (!d.optional) return false;
+            }
+            // at least one, and all explicitly optional
+            return true;
+        }
+
+        private String allScopesFromDetails(Set<DependencyDetail> deps) {
+            if (deps==null || deps.isEmpty()) {
+                return "unknown scope";
+            }
+            Set<String> scopes = new LinkedHashSet<String>();
+            for (DependencyDetail d: deps) {
+                if (d.scope==null) {
+                    scopes.add("unknown");
+                } else {
+                    scopes.add(d.scope);
+                }
+            }
+            return join(scopes, "+");
+        }
+
+        @Override
+        protected boolean isIncluded(DetailLevel level) {
+            return level.compareTo(DetailLevel.INCLUDED_SUMMARY) >= 0;
         }
     }
 
-    protected static boolean isNonEmpty(String s) {
+    private boolean isRoot(String id) {
+        return project!=null && Coords.of(project).normal().equals(id);
+    }
+    
+    static DetailLevel best(Set<DependencyDetail> set) {
+        if (set==null) return null;
+        DetailLevel best = null;
+        for (DependencyDetail l: set) {
+            if (l!=null && l.level!=null) {
+                if (best==null || l.level.compareTo(best)>0) best = l.level;
+            }
+        }
+        return best;
+    }
+
+    static String join(Collection<String> words, String separator) {
+        return join(words, separator, false);
+    }
+    static String join(Collection<String> words, String separator, boolean trim) {
+        StringBuilder result = new StringBuilder();
+        for (String w: words) {
+            if (result.length()>0) result.append(separator);
+            result.append(trim ? w.trim() : w);
+        }
+        return result.toString();
+    }
+
+    static String oneLine(String multiLineString, String separator) {
+        return join(Arrays.asList(multiLineString.split("\n")), separator, true);
+    }
+    
+    static boolean isNonEmpty(String s) {
         return (s!=null && s.length()>0);
     }
 
@@ -686,5 +940,5 @@ public class LicenseAuditMojo extends AbstractMojo
             da.getGroupId(), da.getArtifactId(), da.getVersion(),
             null, da.getExtension(), da.getClassifier(), artifactHandler);
     }
-    
+
 }

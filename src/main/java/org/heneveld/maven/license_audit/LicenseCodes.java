@@ -37,11 +37,11 @@ public class LicenseCodes {
             + "([-, ]*\\(?gpl3?\\)?)?");
         KNOWN_LICENSE_CODES_WITH_REGEXES.put("GPL", "(gpl|(the )?gnu( general)?( public)?( license)?"
             + "([-, ]*\\(?gpl\\)?)?)");
-        KNOWN_LICENSE_CODES_WITH_REGEXES.put("LGPL3", "(lgpl|(the )?lesser gnu( general)?( public)?( license)?"
+        KNOWN_LICENSE_CODES_WITH_REGEXES.put("LGPL3", "(lgpl|(the )?(gnu lesser|lesser gnu)( general)?( public)?( license)?"
             + "([-, ]*\\(?lgpl3?\\)?)?)"
             + "[-, ]*(v(ersion|\\.)?)? 3(\\.0)?"
             + "([-, ]*\\(?lgpl3?\\)?)?");
-        KNOWN_LICENSE_CODES_WITH_REGEXES.put("LGPL", "(lgpl|(the )?lesser gnu( general)?( public)?( license)?"
+        KNOWN_LICENSE_CODES_WITH_REGEXES.put("LGPL", "(lgpl|(the )?(gnu lesser|lesser gnu)( general)?( public)?( license)?"
             + "([-, ]*\\(?lgpl\\)?)?)");
 
     }
