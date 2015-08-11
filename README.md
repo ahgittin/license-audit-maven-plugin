@@ -143,8 +143,10 @@ The following report types are supported:
 * `summary` - a summary tree with one line for each dependency;
   similar to `mvn dependency:tree`, but showing more useful info
   and explicitly showing dependencies everywhere they are referenced
-* `list` - even more detail of each dependency, listed one after the other (no tree structure)
-* `csv` - a comma-separated-values file with all details from `list`, suitable for importing into a spreadsheet
+* `report` - even more detail of each dependency, listed one after the other (no tree structure)
+* `list` - one line on each dependency, listed one after the other (no tree structure)
+* `sorted-list` - as `list` but sorted
+* `csv` - a comma-separated-values file with all details from `report`, suitable for importing into a spreadsheet
 
 These can be set with `-Dformat=csv`. The default is `tree`.
 
@@ -175,7 +177,7 @@ This plugin supports the following additional configuration:
   (i.e. by default *test* dependencies will be mentioned, but *their* dependencies will not be listed);
   this can be useful for generating reports for audiences who might be scared by a LGPL test dependency
 * `listDependencyIdOnly` - whether to omit detail of dependencies in the dependencies list, 
-  again useful for some audiences and for CSV reports; default `false` (no effect on the *summary* format)
+  again useful for some audiences and for CSV reports; default `false` (no effect on the *summary* or *list* formats)
 * `suppressLicenseInfo` - don't show any license details
 
 

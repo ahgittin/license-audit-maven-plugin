@@ -145,12 +145,16 @@ public class LicenseAuditMojo extends AbstractMojo
 
         if ("tree".equalsIgnoreCase(format)) {
             new TreeReport().run();
-        } else if ("list".equalsIgnoreCase(format)) {
-            new ListReport().run();
-        } else if ("csv".equalsIgnoreCase(format)) {
-            new CsvReport().run();
         } else if ("summary".equalsIgnoreCase(format)) {
             new SummaryReport().run();
+        } else if ("report".equalsIgnoreCase(format)) {
+            new ReportReport().run();
+        } else if ("list".equalsIgnoreCase(format)) {
+            new ListReport().run();
+        } else if ("sorted-list".equalsIgnoreCase(format)) {
+            new SortedListReport().run();
+        } else if ("csv".equalsIgnoreCase(format)) {
+            new CsvReport().run();
         } else {
             throw new MojoExecutionException("Unknown format (use 'tree', 'list', 'csv', or 'summary'): "+format);
         }
@@ -590,7 +594,7 @@ public class LicenseAuditMojo extends AbstractMojo
         }
     }
     
-    public class ListReport extends AbstractReport {
+    public class ReportReport extends AbstractReport {
         
         @Override
         protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
@@ -627,6 +631,59 @@ public class LicenseAuditMojo extends AbstractMojo
 
     }
 
+    public class ListReport extends AbstractReport {
+        
+        @Override
+        public void startProject(String id, MavenProject p) throws MojoExecutionException {
+            super.startProject(id, p);
+            if (p==null) p = projectByIdCache.get(id);
+            
+            Set<Object> errs = projectErrors.get(id);
+
+            // if we wanted to show where it was dragged in from
+//            Set<String> parentDN = projectToDependencyGraphParent.get(id);
+//            Set<DependencyNode> referencingDNs = depNodesByIdCache.get(id);
+
+            List<License> lics = p!=null ? p.getLicenses() : null;
+            String licenseLine = (suppressLicenseInfo ? "" : ": "+(p!=null ? oneLine(licensesSummaryString(lics), "; ") : "<not loaded>"));
+            
+            output(id+
+                (errs==null || errs.isEmpty() ? "" : " (ERROR)")+
+                licenseLine);
+        }
+        
+        @Override
+        protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
+        }
+        
+        @Override
+        public void addProjectEntry(String key, String value) throws MojoExecutionException {
+        }
+        
+        public void run() throws MojoExecutionException {
+            setup();
+            for (String id: ids) {
+                runProject(id);
+            }
+        }
+
+    }
+
+    public class SortedListReport extends ListReport {
+        
+        @Override
+        public void setup() {
+            super.setup();
+            
+            List<String> idsSorted = new ArrayList<String>();
+            idsSorted.addAll(ids);
+            Collections.sort(idsSorted);
+            ids.clear();
+            ids.addAll(idsSorted);
+        }
+
+    }
+    
     public class CsvReport extends AbstractReport {
 
         Set<String> columns = new LinkedHashSet<String>();
