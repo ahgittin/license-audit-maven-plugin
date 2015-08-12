@@ -31,7 +31,7 @@ It should now be ready for use.
 
 To run the plugin and show dependency information, once it's installed,
 simply go to the directory of the project you're interested in, 
-and run:
+and run:sort
 
     mvn org.heneveld.maven:license-audit-maven-plugin:report
 
@@ -122,13 +122,16 @@ org.heneveld.maven:license-audit-maven-plugin:1.0-SNAPSHOT
 ## CSV for Enterprise License Reports
 
 Here's a syntax for generating a **CSV** report to a file,
-omitting any mention of dependencies which are not bundled: 
+omitting any mention of dependencies which are not bundled,
+and preferring certain licenses for reporting purposes when
+products are dual- or multi- licensed: 
 
     mvn org.heneveld.maven:license-audit-maven-plugin:report \
         -Dformat=csv \
         -DlistDependencyIdOnly=true \
         -DsuppressExcludedDependencies=true \
-        -Doutput=dependencies-licenses.csv
+        -DlicensesPreferred=ASL2,ASL,EPL1,BSD-2-Clause,BSD-3-Clause \
+        -DoutputFile=dependencies-licenses.csv
 
 If you're generating a report for a project used as a dependency instead of as a binary,
 you would normally also add `-DsuppressExcludedDependencies=true` (because the optional
@@ -145,8 +148,8 @@ The following report types are supported:
   and explicitly showing dependencies everywhere they are referenced
 * `report` - even more detail of each dependency, listed one after the other (no tree structure)
 * `list` - one line on each dependency, listed one after the other (no tree structure)
-* `sorted-list` - as `list` but sorted
 * `csv` - a comma-separated-values file with all details from `report`, suitable for importing into a spreadsheet
+* `sorted-{report,list,csv}` - as `report` or `list` or `csv` but sorted
 
 These can be set with `-Dformat=csv`. The default is `tree`.
 
@@ -155,7 +158,7 @@ These can be set with `-Dformat=csv`. The default is `tree`.
 
 This plugin supports the following additional configuration:
 
-* `output` - write a report to this file, in addition to logging it
+* `outputFile` - write a report to this file, in addition to logging it
 * `format` - the format of the report (see above)
 * `depth` - maximum depth to traverse, or -1 for full depth
 * `includeDependencyScopes` - which dependency scopes should be reported, 
@@ -179,6 +182,33 @@ This plugin supports the following additional configuration:
 * `listDependencyIdOnly` - whether to omit detail of dependencies in the dependencies list, 
   again useful for some audiences and for CSV reports; default `false` (no effect on the *summary* or *list* formats)
 * `suppressLicenseInfo` - don't show any license details
+* `licensesPreferred` - specifies the preference order of licenses; this is used to extract a single code when
+  multiple licenses are supplied to maven (with no comments, as comments sometimes indicate mixed licensing;
+  the absence of comments is interpreted to mean multiply licensed);
+  the format should be a comma-separated list of license codes, e.g. `ASL2,EPL1`
+* `overridesFile` - allow project information (licenses or URLs) to come from a file;
+  useful if a project's pom is missing data (or has wrong information);
+  the format should be YAML specifying a list of entries each with a project `id` or `ids` and 
+  metadata to override, such as `license` or `url`;
+  e.g. `[ { id: "org.codehaus.jettison:jettison", license: ASL2, url: "https://github.com/codehaus/jettison" }, 
+  { ids: [ "dom4j:dom4j:*", "dom4j:dom4j-core:1.4-dev-8" ], 
+    license: { name: "BSD style", url: "http://dom4j.sourceforge.net/dom4j-1.6.1/license.html" },
+    url: "http://dom4j.sourceforge.net/" } ]`
+* `extrasFile` - allow info for additional projects to be supplied from a file
+  and included in the report;
+  useful if you want to include non-java dependencies;
+  the format is the same as for `overridesFile`, but `name` and `version` are also supported
+
+
+# Enhancements
+
+The following things would be nice to add/change:
+
+* Have this generate the "uber-license" file recommended by the ASF,
+  including notices and other licenses.
+
+* Re-use the options in `dependency:build-classpath` and the code there to scan dependencies in scope
+  (or even contribute this to the maven dependency plugin); but note that target seems to mangle the order
 
 
 # Copyright and License

@@ -1,5 +1,6 @@
 package org.heneveld.maven.license_audit;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Contributor;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.License;
+import org.apache.maven.model.Organization;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -40,12 +42,16 @@ import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.collection.DependencyCollectionContext;
 import org.eclipse.aether.collection.DependencySelector;
 import org.eclipse.aether.graph.DependencyNode;
+import org.heneveld.maven.license_audit.util.Coords;
+import org.heneveld.maven.license_audit.util.LicenseCodes;
+import org.heneveld.maven.license_audit.util.ProjectsOverrides;
+import org.heneveld.maven.license_audit.util.SimpleMultiMap;
 
 @Mojo( name = "report", defaultPhase = LifecyclePhase.COMPILE)
 public class LicenseAuditMojo extends AbstractMojo
 {
 
-    @Parameter( defaultValue = "", property = "output", required = false )
+    @Parameter( defaultValue = "", property = "outputFile", required = false )
     private String outputFilePath;
     protected FileWriter outputFileWriter = null;
 
@@ -74,6 +80,17 @@ public class LicenseAuditMojo extends AbstractMojo
     @Parameter( defaultValue = "false", property = "suppressLicenseInfo", required = true )
     private boolean suppressLicenseInfo;
 
+    @Parameter( defaultValue = "", property = "licensesPreferred", required = false )
+    private String licensesPreferredRaw;
+    protected List<String> licensesPreferred;
+    
+    @Parameter( defaultValue = "", property = "overridesFile", required = false )
+    private String overridesFile;
+    protected ProjectsOverrides overrides = new ProjectsOverrides();
+    
+    @Parameter( defaultValue = "", property = "extrasFile", required = false )
+    private String extrasFile;
+    
 //    @Requirement
 //    private DefaultRepositorySystemSessionFactory repositorySessionFactory;
     @Component
@@ -119,8 +136,31 @@ public class LicenseAuditMojo extends AbstractMojo
             try {
                 outputFileWriter = new FileWriter(outputFilePath);
             } catch (IOException e) {
-                throw new MojoExecutionException("Error creating "+outputFilePath);
+                throw new MojoExecutionException("Error creating "+outputFilePath+": "+e);
             }
+        }
+        
+        if (isNonEmpty(overridesFile)) {
+            try {
+                FileReader fr = new FileReader(overridesFile);
+                overrides.addFromYaml(fr);
+                fr.close();
+            } catch (Exception e) {
+                throw new MojoExecutionException("Error reading "+overridesFile+": "+e);
+            }
+        }
+        if (isNonEmpty(extrasFile)) {
+            // is loaded again below, but add to overrides so info is available
+            try {
+                FileReader fr = new FileReader(extrasFile);
+                overrides.addFromYaml(fr);
+                fr.close();
+            } catch (Exception e) {
+                throw new MojoExecutionException("Error reading "+extrasFile+": "+e);
+            }
+        }
+        if (isNonEmpty(licensesPreferredRaw)) {
+            licensesPreferred = Arrays.asList(licensesPreferredRaw.split("\\s*,\\s*"));
         }
         
         if (maxDepth<0) {
@@ -148,13 +188,17 @@ public class LicenseAuditMojo extends AbstractMojo
         } else if ("summary".equalsIgnoreCase(format)) {
             new SummaryReport().run();
         } else if ("report".equalsIgnoreCase(format)) {
-            new ReportReport().run();
+            new ReportReport(false).run();
+        } else if ("sorted-report".equalsIgnoreCase(format)) {
+            new ReportReport(true).run();
         } else if ("list".equalsIgnoreCase(format)) {
-            new ListReport().run();
+            new ListReport(false).run();
         } else if ("sorted-list".equalsIgnoreCase(format)) {
-            new SortedListReport().run();
+            new ListReport(true).run();
         } else if ("csv".equalsIgnoreCase(format)) {
-            new CsvReport().run();
+            new CsvReport(false).run();
+        } else if ("sorted-csv".equalsIgnoreCase(format)) {
+            new CsvReport(true).run();
         } else {
             throw new MojoExecutionException("Unknown format (use 'tree', 'list', 'csv', or 'summary'): "+format);
         }
@@ -279,17 +323,67 @@ public class LicenseAuditMojo extends AbstractMojo
     public abstract class AbstractReport {
         String currentProject;
         Set<String> ids;
+        boolean doingExtras = false;
+        ProjectsOverrides extras = null;
         
-        public void setup() {
+        public void setup() throws MojoExecutionException {
             ids = new LinkedHashSet<String>();
             ids.addAll(projectByIdCache.keySet());
             getLog().debug("Report collected projects for: "+ids);
             getLog().debug("Report collected project error reports for: "+projectErrors.keySet());
             ids.addAll(projectErrors.keySet());
+            
+            if (extrasFile!=null) {
+                try {
+                    extras = ProjectsOverrides.fromFile(extrasFile);
+                } catch (IOException e) {
+                    throw new MojoExecutionException("Error reading extras file "+extrasFile+": "+e);
+                }
+            }
         }
         
         public abstract void run() throws MojoExecutionException;
         
+        protected void runExtraProject(String projectId, ProjectsOverrides extras) throws MojoExecutionException {
+            startProject(projectId, null);
+            Map<String, Object> data = extras.getOverridesForProject(projectId);
+            addProjectEntry("Name", (String)data.get("name"));
+            addProjectEntry("Version", (String)data.get("version"));
+            addProjectEntry("Description", (String)data.get("description"));
+            addProjectEntry("URL", (String)data.get("url"));
+            // TODO organization and contributors won't be formatted
+            addProjectEntry("Organization", mapString(data.get("organization")));
+            addProjectEntry("Contributors", mapString(data.get("contributors")));
+            if (!suppressLicenseInfo) addLicenseInfoEntries(extras.getLicense(projectId));
+            // any other verbose info?
+            endProject();
+        }
+
+        // cheap and cheerful pretty-printing
+        private String mapString(Object object) {
+            if (object==null) return null;
+            if (object instanceof Map) return mapString( ((Map<?,?>)object).entrySet() );
+            if (object instanceof Map.Entry) 
+                return mapString( ((Map.Entry<?,?>)object).getKey() )+": "+mapString( ((Map.Entry<?,?>)object).getValue() );
+            if (object instanceof Iterable) {
+                Iterator<?> oi = ((Iterable<?>)object).iterator();
+                StringBuilder result = new StringBuilder();
+                result.append("[");
+                if (oi.hasNext()) {
+                    result.append(" ");
+                    result.append(mapString(oi.next()));
+                }
+                while (oi.hasNext()) {
+                    result.append(", ");
+                    result.append(mapString(oi.next()));
+                }
+                if (result.length()>1) result.append(" ");
+                result.append("]");
+                return result.toString();
+            }
+            return object.toString();
+        }
+
         public void startProject(String id, MavenProject p) throws MojoExecutionException {
             currentProject = id;
         }
@@ -316,8 +410,8 @@ public class LicenseAuditMojo extends AbstractMojo
                     addProjectEntry("Version Resolved", p.getArtifact().getVersion());
                 }
                 addProjectEntry("Name", p.getName());
-                addProjectEntry("URL", p.getUrl());
-                if (!suppressLicenseInfo) addLicenseInfoEntries(p);
+                addProjectEntry("URL",  overrides.getUrl(p));
+                if (!suppressLicenseInfo) addLicenseInfoEntries(getLicenses(p, id));
                 addVerboseEntries(p);
                 
                 Map<String,DependencyNode> depsInGraphHere = new LinkedHashMap<String,DependencyNode>();
@@ -338,7 +432,7 @@ public class LicenseAuditMojo extends AbstractMojo
                     getLog().debug("Dependencies of "+id+": in graph: "+dn0+"->"+depsInGraphHere);
                 }
                 
-                addProjectEntry("Artifacts Included", isRoot(id) ? "(root)" : join(artifactsIncluded, "\n"));
+                addProjectEntry("Artifacts Included", isRoot(id) ? "(root)" : isExtra(id) ? "(extra)" : join(artifactsIncluded, "\n"));
                 
                 String dep;
                 List<Dependency> deps = p.getDependencies();
@@ -445,6 +539,10 @@ public class LicenseAuditMojo extends AbstractMojo
             return depsResult;
         }
 
+        private boolean isExtra(String id) {
+            return doingExtras;
+        }
+
         private String v(String id) {
             if (id==null) return null;
             String[] parts = id.split(":");
@@ -459,13 +557,13 @@ public class LicenseAuditMojo extends AbstractMojo
             return "";
         }
 
-        protected abstract void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException;
+        protected abstract void addLicenseInfoEntries(List<License> ll) throws MojoExecutionException;
         
-        protected void addCompleteLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
-            addProjectEntry("License Code", licensesCode(p.getLicenses()));
-            addProjectEntry("License", licensesString(p.getLicenses()));
-            if (p.getLicenses()!=null && p.getLicenses().size()==1) {
-                License license = p.getLicenses().iterator().next();
+        protected void addCompleteLicenseInfoEntries(List<License> lics) throws MojoExecutionException {
+            addProjectEntry("License Code", licensesCode(lics));
+            addProjectEntry("License", licensesString(lics));
+            if (lics!=null && lics.size()==1) {
+                License license = lics.iterator().next();
                 addProjectEntry("License Name", license.getName());
                 addProjectEntry("License URL", license.getUrl());
                 addProjectEntry("License Comments", license.getComments());
@@ -473,112 +571,15 @@ public class LicenseAuditMojo extends AbstractMojo
             }
         }
         
-        protected void addSummaryLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
-            addProjectEntry("License", licensesSummaryString(p.getLicenses()));
+        protected void addSummaryLicenseInfoEntries(List<License> ll) throws MojoExecutionException {
+            addProjectEntry("License", licensesSummaryString(ll));
         }
         
         protected void addVerboseEntries(MavenProject p) throws MojoExecutionException {
             addProjectEntry("Description", p.getDescription());
+            addProjectEntry("Organization", organizationString(p.getOrganization()));
             addProjectEntry("Contributors", contributorsString(p.getContributors()));
             addProjectEntry("Developers", contributorsString(p.getDevelopers()));
-        }
-
-        protected String contributorsString(Iterable<? extends Contributor> contributors) {
-            if (contributors==null) return null;
-            Set<String> result = new LinkedHashSet<String>();
-            for (Contributor c: contributors) {
-                StringBuilder ri = new StringBuilder();
-                if (isNonEmpty(c.getName())) ri.append(c.getName());
-                if (isNonEmpty(c.getOrganization())) {
-                    if (ri.length()>0) ri.append(" / ");
-                    ri.append(c.getOrganization());
-                }
-                int nameOrgLen = ri.length();
-                
-                if (isNonEmpty(c.getUrl())) {
-                    if (nameOrgLen>0) ri.append(" (");
-                    ri.append(c.getUrl());
-                }
-                if (isNonEmpty(c.getOrganizationUrl())) {
-                    if (ri.length() > nameOrgLen) ri.append(" / ");
-                    else if (nameOrgLen>0) ri.append(" (");
-                    ri.append(c.getOrganizationUrl());
-                }
-                if (ri.length() > nameOrgLen) ri.append(")");
-                
-                result.add(ri.toString().trim());
-            }
-            if (result.size()>0) return join(result, "\n");
-            return null;
-        }
-
-        protected String licensesString(Iterable<? extends License> licenses) {
-            return licensesStringInternal(licenses, false);
-        }
-
-        private String licensesStringInternal(Iterable<? extends License> licenses, boolean summaryOnly) {
-            // NB: subtly different messages if things are empty 
-            if (licenses==null) return "<no license info>";
-            Set<String> result = new LinkedHashSet<String>();
-            for (License l: licenses) {
-                StringBuilder ri = new StringBuilder();
-                if (isNonEmpty(l.getName())) {
-                    if (summaryOnly) {
-                        String code = LicenseCodes.getLicenseCode(l.getName());
-                        ri.append(isNonEmpty(code) ? code : l.getName());
-                    } else {
-                        ri.append(l.getName());
-                    }
-                }
-                if (isNonEmpty(l.getUrl())) {
-                    if (ri.length()>0) {
-                        if (summaryOnly) { /* nothing */ }
-                        else { ri.append(" ("+l.getUrl()+")"); }
-                    } else {
-                        ri.append(l.getUrl());
-                    }
-                }
-                if (isNonEmpty(l.getComments())) {
-                    if (ri.length()>0) {
-                        if (summaryOnly) { /* nothing */ }
-                        else { ri.append("; "+l.getComments()); }
-                    } else {
-                        ri.append("Comment: "+l.getComments());
-                    }
-                }
-
-                if (ri.toString().trim().length()>0) {
-                    result.add(ri.toString().trim());
-                } else {
-                    result.add("<no info on license>");
-                }
-            }
-            if (result.size()>0) return join(result, "\n");
-            return "<no licenses>";
-        }
-
-        protected String licensesSummaryString(Iterable<? extends License> licenses) {
-            String summary = licensesStringInternal(licenses, true);
-            String code = LicenseCodes.getLicenseCode(summary);
-            if (code==null) return summary;
-            if (code.length()==0) return "<unknown>";
-            return code;
-        }
-
-        /** null unless there is a single entry with code are known for all entries */
-        protected String licensesCode(Iterable<? extends License> licenses) {
-            if (licenses==null) return null;
-            Iterator<? extends License> li = licenses.iterator();
-            // no entries?
-            if (!li.hasNext()) return null;
-            li.next();
-            // 2 or more entries?
-            if (li.hasNext()) return null;
-            // now see if there is a code for this one
-            li = licenses.iterator();
-            String code = LicenseCodes.getLicenseCode(li.next().getName());
-            if (code==null || code.length()==0) return null;
-            return code;
         }
         
         protected void output(String line) throws MojoExecutionException {
@@ -594,11 +595,45 @@ public class LicenseAuditMojo extends AbstractMojo
         }
     }
     
-    public class ReportReport extends AbstractReport {
+    public abstract class AbstractListReport extends AbstractReport {
+        final boolean isSorted;
+        public AbstractListReport(boolean isSorted) {
+            this.isSorted = isSorted;
+        }
+
+        public void run() throws MojoExecutionException {
+            setup();
+            
+            List<String> idsSorted = new ArrayList<String>();
+            idsSorted.addAll(ids);
+            if (extras!=null) idsSorted.addAll(extras.getProjects());
+            if (isSorted) Collections.sort(idsSorted);
+
+            for (String id: idsSorted) {
+                if (ids.contains(id)) {
+                    runProject(id);
+                } else {
+                    doingExtras = true;
+                    runExtraProject(id, extras);
+                    doingExtras = false;
+                }
+            }
+        }
+        
+        public void runExtraProjects() throws MojoExecutionException {
+            // not used
+            throw new MojoExecutionException("Should not come here");
+        }
+
+        
+    }
+    public class ReportReport extends AbstractListReport {
+        
+        public ReportReport(boolean isSorted) { super(isSorted); }
         
         @Override
-        protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
-            addSummaryLicenseInfoEntries(p);
+        protected void addLicenseInfoEntries(List<License> ll) throws MojoExecutionException {
+            addSummaryLicenseInfoEntries(ll);
         }
 
         @Override
@@ -621,17 +656,11 @@ public class LicenseAuditMojo extends AbstractMojo
                 }
             }
         }
-        
-        public void run() throws MojoExecutionException {
-            setup();
-            for (String id: ids) {
-                runProject(id);
-            }
-        }
-
     }
 
-    public class ListReport extends AbstractReport {
+    public class ListReport extends AbstractListReport {
+        
+        public ListReport(boolean isSorted) { super(isSorted); }
         
         @Override
         public void startProject(String id, MavenProject p) throws MojoExecutionException {
@@ -644,8 +673,8 @@ public class LicenseAuditMojo extends AbstractMojo
 //            Set<String> parentDN = projectToDependencyGraphParent.get(id);
 //            Set<DependencyNode> referencingDNs = depNodesByIdCache.get(id);
 
-            List<License> lics = p!=null ? p.getLicenses() : null;
-            String licenseLine = (suppressLicenseInfo ? "" : ": "+(p!=null ? oneLine(licensesSummaryString(lics), "; ") : "<not loaded>"));
+            List<License> lics = getLicenses(p, id);
+            String licenseLine = (suppressLicenseInfo ? "" : ": "+((lics!=null && !lics.isEmpty()) || p!=null ? oneLine(licensesSummaryString(lics), "; ") : "<not loaded>"));
             
             output(id+
                 (errs==null || errs.isEmpty() ? "" : " (ERROR)")+
@@ -653,48 +682,49 @@ public class LicenseAuditMojo extends AbstractMojo
         }
         
         @Override
-        protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
+        protected void addLicenseInfoEntries(List<License> ll) throws MojoExecutionException {
         }
         
         @Override
         public void addProjectEntry(String key, String value) throws MojoExecutionException {
         }
-        
-        public void run() throws MojoExecutionException {
-            setup();
-            for (String id: ids) {
-                runProject(id);
-            }
-        }
-
     }
 
-    public class SortedListReport extends ListReport {
-        
-        @Override
-        public void setup() {
-            super.setup();
-            
-            List<String> idsSorted = new ArrayList<String>();
-            idsSorted.addAll(ids);
-            Collections.sort(idsSorted);
-            ids.clear();
-            ids.addAll(idsSorted);
-        }
+    public class CsvReport extends AbstractListReport {
 
-    }
-    
-    public class CsvReport extends AbstractReport {
+        public CsvReport(boolean isSorted) {
+            super(isSorted);
+        }
 
         Set<String> columns = new LinkedHashSet<String>();
+        {
+            columns.add("ID");
+            columns.add("GroupId"); 
+            columns.add("ArtifactId");  
+            columns.add("Version"); 
+            columns.add("Name");
+            columns.add("Description"); 
+            columns.add("URL"); 
+            columns.add("Organization");    
+            columns.add("Contributors");    
+            columns.add("Developers");  
+            columns.add("License Code");    
+            columns.add("License"); 
+            columns.add("License Name");    
+            columns.add("License URL"); 
+            columns.add("License Comments");    
+            columns.add("License Distribution");                                
+            columns.add("Artifacts Included");  
+            columns.add("Dependencies");   
+        }
         
         Map<String,Map<String,String>> allProjectsData = new LinkedHashMap<String, Map<String,String>>();
         
         Map<String,String> thisProjectData;
 
         @Override
-        protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
-            addCompleteLicenseInfoEntries(p);
+        protected void addLicenseInfoEntries(List<License> ll) throws MojoExecutionException {
+            addCompleteLicenseInfoEntries(ll);
         }
 
         @Override
@@ -728,10 +758,7 @@ public class LicenseAuditMojo extends AbstractMojo
         
         @Override
         public void run() throws MojoExecutionException {
-            setup();
-            for (String id: ids) {
-                runProject(id);
-            }
+            super.run();
             
             for (String c: columns) csvEntry(c);
             csvRowEnd();
@@ -795,9 +822,25 @@ public class LicenseAuditMojo extends AbstractMojo
                     // shouldn't happen; will log errors because no DN info avail and project not supplied
                     runProjectRecursively(id, null, 0, Collections.singleton(new DependencyDetail(null, false, DetailLevel.INCLUDE_WITH_DETAIL)));
                 }
-            }            
+            }
+            if (extras!=null) {
+                for (String projectId: extras.getProjects()) {
+                    runExtraProject(projectId, extras);
+                }
+            }
         }
         
+        @Override
+        protected void runExtraProject(String projectId, ProjectsOverrides extras) throws MojoExecutionException {
+            currentPrefix = "";
+            showExtraProjectHeader(projectId, extras);
+            currentPrefix = "  ";
+            super.runExtraProject(projectId, extras);
+        }
+        protected void showExtraProjectHeader(String id, ProjectsOverrides extras) throws MojoExecutionException {
+            output(id);
+        }
+
         protected void runProjectRecursively(String id, MavenProject p, int depth, Set<DependencyDetail> details) throws MojoExecutionException {
             if (!reportedProjects.contains(id)) {
                 if (ids.contains(id)) {
@@ -845,7 +888,7 @@ public class LicenseAuditMojo extends AbstractMojo
                 output(prefixWithPlus() + id + extraInfoForProjectLineInfo(id, p, details, "reported above"));
             }
         }
-
+        
         protected void onUnexpectedDependency(String id, MavenProject p, Set<DependencyDetail> details) throws MojoExecutionException {
             String message;
             if (best(details)==DetailLevel.INCLUDE_IN_SUMMARY_BUT_NOT_USED_OR_EXPANDED) {
@@ -884,8 +927,8 @@ public class LicenseAuditMojo extends AbstractMojo
         }
         
         @Override
-        protected void addLicenseInfoEntries(MavenProject p) throws MojoExecutionException {
-            addSummaryLicenseInfoEntries(p);
+        protected void addLicenseInfoEntries(List<License> ll) throws MojoExecutionException {
+            addSummaryLicenseInfoEntries(ll);
         }
         
         @Override
@@ -927,7 +970,7 @@ public class LicenseAuditMojo extends AbstractMojo
         }
         
         @Override
-        protected void addLicenseInfoEntries(MavenProject p) {}
+        protected void addLicenseInfoEntries(List<License> ll) {}
         
         @Override
         protected void addVerboseEntries(MavenProject p) {}
@@ -950,7 +993,7 @@ public class LicenseAuditMojo extends AbstractMojo
         @Override
         protected String extraInfoForProjectLineInfo(String id, MavenProject p, Set<DependencyDetail> details, String exclusionInfo) {
             if (p==null) p = projectByIdCache.get(id);
-            List<License> lics = p!=null ? p.getLicenses() : null;
+            List<License> lics = getLicenses(p, id);
             if (p==null) {
                 getLog().debug("No project loaded: "+id);
             }
@@ -968,6 +1011,18 @@ public class LicenseAuditMojo extends AbstractMojo
                 (isOptionalFromDetails(details) ? ", optional" : "")+
                 (isNonEmpty(exclusionInfo) ? ", "+exclusionInfo : "")+")"+
                 licenseLine;
+        }
+        
+        @Override
+        protected void runExtraProject(String projectId, ProjectsOverrides extras) throws MojoExecutionException {
+            super.runExtraProject(projectId, extras);
+            showExtraProjectHeader(projectId, extras);
+        }
+
+        @Override
+        protected void showExtraProjectHeader(String id, ProjectsOverrides extras) throws MojoExecutionException {
+            String licenseLine = (suppressLicenseInfo ? "" : ": "+oneLine(licensesSummaryString(extras.getLicense(id)), "; "));
+            output(id + " (extra)"+licenseLine);
         }
 
         // if we use dependency nodes instead of DependencyDetail:
@@ -1070,4 +1125,139 @@ public class LicenseAuditMojo extends AbstractMojo
             null, da.getExtension(), da.getClassifier(), artifactHandler);
     }
 
+    protected static String organizationString(Organization org) {
+        if (org==null) return null;
+        StringBuilder ri = new StringBuilder();
+        if (isNonEmpty(org.getName())) ri.append(org.getName());
+        int nameOrgLen = ri.length();
+
+        if (isNonEmpty(org.getUrl())) {
+            if (nameOrgLen>0) ri.append(" (");
+            ri.append(org.getUrl());
+        }
+        if (ri.length() > nameOrgLen) ri.append(")");
+
+        String result = ri.toString().trim();
+        if (result.length()>0) return result;
+        return null;
+    }
+
+    protected static String contributorsString(Iterable<? extends Contributor> contributors) {
+        if (contributors==null) return null;
+        Set<String> result = new LinkedHashSet<String>();
+        for (Contributor c: contributors) {
+            StringBuilder ri = new StringBuilder();
+            if (isNonEmpty(c.getName())) ri.append(c.getName());
+            if (isNonEmpty(c.getOrganization())) {
+                if (ri.length()>0) ri.append(" / ");
+                ri.append(c.getOrganization());
+            }
+            int nameOrgLen = ri.length();
+            
+            if (isNonEmpty(c.getUrl())) {
+                if (nameOrgLen>0) ri.append(" (");
+                ri.append(c.getUrl());
+            }
+            if (isNonEmpty(c.getOrganizationUrl())) {
+                if (ri.length() > nameOrgLen) ri.append(" / ");
+                else if (nameOrgLen>0) ri.append(" (");
+                ri.append(c.getOrganizationUrl());
+            }
+            if (ri.length() > nameOrgLen) ri.append(")");
+            
+            result.add(ri.toString().trim());
+        }
+        if (result.size()>0) return join(result, "\n");
+        return null;
+    }
+
+    protected static String licensesString(Iterable<? extends License> licenses) {
+        return licensesStringInternal(licenses, false);
+    }
+
+    private static String licensesStringInternal(Iterable<? extends License> licenses, boolean summaryOnly) {
+        // NB: subtly different messages if things are empty 
+        if (licenses==null) return "<no license info>";
+        Set<String> result = new LinkedHashSet<String>();
+        for (License l: licenses) {
+            StringBuilder ri = new StringBuilder();
+            if (isNonEmpty(l.getName())) {
+                if (summaryOnly) {
+                    String code = LicenseCodes.getLicenseCode(l.getName());
+                    ri.append(isNonEmpty(code) ? code : l.getName());
+                } else {
+                    ri.append(l.getName());
+                }
+            }
+            if (isNonEmpty(l.getUrl())) {
+                if (ri.length()>0) {
+                    if (summaryOnly) { /* nothing */ }
+                    else { ri.append(" ("+l.getUrl()+")"); }
+                } else {
+                    ri.append(l.getUrl());
+                }
+            }
+            if (isNonEmpty(l.getComments())) {
+                if (ri.length()>0) {
+                    if (summaryOnly) { /* nothing */ }
+                    else { ri.append("; "+l.getComments()); }
+                } else {
+                    ri.append("Comment: "+l.getComments());
+                }
+            }
+
+            if (ri.toString().trim().length()>0) {
+                result.add(ri.toString().trim());
+            } else {
+                result.add("<no info on license>");
+            }
+        }
+        if (result.size()>0) return join(result, "\n");
+        return "<no licenses>";
+    }
+
+    protected static String licensesSummaryString(Iterable<? extends License> licenses) {
+        String summary = licensesStringInternal(licenses, true);
+        String code = LicenseCodes.getLicenseCode(summary);
+        if (code==null) return summary;
+        if (code.length()==0) return "<unknown>";
+        return code;
+    }
+
+    /** null unless there is a single entry with code are known for all entries */
+    protected String licensesCode(Iterable<? extends License> licenses) {
+        if (licenses==null) return null;
+        Iterator<? extends License> li = licenses.iterator();
+        // no entries?
+        if (!li.hasNext()) return null;
+        li.next();
+        // 2 or more entries?
+        if (li.hasNext()) {
+            //eval each and get the preference
+            List<String> codes = new ArrayList<String>();
+            for (License l: licenses) {
+                if (isNonEmpty(l.getComments()))
+                    // if any have comment then disallow
+                    return null;
+                String code = LicenseCodes.getLicenseCode(l.getName());
+                if (isNonEmpty(code)) codes.add(code);
+            }
+            if (codes.isEmpty()) return null;
+            if (codes.size()==1) return codes.get(0);
+            for (String preferredCode: licensesPreferred) {
+                if (codes.contains(preferredCode)) return preferredCode;
+            }
+            return null;
+        }
+        // now see if there is a code for this one
+        li = licenses.iterator();
+        String code = LicenseCodes.getLicenseCode(li.next().getName());
+        if (isNonEmpty(code)) return code;
+        return null;
+    }
+    
+    List<License> getLicenses(MavenProject p, String idIfProjectMightBeNull) {
+        if (p!=null) return overrides.getLicense(p);
+        return overrides.getLicense(idIfProjectMightBeNull);
+    }
 }

@@ -1,9 +1,9 @@
-package org.heneveld.maven.license_audit;
+package org.heneveld.maven.license_audit.util;
 
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.graph.DependencyNode;
 
-class Coords {
+public class Coords {
     public final String groupId, artifactId, version, baseVersion, packagingExtensionType, classifier;
 
     public Coords(String groupId, String artifactId, String version, String baseVersion, String packagingExtensionType, String classifier) {

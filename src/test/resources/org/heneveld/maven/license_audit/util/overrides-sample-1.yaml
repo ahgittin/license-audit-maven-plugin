@@ -1,0 +1,21 @@
+
+- id: foo.group:code:1.0
+  license: ASL2
+  url: http://group.foo/code
+
+- ids:
+  - foo.group:code:1.1
+  - foo.group:code:1.2
+  license: ASL2
+
+- id: foo.group:map:1.0
+  license:
+    name:  Custom License
+    url:  http://group.foo/license
+
+- id: foo.group:list:1.0
+  url: http://group.foo/main
+  license:
+  - name:  Custom License
+    url:  http://group.foo/license
+  - EPL1

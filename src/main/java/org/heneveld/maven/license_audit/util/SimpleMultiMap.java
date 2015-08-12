@@ -1,4 +1,4 @@
-package org.heneveld.maven.license_audit;
+package org.heneveld.maven.license_audit.util;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
