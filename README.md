@@ -200,15 +200,23 @@ This plugin supports the following additional configuration:
   the format is the same as for `overridesFile`, but `name` and `version` are also supported
 
 
+# Other Mojos
+
+There is also `notices` available which takes most of the same config options,
+and generates a notices report including attribution requirements.  The `notice` key can be used 
+in `extrasFile` and `overridesFile` to provide custom notices (e.g. copyright requirements). 
+
+
 # Enhancements
 
 The following things would be nice to add/change:
 
-* Have this generate the "uber-license" file recommended by the ASF,
-  including notices and other licenses.
-
 * Re-use the options in `dependency:build-classpath` and the code there to scan dependencies in scope
   (or even contribute this to the maven dependency plugin); but note that target seems to mangle the order
+
+* Show what drags in a dependency (esp in CSV view)
+ 
+* Produce an HTML tree
 
 
 # Copyright and License

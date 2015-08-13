@@ -43,6 +43,9 @@ public class ProjectsOverrides {
         if (result==null) return Collections.emptyMap();
         return result;
     }
+    public Map<?, ?> getOverridesForProject(MavenProject p) {
+        return getOverridesForProject(Coords.of(p).normal());
+    }
     
     public List<License> getLicense(MavenProject p) {
         if (p==null) return null;

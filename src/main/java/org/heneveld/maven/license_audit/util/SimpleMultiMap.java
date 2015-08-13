@@ -38,5 +38,11 @@ public class SimpleMultiMap<K,V> {
     public Set<Entry<K, Set<V>>> entrySet() {
         return real.entrySet();
     }
+
+    public void putAll(K key, Set<V> vals) {
+        for (V val: vals) {
+            put(key, val);
+        }
+    }
     
 }
