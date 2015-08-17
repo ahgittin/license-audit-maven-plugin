@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,21 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo
             String groupId = p.getGroupId();
             projectsByGroup.put(groupId, p);
         }
+        
+        // load extras
+        ProjectsOverrides extras = loadExtras();
+        for (String id: extras.getProjects()) {
+            Map<String, Object> projectOverrides = overrides.getOverridesForProject(id);
+            Map<String, Object> projectData = new LinkedHashMap<String,Object>(extras.getOverridesForProject(id));
+            if (projectOverrides!=null) {
+                // anything from extras is merged on top of any existing overrides
+                projectOverrides = new LinkedHashMap<String,Object>(projectOverrides);
+                projectOverrides.putAll(projectData);
+                projectData = projectOverrides;
+            }
+            projectsByGroup.put(id, projectData);
+        }
+        
         // if the overrides declares a parent project, prefer it:
         for (String overrideId: overrides.getProjects()) {
             Set<Object> projectsMatchingPrefix = new LinkedHashSet<Object>();
@@ -57,21 +73,13 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo
             }
         }
         
-        // load extras
-        ProjectsOverrides extras = new ProjectsOverrides();
-        if (extrasFile!=null) {
-            try {
-                extras = ProjectsOverrides.fromFile(extrasFile);
-            } catch (IOException e) {
-                throw new MojoExecutionException("Could not load extras from "+extrasFile+": "+e);
-            }
-        }
-        for (String id: extras.getProjects()) {
-            projectsByGroup.put(id, extras.getOverridesForProject(id));
-        }
-        
         List<String> ids = new ArrayList<String>();
-        ids.addAll(projectsByGroup.keySet());
+        getLog().debug("Generating notices, projects="+projectsByGroup.keySet()+"; extras="+extras.getProjects());
+        if (onlyExtras) {
+            ids.addAll(extras.getProjects());
+        } else {
+            ids.addAll(projectsByGroup.keySet());
+        }
         Collections.sort(ids, new Comparator<String>() {
             public int compare(String o1, String o2) {
                 return o1.toLowerCase().compareTo(o2.toLowerCase());
@@ -98,7 +106,11 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo
         for (Object p: projects) {
             List<License> lics;
             if (p instanceof MavenProject) lics = overrides.getLicense((MavenProject)p);
-            else lics = ProjectsOverrides.parseAsLicenses( ((Map<?,?>)p).get("license") );
+            else {
+                lics = ProjectsOverrides.parseAsLicenses( ((Map<?,?>)p).get("license") );
+                // if licenses left out of maps, don't generate error yet
+                if (lics==null) continue;
+            }
             String singleCode = licensesCode(lics);
             String url;
             if (singleCode!=null) {
@@ -117,6 +129,8 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo
                 result.addAll(Arrays.asList(licensesString(lics, false).split("\n")));
             }
         }
+        if (result.isEmpty() && !projects.isEmpty())
+            result.addAll(Arrays.asList(licensesString(null, false).split("\n")));
         return result;
     }
 

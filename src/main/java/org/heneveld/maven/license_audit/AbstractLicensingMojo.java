@@ -1,5 +1,6 @@
 package org.heneveld.maven.license_audit;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -73,6 +74,12 @@ public abstract class AbstractLicensingMojo extends AbstractMojo
     @Parameter( defaultValue = "", property = "extrasFile", required = false )
     protected String extrasFile;
     
+    @Parameter( defaultValue = "", property = "extrasFiles", required = false )
+    protected String extrasFiles;
+    
+    @Parameter( defaultValue = "false", property = "onlyExtras", required = true )
+    protected boolean onlyExtras;
+    
     @Component
     protected Maven defaultMaven;
     
@@ -132,31 +139,37 @@ public abstract class AbstractLicensingMojo extends AbstractMojo
             }
         }
         
-        if (isNonEmpty(overridesFile)) {
-            try {
-                FileReader fr = new FileReader(overridesFile);
-                overrides.addFromYaml(fr);
-                fr.close();
-            } catch (Exception e) {
-                throw new MojoExecutionException("Error reading "+overridesFile+": "+e);
-            }
-        }
-        if (isNonEmpty(extrasFile)) {
-            // is loaded again below, but add to overrides so info is available
-            try {
-                FileReader fr = new FileReader(extrasFile);
-                overrides.addFromYaml(fr);
-                fr.close();
-            } catch (Exception e) {
-                throw new MojoExecutionException("Error reading "+extrasFile+": "+e);
-            }
-        }
+        if (isNonEmpty(overridesFile)) addFromFileThrowingMojo("overrides", overrides, overridesFile);
+        for (String f: extrasFiles.split(File.pathSeparator)) addFromFileThrowingMojo("overrides (extras)", overrides, f);
+        addFromFileThrowingMojo("overrides (extras)", overrides, extrasFile);
+        
         if (isNonEmpty(licensesPreferredRaw)) {
             licensesPreferred = Arrays.asList(licensesPreferredRaw.split("\\s*,\\s*"));
         }
         
         if (maxDepth<0) {
             maxDepth = Integer.MAX_VALUE;
+        }
+    }
+    
+    protected ProjectsOverrides loadExtras() throws MojoExecutionException {
+        ProjectsOverrides extras = new ProjectsOverrides();
+        for (String f: extrasFiles.split(File.pathSeparator)) addFromFileThrowingMojo("extras", extras, f);
+        addFromFileThrowingMojo("extras", extras, extrasFile);
+        return extras;
+    }
+
+    protected void addFromFileThrowingMojo(String context, ProjectsOverrides overrides, String file) throws MojoExecutionException {
+        if (file!=null && file.length()>0) {
+            // is loaded again below, but add to overrides so info is available
+            try {
+                getLog().debug("Reading "+context+" file: "+file);
+                FileReader fr = new FileReader(file);
+                overrides.addFromYaml(fr);
+                fr.close();
+            } catch (Exception e) {
+                throw new MojoExecutionException("Error reading "+file+": "+e);
+            }
         }
     }
 

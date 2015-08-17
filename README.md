@@ -198,7 +198,10 @@ This plugin supports the following additional configuration:
   and included in the report;
   useful if you want to include non-java dependencies;
   the format is the same as for `overridesFile`, but `name` and `version` are also supported
-
+* `extrasFiles` - as `extrasFile` but allowing a list (using the system's path separator character) 
+* `onlyExtras` - whether only to show info for items in `extraFile` or `extraFiles`, 
+  i.e. ignoring maven dependencies (no tree/dependency structure will be shown);
+  this is useful esp with `notices` for a JAR or source build (where dependencies are not included)
 
 # Other Mojos
 
@@ -217,6 +220,8 @@ The following things would be nice to add/change:
 * Show what drags in a dependency (esp in CSV view)
  
 * Produce an HTML tree
+
+* Consider using SPDX (standard metadata for licensing)
 
 
 # Copyright and License

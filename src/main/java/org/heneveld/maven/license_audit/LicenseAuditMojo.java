@@ -86,18 +86,17 @@ public class LicenseAuditMojo extends AbstractLicensingMojo
         
         public void setup() throws MojoExecutionException {
             ids = new LinkedHashSet<String>();
-            ids.addAll(projectByIdCache.keySet());
-            getLog().debug("Report collected projects for: "+ids);
-            getLog().debug("Report collected project error reports for: "+projectErrors.keySet());
-            ids.addAll(projectErrors.keySet());
-            
-            if (extrasFile!=null) {
-                try {
-                    extras = ProjectsOverrides.fromFile(extrasFile);
-                } catch (IOException e) {
-                    throw new MojoExecutionException("Error reading extras file "+extrasFile+": "+e);
-                }
+            if (!onlyExtras) {
+                getLog().debug("Report collected projects for: "+ids);
+                getLog().debug("Report collected project error reports for: "+projectErrors.keySet());
+                ids.addAll(projectByIdCache.keySet());
+                ids.addAll(projectErrors.keySet());
             }
+            
+            // load extras
+            ProjectsOverrides extras = new ProjectsOverrides();
+            for (String f: extrasFiles.split(";")) addFromFileThrowingMojo("extras", extras, f);
+            addFromFileThrowingMojo("extras", extras, extrasFile);
         }
         
         public abstract void run() throws MojoExecutionException;

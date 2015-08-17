@@ -1,6 +1,7 @@
 package org.heneveld.maven.license_audit.util;
 
 import java.io.InputStreamReader;
+import java.io.StringReader;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.project.MavenProject;
@@ -44,6 +45,15 @@ public class ProjectsOverridesTest extends TestCase {
         mm.setArtifactId(artifactId);
         mm.setVersion(version);
         return new MavenProject(mm);
+    }
+
+    public void testMultipleEntries() {
+        ProjectsOverrides l = ProjectsOverrides.fromReader(new StringReader(
+            "[{ id: one, license: ASL2 }]"));
+        l.addFromYaml(new StringReader(
+            "[{ id: one, url: \"http://foo\" }]"));
+        assertEquals(1, l.getLicense("one").size());
+        assertEquals("http://foo", l.getOverridesForProject("one").get("url"));
     }
 
 }

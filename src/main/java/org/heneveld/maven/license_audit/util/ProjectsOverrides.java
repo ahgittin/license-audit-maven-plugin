@@ -122,7 +122,7 @@ public class ProjectsOverrides {
         }
         return this;
     }
-
+    
     public static List<License> parseAsLicenses(Object ll) {
         if (ll==null) return null;
         if (ll instanceof Iterable) {
