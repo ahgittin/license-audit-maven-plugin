@@ -95,7 +95,8 @@ public class LicenseAuditMojo extends AbstractLicensingMojo
             
             // load extras
             ProjectsOverrides extras = new ProjectsOverrides();
-            for (String f: extrasFiles.split(";")) addFromFileThrowingMojo("extras", extras, f);
+            if (isNonEmpty(extrasFiles))            
+                for (String f: extrasFiles.split(";")) addFromFileThrowingMojo("extras", extras, f);
             addFromFileThrowingMojo("extras", extras, extrasFile);
         }
         

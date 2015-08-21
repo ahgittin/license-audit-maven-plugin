@@ -140,7 +140,8 @@ public abstract class AbstractLicensingMojo extends AbstractMojo
         }
         
         if (isNonEmpty(overridesFile)) addFromFileThrowingMojo("overrides", overrides, overridesFile);
-        for (String f: extrasFiles.split(File.pathSeparator)) addFromFileThrowingMojo("overrides (extras)", overrides, f);
+        if (isNonEmpty(extrasFiles))
+            for (String f: extrasFiles.split(File.pathSeparator)) addFromFileThrowingMojo("overrides (extras)", overrides, f);
         addFromFileThrowingMojo("overrides (extras)", overrides, extrasFile);
         
         if (isNonEmpty(licensesPreferredRaw)) {
@@ -154,7 +155,8 @@ public abstract class AbstractLicensingMojo extends AbstractMojo
     
     protected ProjectsOverrides loadExtras() throws MojoExecutionException {
         ProjectsOverrides extras = new ProjectsOverrides();
-        for (String f: extrasFiles.split(File.pathSeparator)) addFromFileThrowingMojo("extras", extras, f);
+        if (isNonEmpty(extrasFiles))
+            for (String f: extrasFiles.split(File.pathSeparator)) addFromFileThrowingMojo("extras", extras, f);
         addFromFileThrowingMojo("extras", extras, extrasFile);
         return extras;
     }
