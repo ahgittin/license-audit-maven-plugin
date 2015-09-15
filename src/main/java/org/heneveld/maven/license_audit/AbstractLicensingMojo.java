@@ -139,10 +139,8 @@ public abstract class AbstractLicensingMojo extends AbstractMojo
             }
         }
         
-        if (isNonEmpty(overridesFile)) addFromFileThrowingMojo("overrides", overrides, overridesFile);
-        if (isNonEmpty(extrasFiles))
-            for (String f: extrasFiles.split(File.pathSeparator)) addFromFileThrowingMojo("overrides (extras)", overrides, f);
-        addFromFileThrowingMojo("overrides (extras)", overrides, extrasFile);
+        if (isNonEmpty(overridesFile)) addOverridesFromFile("overrides", overrides, overridesFile);
+        loadExtrasTo(overrides, "overrides (extras)");
         
         if (isNonEmpty(licensesPreferredRaw)) {
             licensesPreferred = Arrays.asList(licensesPreferredRaw.split("\\s*,\\s*"));
@@ -154,14 +152,23 @@ public abstract class AbstractLicensingMojo extends AbstractMojo
     }
     
     protected ProjectsOverrides loadExtras() throws MojoExecutionException {
-        ProjectsOverrides extras = new ProjectsOverrides();
-        if (isNonEmpty(extrasFiles))
-            for (String f: extrasFiles.split(File.pathSeparator)) addFromFileThrowingMojo("extras", extras, f);
-        addFromFileThrowingMojo("extras", extras, extrasFile);
-        return extras;
+        return loadExtrasTo(null, "extras");
     }
 
-    protected void addFromFileThrowingMojo(String context, ProjectsOverrides overrides, String file) throws MojoExecutionException {
+    protected ProjectsOverrides loadExtrasTo(ProjectsOverrides target, String context) throws MojoExecutionException {
+        if (target==null) target = new ProjectsOverrides();
+        if (isNonEmpty(extrasFiles)) {
+            String ef = extrasFiles;
+            // allow ; to be used everywehre; on unix also :
+            if (!File.pathSeparator.equals(";")) ef=ef.replace(File.pathSeparator, ";");
+            // split("[..]") and splite("(a|b)") don't work!
+            for (String f: ef.split(";")) addOverridesFromFile(context, target, f);
+        }
+        addOverridesFromFile(context, target, extrasFile);
+        return target;
+    }
+
+    protected void addOverridesFromFile(String context, ProjectsOverrides overrides, String file) throws MojoExecutionException {
         if (file!=null && file.length()>0) {
             // is loaded again below, but add to overrides so info is available
             try {

@@ -93,18 +93,15 @@ public class LicenseAuditMojo extends AbstractLicensingMojo
                 ids.addAll(projectErrors.keySet());
             }
             
-            // load extras
-            ProjectsOverrides extras = new ProjectsOverrides();
-            if (isNonEmpty(extrasFiles))            
-                for (String f: extrasFiles.split(";")) addFromFileThrowingMojo("extras", extras, f);
-            addFromFileThrowingMojo("extras", extras, extrasFile);
+            // load extras - just to confirm they are accessible
+            extras = loadExtrasTo(null, "extras");
         }
         
         public abstract void run() throws MojoExecutionException;
         
         protected void runExtraProject(String projectId, ProjectsOverrides extras) throws MojoExecutionException {
             startProject(projectId, null);
-            Map<String, Object> data = extras.getOverridesForProject(projectId);
+            Map<String, Object> data = overrides.getOverridesForProject(projectId);
             addProjectEntry("Name", (String)data.get("name"));
             addProjectEntry("Version", (String)data.get("version"));
             addProjectEntry("Description", (String)data.get("description"));
@@ -112,7 +109,7 @@ public class LicenseAuditMojo extends AbstractLicensingMojo
             addProjectEntry("Organization", organizationString(data));
             // TODO contributors not yet elegantly formatted when from overrides (and overrides not used above)
             addProjectEntry("Contributors", toStringPoorMans(data.get("contributors")));
-            if (!suppressLicenseInfo) addLicenseInfoEntries(extras.getLicense(projectId));
+            if (!suppressLicenseInfo) addLicenseInfoEntries(getLicenses(projectByIdCache.get(projectId), projectId));
             // any other verbose info?
             endProject();
         }
@@ -749,12 +746,12 @@ public class LicenseAuditMojo extends AbstractLicensingMojo
         @Override
         protected void runExtraProject(String projectId, ProjectsOverrides extras) throws MojoExecutionException {
             super.runExtraProject(projectId, extras);
-            showExtraProjectHeader(projectId, extras);
         }
 
         @Override
         protected void showExtraProjectHeader(String id, ProjectsOverrides extras) throws MojoExecutionException {
-            String licenseLine = (suppressLicenseInfo ? "" : ": "+oneLine(licensesSummaryString(extras.getLicense(id)), "; "));
+            List<License> lics = getLicenses(projectByIdCache.get(id), id);
+            String licenseLine = (suppressLicenseInfo ? "" : ": "+oneLine(licensesSummaryString(lics), "; "));
             output(id + " (extra)"+licenseLine);
         }
 
