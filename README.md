@@ -206,8 +206,12 @@ This plugin supports the following additional configuration:
 # Other Mojos
 
 There is also `notices` available which takes most of the same config options,
-and generates a notices report including attribution requirements.  The `notice` key can be used 
-in `extrasFile` and `overridesFile` to provide custom notices (e.g. copyright requirements). 
+and generates a notices report including attribution requirements.  
+Additional keys it supports are:
+* `notice` or `notices` taking strings or list of strings to 
+  provide custom notices (e.g. copyright requirements)
+* `internal` equalling `true` to suppress an entry in the notices
+  (e.g. for your own project) 
 
 
 # Enhancements

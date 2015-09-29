@@ -46,8 +46,8 @@ import org.heneveld.maven.license_audit.util.LicenseCodes;
 import org.heneveld.maven.license_audit.util.ProjectsOverrides;
 import org.heneveld.maven.license_audit.util.SimpleMultiMap;
 
-public abstract class AbstractLicensingMojo extends AbstractMojo
-{
+public abstract class AbstractLicensingMojo extends AbstractMojo {
+
     @Parameter( defaultValue = "", property = "outputFile", required = false )
     protected String outputFilePath;
     protected FileWriter outputFileWriter = null;

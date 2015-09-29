@@ -22,8 +22,7 @@ import org.heneveld.maven.license_audit.util.ProjectsOverrides;
 import org.heneveld.maven.license_audit.util.SimpleMultiMap;
 
 @Mojo( name = "report", defaultPhase = LifecyclePhase.COMPILE)
-public class LicenseAuditMojo extends AbstractLicensingMojo
-{
+public class LicenseAuditMojo extends AbstractLicensingMojo {
 
     @Parameter( defaultValue = "tree", property = "format", required = true )
     private String format;

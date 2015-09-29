@@ -23,7 +23,8 @@ public class GenerateNoticesTest extends TestCase {
         // some real ones
         assertEquals("http://plexus.codehaus.org/", GenerateNoticesMojo.longestRelevantUrl("org.codehaus.plexus",
             Arrays.asList("http://plexus.codehaus.org/plexus-components/plexus-interpolation http://plexus.codehaus.org/plexus-containers/plexus-component-annotations/ http://plexus.codehaus.org/plexus-utils http://plexus.codehaus.org/plexus-classworlds/".split(" "))));
-        
+        assertEquals("http://brooklyn.incubator.apache.org/", GenerateNoticesMojo.longestRelevantUrl("org.apache.brooklyn", 
+            Arrays.asList("http://brooklyn.incubator.apache.org/", "http://brooklyn.incubator.apache.org/foo/bar/")));
     }
     
 }
