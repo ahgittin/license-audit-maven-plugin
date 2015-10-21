@@ -2,13 +2,17 @@ package org.heneveld.maven.license_audit;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.License;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -18,6 +22,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.graph.DependencyNode;
 import org.heneveld.maven.license_audit.util.Coords;
+import org.heneveld.maven.license_audit.util.LicenseCodes;
 import org.heneveld.maven.license_audit.util.ProjectsOverrides;
 import org.heneveld.maven.license_audit.util.SimpleMultiMap;
 
@@ -108,7 +113,10 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
             addProjectEntry("Organization", organizationString(data));
             // TODO contributors not yet elegantly formatted when from overrides (and overrides not used above)
             addProjectEntry("Contributors", toStringPoorMans(data.get("contributors")));
-            if (!suppressLicenseInfo) addLicenseInfoEntries(getLicenses(projectByIdCache.get(projectId), projectId));
+            if (!suppressLicenseInfo) {
+                addLicenseInfoEntries(getLicenses(projectByIdCache.get(projectId), projectId));
+                addCopyrightInfo(projectByIdCache.get(projectId), projectId);
+            }
             // any other verbose info?
             endProject();
         }
@@ -140,7 +148,10 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
                 }
                 addProjectEntry("Name", p.getName());
                 addProjectEntry("URL",  overrides.getUrl(p));
-                if (!suppressLicenseInfo) addLicenseInfoEntries(getLicenses(p, id));
+                if (!suppressLicenseInfo) {
+                    addLicenseInfoEntries(getLicenses(p, id));
+                    addCopyrightInfo(p, id);
+                }
                 addVerboseEntries(p);
                 
                 Map<String,DependencyNode> depsInGraphHere = new LinkedHashMap<String,DependencyNode>();
@@ -289,17 +300,78 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
         protected abstract void addLicenseInfoEntries(List<License> ll) throws MojoExecutionException;
         
         protected void addCompleteLicenseInfoEntries(List<License> lics) throws MojoExecutionException {
+            String code = licensesCode(lics);
+            
             addProjectEntry("License Code", licensesCode(lics));
             addProjectEntry("License", licensesString(lics, true));
-            if (lics!=null && lics.size()==1) {
-                License license = lics.iterator().next();
+
+            // if code found or single license, extract simple info, preferring canonical (code) info
+            License license = LicenseCodes.lookupCode(code);
+            if (license!=null) {
                 addProjectEntry("License Name", license.getName());
                 addProjectEntry("License URL", license.getUrl());
-                addProjectEntry("License Comments", license.getComments());
-                addProjectEntry("License Distribution", license.getDistribution());
+            } else if (lics!=null && lics.size()==1) {
+                license = lics.iterator().next();
+                addProjectEntry("License Name", license.getName());
+                addProjectEntry("License URL", license.getUrl());
+                
+                // comments and distribution removed; 
+                // comments included in "License" string above, for all licenses,
+                // and distribution not really useful (repo or manual)
             }
         }
-        
+
+        protected void addCopyrightInfo(MavenProject p, String projectId) throws MojoExecutionException {
+            String result = null;
+
+            Set<String> notices = new LinkedHashSet<String>();
+            GenerateNoticesMojo.addAllNonEmptyStrings(notices, overrides.getOverridesForProject(projectId).get("notice"));
+            GenerateNoticesMojo.addAllNonEmptyStrings(notices, overrides.getOverridesForProject(projectId).get("notices"));
+            Iterator<String> ni = notices.iterator();
+            while (ni.hasNext()) {
+                String n = ni.next();
+                if (n.toLowerCase().indexOf("copyright")<0) ni.remove();
+            }
+            if (!notices.isEmpty()) {
+                result = join(notices, "\n");
+            } else if (p!=null) {
+                result = "Copyright (c)";
+                if (p.getOrganization()!=null && p.getOrganization().getName()!=null && p.getOrganization().getName().length()>0) {
+                    result += " " + p.getOrganization().getName();
+                } else {
+                    result += " " + "project contributors";
+                }
+
+                long releaseYear = -1;
+                Set<Artifact> arts;
+                if (p.getArtifact()!=null && p.getArtifact().getFile()!=null) {
+                    arts = Collections.singleton(p.getArtifact());
+                } else {
+                    arts = projectArtifacts.get(Coords.of(p).normal());
+                    if (arts==null || arts.isEmpty()) {
+                        arts = p.getArtifacts();
+                    }
+                }
+                for (Artifact art: arts) {
+                    if (art.getFile()!=null && art.getFile().exists()) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(new Date(art.getFile().lastModified()));
+                        releaseYear = Math.max(releaseYear, calendar.get(Calendar.YEAR));
+                    }
+                }
+
+                if (p.getInceptionYear()!=null && p.getInceptionYear().length()>0) {
+                    result += " (" + p.getInceptionYear()+"-"+(releaseYear > 0 ? releaseYear : "")+")"; 
+                } else if (releaseYear>0) {
+                    result += " (" + releaseYear+")"; 
+                }
+            }
+
+            if (result!=null) {
+                addProjectEntry("Copyright", result);
+            }
+        }
+
         protected void addSummaryLicenseInfoEntries(List<License> ll) throws MojoExecutionException {
             addProjectEntry("License", licensesSummaryString(ll));
         }
@@ -441,10 +513,9 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
             columns.add("License"); 
             columns.add("License Name");    
             columns.add("License URL"); 
-            columns.add("License Comments");    
-            columns.add("License Distribution");                                
             columns.add("Artifacts Included");  
             columns.add("Dependencies");   
+            columns.add("Copyright");
         }
         
         Map<String,Map<String,String>> allProjectsData = new LinkedHashMap<String, Map<String,String>>();

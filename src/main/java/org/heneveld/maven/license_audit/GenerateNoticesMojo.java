@@ -315,7 +315,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
         return false;
     }
 
-    private void addAllNonEmptyStrings(Collection<String> target, Object ...objects) {
+    static void addAllNonEmptyStrings(Collection<String> target, Object ...objects) {
         for (Object object: objects) {
             if (object==null) continue;
             if ("".equals(object)) continue;

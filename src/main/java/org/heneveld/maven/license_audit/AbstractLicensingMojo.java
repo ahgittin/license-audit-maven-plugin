@@ -109,6 +109,7 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
     // keyed on groupId + artifactId 
     protected Map<String,String> includedProjectsUnversionedToVersioned = new LinkedHashMap<String,String>();
     protected SimpleMultiMap<String,String> projectToDependencyGraphParent = new SimpleMultiMap<String,String>();
+    protected SimpleMultiMap<String,org.apache.maven.artifact.Artifact> projectArtifacts = new SimpleMultiMap<String,org.apache.maven.artifact.Artifact>();
 
     // keyed by groupId + artifactId + version
     Map<String,MavenProject> projectByIdCache = new LinkedHashMap<String,MavenProject>();
@@ -195,7 +196,7 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
         rootDependencyGraph = depRes.getDependencyGraph();
         getLog().debug("Dependency graph with scopes "+includeDependencyScopes+":");
         dump("", rootDependencyGraph);
-        
+
         projectByIdCache.put(Coords.of(project).normal(), project);
         collectDeps(rootDependencyGraph, project, 0);
     }
@@ -282,12 +283,14 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
             }
         }
 
-        if (p==null && n0.getArtifact()!=null) p = loadProject(newMavenArtifact(n0.getArtifact()));
+        DefaultArtifact n0art = newMavenArtifact(n0.getArtifact());
+        if (p==null && n0.getArtifact()!=null) p = loadProject(n0art);
         
         includedBaseArtifactsCoordsToProject.put(Coords.of(n0).baseArtifact(), Coords.of(n0).normal());
         includedProjects.add(Coords.of(n0).normal());
         includedArtifactsUnversionedToBaseArtifactCoords.put(Coords.of(n0).unversionedArtifact(), Coords.of(n0).baseArtifact());
         includedProjectsUnversionedToVersioned.put(Coords.of(n0).unversioned(), Coords.of(n0).normal());
+        projectArtifacts.put(Coords.of(n0).normal(), n0art);
         
         if (depth>=this.maxDepth) return;
         
@@ -363,9 +366,11 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
     }
 
     protected DefaultArtifact newMavenArtifact(Artifact da) {
-        return new org.apache.maven.artifact.DefaultArtifact(
+        DefaultArtifact result = new org.apache.maven.artifact.DefaultArtifact(
             da.getGroupId(), da.getArtifactId(), da.getVersion(),
             null, da.getExtension(), da.getClassifier(), artifactHandler);
+        result.setFile(da.getFile());
+        return result;
     }
 
     protected static String organizationString(Object org) {
@@ -415,7 +420,9 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
         for (Contributor c: contributors) {
             StringBuilder ri = new StringBuilder();
             if (isNonEmpty(c.getName())) ri.append(c.getName());
-            if (isNonEmpty(c.getOrganization())) {
+            if (isNonEmpty(c.getOrganization()) && !c.getOrganization().startsWith(Organization.class.getName())) {
+                // ignore org strings of the form org.apache.maven.model.Organization@4b713040
+                // these come from Developer subclass of Contributor which seems to do an Organization.toString() :(
                 if (ri.length()>0) ri.append(" / ");
                 ri.append(c.getOrganization());
             }
