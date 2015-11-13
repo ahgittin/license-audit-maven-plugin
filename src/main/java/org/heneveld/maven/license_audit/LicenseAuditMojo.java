@@ -107,7 +107,6 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
             startProject(projectId, null);
             Map<String, Object> data = overrides.getOverridesForProject(projectId);
             addProjectEntry("Name", (String)data.get("name"));
-            addProjectEntry("Version", (String)data.get("version"));
             addProjectEntry("Description", (String)data.get("description"));
             addProjectEntry("URL", (String)data.get("url"));
             addProjectEntry("Organization", organizationString(data));
@@ -531,12 +530,25 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
         public void startProject(String id, MavenProject p) throws MojoExecutionException {
             super.startProject(id, p);
             thisProjectData = new LinkedHashMap<String, String>();
-            addProjectEntry("ID", id);
+            
+            Map<String, Object> data = overrides.getOverridesForProject(id);
+            String version = data==null ? null : (String)data.get("version");
+            if (data==null && p!=null && p.getArtifact()!=null) {
+                version = p.getArtifact().getBaseVersion();  
+            }
+            
+            if (version!=null) {
+                String idWithVersion = id;
+                if (id.indexOf(version)<0) idWithVersion = id+":"+version;
+                addProjectEntry("ID", idWithVersion);
+                addProjectEntry("Version", version);
+            } else {
+                addProjectEntry("ID", id);
+            }
             if (p!=null && p.getArtifact()!=null) {
                 // the artifact is a more reliable indicator of its coordinates
                 addProjectEntry("GroupId", p.getArtifact().getGroupId());
                 addProjectEntry("ArtifactId", p.getArtifact().getArtifactId());
-                addProjectEntry("Version", p.getArtifact().getBaseVersion());
             }
             allProjectsData.put(id, thisProjectData);
         }
