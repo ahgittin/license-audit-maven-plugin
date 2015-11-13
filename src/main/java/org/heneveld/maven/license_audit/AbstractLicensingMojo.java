@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -50,7 +51,7 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
 
     @Parameter( defaultValue = "", property = "outputFile", required = false )
     protected String outputFilePath;
-    protected FileWriter outputFileWriter = null;
+    protected Writer outputWriter = null;
 
 
     @Parameter( defaultValue = "-1", property = "depth", required = true )
@@ -81,7 +82,7 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
     protected boolean onlyExtras;
     
     @Component
-    protected Maven defaultMaven;
+    Maven defaultMaven;
     
     @Component
     MavenProject project;
@@ -90,11 +91,11 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
     MavenSession mavenSession;
     
     @Component
-    protected ProjectBuilder projectBuilder;
+    ProjectBuilder projectBuilder;
     @Component
-    protected ProjectDependenciesResolver depsResolver;
+    ProjectDependenciesResolver depsResolver;
     @Component
-    protected ArtifactHandler artifactHandler;
+    ArtifactHandler artifactHandler;
 
     @Parameter(property = "project.remoteArtifactRepositories")
     protected List<ArtifactRepository> remoteRepositories;
@@ -134,7 +135,7 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
             
         if (isNonEmpty(outputFilePath)) {
             try {
-                outputFileWriter = new FileWriter(outputFilePath);
+                outputWriter = new FileWriter(outputFilePath);
             } catch (IOException e) {
                 throw new MojoExecutionException("Error creating "+outputFilePath+": "+e);
             }
@@ -202,9 +203,9 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
     }
 
     protected void finishMojo() throws MojoExecutionException {
-        if (outputFileWriter!=null) {
+        if (outputWriter!=null) {
             try {
-                outputFileWriter.close();
+                outputWriter.close();
             } catch (IOException e) {
                 throw new MojoExecutionException("Error closing "+outputFilePath, e);
             }

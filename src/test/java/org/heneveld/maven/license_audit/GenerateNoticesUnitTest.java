@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 
-public class GenerateNoticesTest extends TestCase {
+public class GenerateNoticesUnitTest extends TestCase {
 
     public void testLongestUrl() {
         assertEquals("http://foo.com/bar/", GenerateNoticesMojo.longestRelevantUrl("org.foo.bar", 

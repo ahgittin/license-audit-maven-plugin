@@ -1,0 +1,1823 @@
+org.heneveld.maven.license_audit:test-brooklyn-pom:0.1
+  Name: Test-Purposes Only Project Referencing Brooklyn
+  License: <unknown>
+  Copyright: Copyright (c) project contributors
+  Artifacts Included: (root)
+  Dependencies: org.apache.brooklyn:brooklyn-dist:jar:0.8.0-incubating (compile, included, detail below)
+  Dependencies pulled in here detail:
+  +-org.apache.brooklyn:brooklyn-dist:0.8.0-incubating
+  |   Name: Brooklyn Distribution
+  |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-dist/
+  |   License: ASL2
+  |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   Artifacts Included: jar (compile)
+  |   Dependencies: org.apache.brooklyn:brooklyn-all:jar:0.8.0-incubating (compile, included, detail below)
+  |   Dependencies pulled in here detail:
+  |   +-org.apache.brooklyn:brooklyn-all:0.8.0-incubating
+  |   |   Name: Brooklyn All Things
+  |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-all/
+  |   |   License: ASL2
+  |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   Artifacts Included: jar (compile)
+  |   |   Dependencies:
+  |   |     com.google.guava:guava:jar:17.0 (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-locations-jclouds:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-software-webapp:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-software-messaging:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-software-monitoring:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-software-database:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-software-osgi:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-software-nosql:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-software-network:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-launcher:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.brooklyn:brooklyn-cli:jar:0.8.0-incubating (compile, included, detail below)
+  |   |     org.apache.jclouds:jclouds-allcompute:jar:1.9.1 (compile, included, detail below)
+  |   |   Dependencies pulled in here detail:
+  |   |   +-com.google.guava:guava:17.0
+  |   |   |   Name: Guava: Google Core Libraries for Java
+  |   |   |   URL: http://code.google.com/p/guava-libraries/guava
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) project contributors (2010-2014)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies: com.google.code.findbugs:jsr305:jar:1.3.9 (compile, optional, version 2.0.1 included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   +-org.apache.brooklyn:brooklyn-policy:0.8.0-incubating
+  |   |   |   Name: Brooklyn Policies
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-policy/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, detail below)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, detail below)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-org.apache.brooklyn:brooklyn-core:0.8.0-incubating
+  |   |   |   |   Name: Brooklyn Core
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-core/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     io.cloudsoft.windows:winrm4j:jar:0.1.0 (compile, included, detail below)
+  |   |   |   |     net.schmizz:sshj:jar:0.8.1 (compile, included, detail below)
+  |   |   |   |     com.thoughtworks.xstream:xstream:jar:1.4.7 (compile, included, detail below)
+  |   |   |   |     org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included, detail below)
+  |   |   |   |     com.google.code.gson:gson:jar:2.3 (compile, included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |     commons-io:commons-io:jar:2.4 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.bouncycastle:bcprov-ext-jdk15on:jar:1.49 (compile, included, detail below)
+  |   |   |   |     org.bouncycastle:bcpkix-jdk15on:jar:1.49 (compile, included, detail below)
+  |   |   |   |     org.apache.felix:org.apache.felix.framework:jar:4.4.0 (compile, included, from org.apache.brooklyn:brooklyn-software-osgi:0.8.0-incubating)
+  |   |   |   |     org.reflections:reflections:jar:0.9.9-RC1 (compile, included, detail below)
+  |   |   |   |     org.freemarker:freemarker:jar:2.3.22 (compile, included, detail below)
+  |   |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.httpcomponents:httpcore:jar:4.4.1 (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |   |     xml-apis:xml-apis:jar:1.0.b2 (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included, detail below)
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     com.maxmind.geoip2:geoip2:jar:0.8.1 (compile, included, detail below)
+  |   |   |   |     org.apache.commons:commons-lang3:jar:3.1 (compile, included, detail below)
+  |   |   |   |     com.jayway.jsonpath:json-path:jar:2.0.0 (compile, included, detail below)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-io.cloudsoft.windows:winrm4j:0.1.0
+  |   |   |   |   |   Name: Java / Jython wrapper for pyWinRM
+  |   |   |   |   |   URL: http://github.com/cloudsoft/winrm4j
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.python:jython-standalone:jar:2.7-b3 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.python:jython-standalone:2.7-b3
+  |   |   |   |   |   |   Name: Jython
+  |   |   |   |   |   |   URL: http://www.jython.org/
+  |   |   |   |   |   |   License: Jython Software License
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   +-net.schmizz:sshj:0.8.1
+  |   |   |   |   |   Name: sshj
+  |   |   |   |   |   URL: http://github.com/shikhar/sshj
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2009-2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.slf4j:slf4j-api:jar:1.6.1 (compile, version 1.6.6 included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |   +-com.thoughtworks.xstream:xstream:1.4.7
+  |   |   |   |   |   Name: XStream Core
+  |   |   |   |   |   URL: http://codehaus.org/xstream-parent/xstream/
+  |   |   |   |   |   License: BSD
+  |   |   |   |   |   Copyright: Copyright (c) XStream (2004-2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     dom4j:dom4j:jar:1.6.1 (compile, optional, included, from org.reflections:reflections:0.9.9-RC1)
+  |   |   |   |   |     xmlpull:xmlpull:jar:1.1.3.1 (compile, included, detail below)
+  |   |   |   |   |     xpp3:xpp3_min:jar:1.1.4c (compile, included, detail below)
+  |   |   |   |   |     org.codehaus.jettison:jettison:jar:1.2 (compile, optional, version 1.1 included, from com.sun.jersey:jersey-json:1.18.1)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-xmlpull:xmlpull:1.1.3.1
+  |   |   |   |   |   |   Name: XML Pull Parsing API
+  |   |   |   |   |   |   URL: http://www.xmlpull.org
+  |   |   |   |   |   |   License: Public Domain
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   |   +-xpp3:xpp3_min:1.1.4c
+  |   |   |   |   |   |   Name: MXP1: Xml Pull Parser 3rd Edition (XPP3)
+  |   |   |   |   |   |   URL: http://www.extreme.indiana.edu/xgws/xsoap/xpp/mxp1/
+  |   |   |   |   |   |   License:
+  |   |   |   |   |   |     Indiana University Extreme! Lab Software License, vesion 1.1.1
+  |   |   |   |   |   |     Public Domain
+  |   |   |   |   |   |   Copyright: Copyright (c) Extreme! Lab, Indiana University (2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   +-org.codehaus.jackson:jackson-mapper-asl:1.9.13
+  |   |   |   |   |   Name: Data Mapper for Jackson
+  |   |   |   |   |   URL: http://jackson.codehaus.org
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) FasterXML (2013)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   +-org.bouncycastle:bcprov-ext-jdk15on:1.49
+  |   |   |   |   |   Name: Bouncy Castle Provider
+  |   |   |   |   |   URL: http://www.bouncycastle.org/java.html
+  |   |   |   |   |   License: Bouncy Castle Licence
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   +-org.bouncycastle:bcpkix-jdk15on:1.49
+  |   |   |   |   |   Name: Bouncy Castle PKIX, CMS, EAC, TSP, PKCS, OCSP, CMP, and CRMF APIs
+  |   |   |   |   |   URL: http://www.bouncycastle.org/java.html
+  |   |   |   |   |   License: Bouncy Castle Licence
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.bouncycastle:bcprov-jdk15on:jar:1.49 (compile, excluded from build)
+  |   |   |   |   +-org.reflections:reflections:0.9.9-RC1
+  |   |   |   |   |   Name: Reflections
+  |   |   |   |   |   URL: http://code.google.com/p/reflections/reflections/
+  |   |   |   |   |   License: WTFPL
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2013)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     com.google.guava:guava:jar:11.0.2 (compile, version 17.0 included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |   |     org.javassist:javassist:jar:3.16.1-GA (compile, included, detail below)
+  |   |   |   |   |     org.slf4j:slf4j-api:jar:1.6.1 (compile, optional, version 1.6.6 included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |   |     dom4j:dom4j:jar:1.6.1 (compile, included, detail below)
+  |   |   |   |   |     com.google.code.gson:gson:jar:1.4 (compile, optional, version 2.3 included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.javassist:javassist:3.16.1-GA
+  |   |   |   |   |   |   Name: Javassist
+  |   |   |   |   |   |   URL: http://www.javassist.org/
+  |   |   |   |   |   |   License:
+  |   |   |   |   |   |     MPL 1.1
+  |   |   |   |   |   |     LGPL2.1
+  |   |   |   |   |   |     ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2013)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   |   +-dom4j:dom4j:1.6.1
+  |   |   |   |   |   |   Name: dom4j
+  |   |   |   |   |   |   URL: http://dom4j.org
+  |   |   |   |   |   |   License: <unknown>
+  |   |   |   |   |   |   Copyright: Copyright (c) MetaStuff Ltd. (2001-2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: xml-apis:xml-apis:jar:1.0.b2 (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |   |   +-org.freemarker:freemarker:2.3.22
+  |   |   |   |   |   Name: FreeMarker
+  |   |   |   |   |   URL: http://freemarker.org/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   +-org.codehaus.jackson:jackson-core-asl:1.9.13
+  |   |   |   |   |   Name: Jackson
+  |   |   |   |   |   URL: http://jackson.codehaus.org
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) FasterXML (2013)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   +-com.maxmind.geoip2:geoip2:0.8.1
+  |   |   |   |   |   Name: MaxMind GeoIP2 API
+  |   |   |   |   |   URL: http://dev.maxmind.com/geoip/geoip2/web-services
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) MaxMind, Inc. (2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     com.maxmind.db:maxmind-db:jar:0.3.4 (compile, included, detail below)
+  |   |   |   |   |     com.google.http-client:google-http-client:jar:1.18.0-rc (compile, included, detail below)
+  |   |   |   |   |     com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included, from org.apache.brooklyn.camp:camp-server:0.8.0-incubating)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.maxmind.db:maxmind-db:0.3.4
+  |   |   |   |   |   |   Name: MaxMind DB Reader
+  |   |   |   |   |   |   URL: http://dev.maxmind.com/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) MaxMind, Inc. (2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included, from org.apache.brooklyn.camp:camp-server:0.8.0-incubating)
+  |   |   |   |   |   +-com.google.http-client:google-http-client:1.18.0-rc
+  |   |   |   |   |   |   Name: Google HTTP Client Library for Java
+  |   |   |   |   |   |   URL: http://code.google.com/p/google-http-java-client/google-http-client/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) Google (2011-2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     com.google.code.findbugs:jsr305:jar:1.3.9 (compile, version 2.0.1 included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |   |     org.apache.httpcomponents:httpclient:jar:4.0.1 (compile, version 4.4.1 included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   +-org.apache.commons:commons-lang3:3.1
+  |   |   |   |   |   Name: Commons Lang
+  |   |   |   |   |   URL: http://commons.apache.org/lang/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2001-2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   +-com.jayway.jsonpath:json-path:2.0.0
+  |   |   |   |   |   Name: Json Path
+  |   |   |   |   |   URL: https://github.com/jayway/JsonPath
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.slf4j:slf4j-api:jar:1.7.10 (compile, version 1.6.6 included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |   |     net.minidev:json-smart:jar:2.1.1 (compile, included, detail below)
+  |   |   |   |   |     com.google.code.gson:gson:jar:2.3.1 (compile, optional, version 2.3 included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |   |     com.fasterxml.jackson.core:jackson-databind:jar:2.4.5 (compile, optional, version 2.4.2 included, from org.apache.brooklyn.camp:camp-server:0.8.0-incubating)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-net.minidev:json-smart:2.1.1
+  |   |   |   |   |   |   Name: JSON Small and Fast Parser
+  |   |   |   |   |   |   URL: http://json-smart/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) Chemouni Uriel (2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: net.minidev:asm:jar:1.0.2 (compile, included, detail below)
+  |   |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   |   +-net.minidev:asm:1.0.2
+  |   |   |   |   |   |   |   Name: ASM helper Minidev
+  |   |   |   |   |   |   |   URL: http://asm/
+  |   |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   |   Copyright: Copyright (c) Chemouni Uriel (2015)
+  |   |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   |   Dependencies: asm:asm:jar:3.3.1 (compile, included, detail below)
+  |   |   |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   |   |   +-asm:asm:3.3.1
+  |   |   |   |   |   |   |   |   Name: ASM Core
+  |   |   |   |   |   |   |   |   URL: http://asm.objectweb.org/asm/
+  |   |   |   |   |   |   |   |   License: BSD
+  |   |   |   |   |   |   |   |   Copyright: Copyright (c) ObjectWeb (2000-2012)
+  |   |   |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   |   |   Dependencies: (none)
+  |   |   |   +-org.codehaus.groovy:groovy-all:2.3.4
+  |   |   |   |   Name: Groovy
+  |   |   |   |   URL: http://groovy.codehaus.org/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Codehaus (2003-2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     commons-logging:commons-logging:jar:1.1.1 (compile, optional, version 1.2 included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |     com.thoughtworks.xstream:xstream:jar:1.4.7 (compile, optional, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   +-org.apache.brooklyn:brooklyn-utils-common:0.8.0-incubating
+  |   |   |   |   Name: Brooklyn Common Utilities
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-utils-common/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     ch.qos.logback:logback-classic:jar:1.0.7 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.slf4j:jul-to-slf4j:jar:1.6.6 (compile, included, detail below)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     commons-io:commons-io:jar:2.4 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.yaml:snakeyaml:jar:1.11 (compile, included, detail below)
+  |   |   |   |     org.apache.brooklyn:brooklyn-logback-includes:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.slf4j:jul-to-slf4j:1.6.6
+  |   |   |   |   |   Name: JUL to SLF4J bridge
+  |   |   |   |   |   URL: http://www.slf4j.org
+  |   |   |   |   |   License: MIT
+  |   |   |   |   |   Copyright: Copyright (c) QOS.ch (2005-2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |   +-org.yaml:snakeyaml:1.11
+  |   |   |   |   |   Name: SnakeYAML
+  |   |   |   |   |   URL: http://www.snakeyaml.org
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2008-2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   +-org.apache.brooklyn:brooklyn-logback-includes:0.8.0-incubating
+  |   |   |   |   |   Name: Brooklyn Logback Includable Configuration
+  |   |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-logback-includes/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     ch.qos.logback:logback-classic:jar:1.0.7 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |     ch.qos.logback:logback-core:jar:1.0.7 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   +-org.slf4j:slf4j-api:1.6.6
+  |   |   |   |   Name: SLF4J API Module
+  |   |   |   |   URL: http://www.slf4j.org
+  |   |   |   |   License: MIT
+  |   |   |   |   Copyright: Copyright (c) QOS.ch (2005-2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   +-org.apache.brooklyn:brooklyn-utils-groovy:0.8.0-incubating
+  |   |   |   |   Name: Brooklyn Groovy Utilities
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-utils-groovy/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   +-org.apache.brooklyn:brooklyn-api:0.8.0-incubating
+  |   |   |   |   Name: Brooklyn API
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-api/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   +-org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating
+  |   |   |   Name: Brooklyn Jclouds Location Targets
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-locations-jclouds/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, detail below)
+  |   |   |     com.google.inject:guice:jar:3.0 (compile, included, detail below)
+  |   |   |     javax.inject:javax.inject:jar:1 (compile, included, detail below)
+  |   |   |     commons-io:commons-io:jar:2.4 (compile, included, detail below)
+  |   |   |     org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included, detail below)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     javax.annotation:jsr250-api:jar:1.0 (compile, included, detail below)
+  |   |   |     aopalliance:aopalliance:jar:1.0 (compile, included, detail below)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.jclouds.driver:jclouds-slf4j:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.driver:jclouds-bouncycastle:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.driver:jclouds-sshj:jar:1.9.1 (compile, included, detail below)
+  |   |   |     net.java.dev.jna:jna:jar:4.0.0 (compile, included, detail below)
+  |   |   |     net.java.dev.jna:jna-platform:jar:4.0.0 (compile, included, detail below)
+  |   |   |     org.apache.jclouds:jclouds-allblobstore:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds:jclouds-allcompute:jar:1.9.1 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.apache.jclouds.labs:abiquo:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.labs:google-compute-engine:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.labs:docker:jar:1.9.1 (compile, included, detail below)
+  |   |   |     ch.qos.logback:logback-classic:jar:1.0.7 (compile, included, detail below)
+  |   |   |     ch.qos.logback:logback-core:jar:1.0.7 (compile, included, detail below)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-com.google.code.findbugs:jsr305:2.0.1
+  |   |   |   |   Name: FindBugs-jsr305
+  |   |   |   |   URL: http://findbugs.sourceforge.net/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   |   +-com.google.inject:guice:3.0
+  |   |   |   |   Name: Google Guice - Core Library
+  |   |   |   |   URL: http://code.google.com/p/google-guice/guice/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) Google, Inc. (2006-2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     javax.inject:javax.inject:jar:1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     aopalliance:aopalliance:jar:1.0 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   +-javax.inject:javax.inject:1
+  |   |   |   |   Name: javax.inject
+  |   |   |   |   URL: http://code.google.com/p/atinject/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   |   +-commons-io:commons-io:2.4
+  |   |   |   |   Name: Commons IO
+  |   |   |   |   URL: http://commons.apache.org/io/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2002-2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   +-org.apache.httpcomponents:httpclient:4.4.1
+  |   |   |   |   Name: Apache HttpClient
+  |   |   |   |   URL: http://hc.apache.org/httpcomponents-client
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (1999-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.httpcomponents:httpcore:jar:4.4.1 (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |   |     commons-logging:commons-logging:jar:1.2 (compile, included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |     commons-codec:commons-codec:jar:1.9 (compile, included, from org.apache.brooklyn:brooklyn-software-messaging:0.8.0-incubating)
+  |   |   |   +-javax.annotation:jsr250-api:1.0
+  |   |   |   |   Name: JSR-250 Common Annotations for the JavaTM Platform
+  |   |   |   |   URL: http://jcp.org/aboutJava/communityprocess/final/jsr250/index.html
+  |   |   |   |   License: CDDL1
+  |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   |   +-aopalliance:aopalliance:1.0
+  |   |   |   |   Name: AOP alliance
+  |   |   |   |   URL: http://aopalliance.sourceforge.net
+  |   |   |   |   License: Public Domain
+  |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   |   +-org.apache.jclouds.driver:jclouds-slf4j:1.9.1
+  |   |   |   |   Name: jclouds SLF4J Logging Module
+  |   |   |   |   URL: http://jclouds.apache.org/jclouds-slf4j/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.7.2 (compile, version 1.6.6 included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.jclouds:jclouds-core:1.9.1
+  |   |   |   |   |   Name: jclouds Components Core
+  |   |   |   |   |   URL: http://jclouds.apache.org/jclouds-core/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     javax.ws.rs:jsr311-api:jar:1.1.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     com.google.inject.extensions:guice-assistedinject:jar:3.0 (compile, included, detail below)
+  |   |   |   |   |     com.google.inject:guice:jar:3.0 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |     org.99soft.guice:rocoto:jar:6.2 (compile, included, detail below)
+  |   |   |   |   |     javax.inject:javax.inject:jar:1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |     javax.annotation:jsr250-api:jar:1.0 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |     com.google.code.gson:gson:jar:2.3 (compile, included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |   |     com.google.guava:guava:jar:16.0.1 (compile, version 17.0 included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.google.inject.extensions:guice-assistedinject:3.0
+  |   |   |   |   |   |   Name: Google Guice - Extensions - AssistedInject
+  |   |   |   |   |   |   URL: http://code.google.com/p/google-guice/extensions-parent/guice-assistedinject/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) Google, Inc. (2006-2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     com.google.inject:guice:jar:3.0 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |   |     com.google.inject:guice:jar:no_deps:3.0 (compile, optional, project included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |   +-org.99soft.guice:rocoto:6.2
+  |   |   |   |   |   |   Name: 99soft :: Rocoto
+  |   |   |   |   |   |   URL: http://99soft.github.com/rocoto/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) 99 Software Foundation (2010-2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     javax.inject:javax.inject:jar:1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |   |     com.google.inject:guice:jar:3.0 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   +-org.apache.jclouds.driver:jclouds-bouncycastle:1.9.1
+  |   |   |   |   Name: jclouds bouncycastle EncryptionService Module
+  |   |   |   |   URL: http://jclouds.apache.org/jclouds-bouncycastle/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |     org.bouncycastle:bcprov-ext-jdk15on:jar:1.49 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   +-org.apache.jclouds.driver:jclouds-sshj:1.9.1
+  |   |   |   |   Name: jclouds sshj ssh client
+  |   |   |   |   URL: http://jclouds.apache.org/jclouds-sshj/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |     org.apache.jclouds.driver:jclouds-slf4j:jar:1.9.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.apache.jclouds.driver:jclouds-bouncycastle:jar:1.9.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     net.schmizz:sshj:jar:0.8.1 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     org.bouncycastle:bcpkix-jdk15on:jar:1.49 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     com.jcraft:jsch.agentproxy.sshj:jar:0.0.8 (compile, included, detail below)
+  |   |   |   |     com.jcraft:jsch.agentproxy.connector-factory:jar:0.0.8 (compile, included, detail below)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.jclouds:jclouds-compute:1.9.1
+  |   |   |   |   |   Name: jclouds compute core
+  |   |   |   |   |   URL: http://jclouds.apache.org/jclouds-compute/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.apache.jclouds:jclouds-scriptbuilder:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.apache.jclouds:jclouds-scriptbuilder:1.9.1
+  |   |   |   |   |   |   Name: jclouds script builder
+  |   |   |   |   |   |   URL: http://jclouds.apache.org/jclouds-scriptbuilder/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   +-com.jcraft:jsch.agentproxy.sshj:0.0.8
+  |   |   |   |   |   Name: a library to use jsch-agent-proxy with sshj
+  |   |   |   |   |   URL: http://www.jcraft.com/jsch-agent-proxy/jsch.agentproxy.sshj/
+  |   |   |   |   |   License: BSD-3-Clause
+  |   |   |   |   |   Copyright: Copyright (c) JCraft,Inc. (2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     net.schmizz:sshj:jar:[0.8.1,) (compile, version 0.8.1 included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |     com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.jcraft:jsch.agentproxy.core:0.0.8
+  |   |   |   |   |   |   Name: jsch-agent-proxy core library
+  |   |   |   |   |   |   URL: http://www.jcraft.com/jsch-agent-proxy/jsch.agentproxy.core/
+  |   |   |   |   |   |   License: BSD-3-Clause
+  |   |   |   |   |   |   Copyright: Copyright (c) JCraft,Inc. (2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   +-com.jcraft:jsch.agentproxy.connector-factory:0.0.8
+  |   |   |   |   |   Name: a connector factory
+  |   |   |   |   |   URL: http://www.jcraft.com/jsch-agent-proxy/jsch.agentproxy.connector-factory/
+  |   |   |   |   |   License: BSD-3-Clause
+  |   |   |   |   |   Copyright: Copyright (c) JCraft,Inc. (2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included, from com.jcraft:jsch.agentproxy.sshj:0.0.8)
+  |   |   |   |   |     com.jcraft:jsch.agentproxy.usocket-jna:jar:0.0.8 (compile, included, detail below)
+  |   |   |   |   |     com.jcraft:jsch.agentproxy.usocket-nc:jar:0.0.8 (compile, included, detail below)
+  |   |   |   |   |     com.jcraft:jsch.agentproxy.sshagent:jar:0.0.8 (compile, included, detail below)
+  |   |   |   |   |     com.jcraft:jsch.agentproxy.pageant:jar:0.0.8 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.jcraft:jsch.agentproxy.usocket-jna:0.0.8
+  |   |   |   |   |   |   Name: an implementation of USocketFactory using JNA
+  |   |   |   |   |   |   URL: http://www.jcraft.com/jsch-agent-proxy/jsch.agentproxy.usocket-jna/
+  |   |   |   |   |   |   License: BSD-3-Clause
+  |   |   |   |   |   |   Copyright: Copyright (c) JCraft,Inc. (2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included, from com.jcraft:jsch.agentproxy.sshj:0.0.8)
+  |   |   |   |   |   |     net.java.dev.jna:jna:jar:4.1.0 (compile, version 4.0.0 included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |   |     net.java.dev.jna:jna-platform:jar:4.1.0 (compile, version 4.0.0 included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |   +-com.jcraft:jsch.agentproxy.usocket-nc:0.0.8
+  |   |   |   |   |   |   Name: an implementation of USocketFactory using netcat
+  |   |   |   |   |   |   URL: http://www.jcraft.com/jsch-agent-proxy/jsch.agentproxy.usocket-nc/
+  |   |   |   |   |   |   License: BSD-3-Clause
+  |   |   |   |   |   |   Copyright: Copyright (c) JCraft,Inc. (2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included, from com.jcraft:jsch.agentproxy.sshj:0.0.8)
+  |   |   |   |   |   +-com.jcraft:jsch.agentproxy.sshagent:0.0.8
+  |   |   |   |   |   |   Name: a connector for ssh-agent
+  |   |   |   |   |   |   URL: http://www.jcraft.com/jsch-agent-proxy/jsch.agentproxy.sshagent/
+  |   |   |   |   |   |   License: BSD-3-Clause
+  |   |   |   |   |   |   Copyright: Copyright (c) JCraft,Inc. (2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included, from com.jcraft:jsch.agentproxy.sshj:0.0.8)
+  |   |   |   |   |   +-com.jcraft:jsch.agentproxy.pageant:0.0.8
+  |   |   |   |   |   |   Name: a connector for Pageant using JNA
+  |   |   |   |   |   |   URL: http://www.jcraft.com/jsch-agent-proxy/jsch.agentproxy.pageant/
+  |   |   |   |   |   |   License: BSD-3-Clause
+  |   |   |   |   |   |   Copyright: Copyright (c) JCraft,Inc. (2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included, from com.jcraft:jsch.agentproxy.sshj:0.0.8)
+  |   |   |   |   |   |     net.java.dev.jna:jna:jar:4.1.0 (compile, version 4.0.0 included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |   |     net.java.dev.jna:jna-platform:jar:4.1.0 (compile, version 4.0.0 included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   +-net.java.dev.jna:jna:4.0.0
+  |   |   |   |   Name: Java Native Access
+  |   |   |   |   URL: https://github.com/twall/jna
+  |   |   |   |   License:
+  |   |   |   |     LGPL2.1
+  |   |   |   |     ASL2
+  |   |   |   |   Copyright: Copyright (c) project contributors (2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   |   +-net.java.dev.jna:jna-platform:4.0.0
+  |   |   |   |   Name: Java Native Access Platform
+  |   |   |   |   URL: https://github.com/twall/jna
+  |   |   |   |   License:
+  |   |   |   |     LGPL2.1
+  |   |   |   |     ASL2
+  |   |   |   |   Copyright: Copyright (c) project contributors (2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: net.java.dev.jna:jna:jar:4.0.0 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   +-org.apache.jclouds:jclouds-allblobstore:1.9.1
+  |   |   |   |   Name: allblobstore
+  |   |   |   |   URL: http://jclouds.apache.org/jclouds-allblobstore/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds.api:s3:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.provider:aws-s3:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.provider:azureblob:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.api:atmos:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.api:swift:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.provider:rackspace-cloudfiles-us:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.provider:rackspace-cloudfiles-uk:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.provider:hpcloud-objectstorage:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.api:filesystem:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.jclouds.api:s3:1.9.1
+  |   |   |   |   |   Name: jclouds s3 api
+  |   |   |   |   |   URL: http://jclouds.apache.org/s3/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     com.jamesmurty.utils:java-xmlbuilder:jar:1.1 (compile, included, detail below)
+  |   |   |   |   |     org.apache.jclouds.api:sts:jar:1.9.1 (compile, included, from org.apache.jclouds.api:ec2:1.9.1)
+  |   |   |   |   |     org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.jamesmurty.utils:java-xmlbuilder:1.1
+  |   |   |   |   |   |   Name: java-xmlbuilder
+  |   |   |   |   |   |   URL: https://github.com/jmurty/java-xmlbuilder
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: net.iharder:base64:jar:2.3.8 (compile, included, detail below)
+  |   |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   |   +-net.iharder:base64:2.3.8
+  |   |   |   |   |   |   |   Name: base64
+  |   |   |   |   |   |   |   URL: http://iharder.net/base64/
+  |   |   |   |   |   |   |   License: Public domain
+  |   |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2015)
+  |   |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   |   +-org.apache.jclouds:jclouds-blobstore:1.9.1
+  |   |   |   |   |   |   Name: jclouds blobstore core
+  |   |   |   |   |   |   URL: http://jclouds.apache.org/jclouds-blobstore/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.provider:aws-s3:1.9.1
+  |   |   |   |   |   Name: jclouds Amazon Simple Storage Service (S3) provider
+  |   |   |   |   |   URL: http://jclouds.apache.org/aws-s3/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.apache.jclouds.api:s3:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allblobstore:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.provider:azureblob:1.9.1
+  |   |   |   |   |   Name: jclouds Azure Storage provider
+  |   |   |   |   |   URL: http://jclouds.apache.org/azureblob/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included, from org.apache.jclouds.api:s3:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.api:atmos:1.9.1
+  |   |   |   |   |   Name: jclouds atmos components
+  |   |   |   |   |   URL: http://jclouds.apache.org/atmos/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included, from org.apache.jclouds.api:s3:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.api:swift:1.9.1
+  |   |   |   |   |   Name: jclouds swift api
+  |   |   |   |   |   URL: http://jclouds.apache.org/swift/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   |   |     org.apache.jclouds.common:openstack-common:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |   |     org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included, from org.apache.jclouds.api:s3:1.9.1)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.apache.jclouds.common:openstack-common:1.9.1
+  |   |   |   |   |   |   Name: jclouds OpenStack Components Core
+  |   |   |   |   |   |   URL: http://jclouds.apache.org/openstack-common/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.api:openstack-swift:1.9.1
+  |   |   |   |   |   Name: jclouds openstack-swift api
+  |   |   |   |   |   URL: http://jclouds.apache.org/openstack-swift/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   |   |     org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included, from org.apache.jclouds.api:s3:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.provider:rackspace-cloudfiles-us:1.9.1
+  |   |   |   |   |   Name: jclouds Rackspace Cloud Files US provider
+  |   |   |   |   |   URL: http://jclouds.apache.org/rackspace-cloudfiles-us/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allblobstore:1.9.1)
+  |   |   |   |   |     org.apache.jclouds.api:rackspace-cloudfiles:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |   |     org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   |     org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included, from org.apache.jclouds.provider:rackspace-cloudservers-us:1.9.1)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.apache.jclouds.api:rackspace-cloudfiles:1.9.1
+  |   |   |   |   |   |   Name: jclouds rackspace-cloudfiles api
+  |   |   |   |   |   |   URL: http://jclouds.apache.org/rackspace-cloudfiles/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allblobstore:1.9.1)
+  |   |   |   |   |   |     org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   |   |   |     org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included, from org.apache.jclouds.provider:rackspace-cloudservers-us:1.9.1)
+  |   |   |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.provider:rackspace-cloudfiles-uk:1.9.1
+  |   |   |   |   |   Name: jclouds Rackspace Cloud Files UK provider
+  |   |   |   |   |   URL: http://jclouds.apache.org/rackspace-cloudfiles-uk/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allblobstore:1.9.1)
+  |   |   |   |   |     org.apache.jclouds.api:rackspace-cloudfiles:jar:1.9.1 (compile, included, from org.apache.jclouds.provider:rackspace-cloudfiles-us:1.9.1)
+  |   |   |   |   |     org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   |     org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included, from org.apache.jclouds.provider:rackspace-cloudservers-us:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.provider:hpcloud-objectstorage:1.9.1
+  |   |   |   |   |   Name: jclouds HP Cloud Object Storage
+  |   |   |   |   |   URL: http://jclouds.apache.org/hpcloud-objectstorage/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.apache.jclouds.api:swift:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allblobstore:1.9.1)
+  |   |   |   |   |     org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   |   +-org.apache.jclouds.api:filesystem:1.9.1
+  |   |   |   |   |   Name: jclouds filesystem core
+  |   |   |   |   |   URL: http://jclouds.apache.org/filesystem/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included, from org.apache.jclouds.api:s3:1.9.1)
+  |   |   |   +-org.apache.jclouds.labs:abiquo:1.9.1
+  |   |   |   |   Name: jclouds Abiquo api
+  |   |   |   |   URL: http://jclouds.apache.org/jclouds-labs/abiquo/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |     org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   +-org.apache.jclouds.labs:google-compute-engine:1.9.1
+  |   |   |   |   Name: jclouds Google Compute Engine provider
+  |   |   |   |   URL: http://jclouds.apache.org/jclouds-labs-google/google-compute-engine/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |     org.apache.jclouds.labs:googlecloud:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.jclouds.labs:googlecloud:1.9.1
+  |   |   |   |   |   Name: jclouds Google Cloud Core
+  |   |   |   |   |   URL: http://jclouds.apache.org/jclouds-labs-google/googlecloud/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.apache.jclouds.labs:oauth:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.apache.jclouds.labs:oauth:1.9.1
+  |   |   |   |   |   |   Name: jclouds OAuth core
+  |   |   |   |   |   |   URL: http://jclouds.apache.org/jclouds-labs/oauth/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   +-org.apache.jclouds.labs:docker:1.9.1
+  |   |   |   |   Name: jclouds docker API
+  |   |   |   |   URL: http://jclouds.apache.org/jclouds-labs/docker/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |     org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   |     org.apache.jclouds.driver:jclouds-sshj:jar:1.9.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.apache.jclouds.driver:jclouds-bouncycastle:jar:1.9.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.apache.jclouds.driver:jclouds-okhttp:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.jclouds.driver:jclouds-okhttp:1.9.1
+  |   |   |   |   |   Name: jclouds OkHttp Driver
+  |   |   |   |   |   URL: http://jclouds.apache.org/jclouds-okhttp/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   |     com.squareup.okhttp:okhttp:jar:2.2.0 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.squareup.okhttp:okhttp:2.2.0
+  |   |   |   |   |   |   Name: OkHttp
+  |   |   |   |   |   |   URL: https://github.com/square/okhttp/okhttp
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: com.squareup.okio:okio:jar:1.2.0 (compile, included, detail below)
+  |   |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   |   +-com.squareup.okio:okio:1.2.0
+  |   |   |   |   |   |   |   Name: Okio
+  |   |   |   |   |   |   |   URL: https://github.com/square/okio/okio
+  |   |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2015)
+  |   |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   +-ch.qos.logback:logback-classic:1.0.7
+  |   |   |   |   Name: Logback Classic Module
+  |   |   |   |   URL: http://logback.qos.ch
+  |   |   |   |   License:
+  |   |   |   |     EPL1
+  |   |   |   |     LGPL
+  |   |   |   |   Copyright: Copyright (c) QOS.ch (2005-2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     ch.qos.logback:logback-core:jar:1.0.7 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.codehaus.groovy:groovy-all:jar:2.0.0 (compile, optional, version 2.3.4 included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   +-ch.qos.logback:logback-core:1.0.7
+  |   |   |   |   Name: Logback Core Module
+  |   |   |   |   URL: http://logback.qos.ch
+  |   |   |   |   License:
+  |   |   |   |     EPL1
+  |   |   |   |     LGPL
+  |   |   |   |   Copyright: Copyright (c) QOS.ch (2005-2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   +-org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating
+  |   |   |   Name: Brooklyn Web App Software Entities
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-software-webapp/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |     org.hibernate:jtidy:jar:r8-20060801 (compile, included, detail below)
+  |   |   |     org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     xml-apis:xml-apis:jar:1.0.b2 (compile, included, detail below)
+  |   |   |     org.apache.httpcomponents:httpcore:jar:4.4.1 (compile, included, detail below)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-org.hibernate:jtidy:r8-20060801
+  |   |   |   |   Name: JTidy
+  |   |   |   |   URL: http://jtidy.sourceforge.net
+  |   |   |   |   License: Java HTML Tidy License
+  |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   |   +-org.apache.brooklyn:brooklyn-software-base:0.8.0-incubating
+  |   |   |   |   Name: Brooklyn Software Base
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-software-base/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-jmxmp-agent:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |   |     org.apache.brooklyn:brooklyn-jmxrmi-agent:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     org.freemarker:freemarker:jar:2.3.22 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     com.google.code.gson:gson:jar:2.3 (compile, included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     commons-io:commons-io:jar:2.4 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.brooklyn:brooklyn-jmxmp-agent:0.8.0-incubating
+  |   |   |   |   |   Name: Brooklyn Secure JMXMP Agent
+  |   |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-jmxmp-agent/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.glassfish.external:opendmk_jmxremote_optional_jar:jar:1.0-b01-ea (compile, included, detail below)
+  |   |   |   |   |     org.bouncycastle:bcprov-ext-jdk15on:jar:1.49 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.glassfish.external:opendmk_jmxremote_optional_jar:1.0-b01-ea
+  |   |   |   |   |   |   Name: opendmk_jmxremote_optional_jar
+  |   |   |   |   |   |   License: <unknown>
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   +-org.apache.brooklyn:brooklyn-jmxrmi-agent:0.8.0-incubating
+  |   |   |   |   |   Name: Brooklyn JMX RMI Agent
+  |   |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-jmxrmi-agent/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   +-xml-apis:xml-apis:1.0.b2
+  |   |   |   |   Name: XML Commons External Components XML APIs
+  |   |   |   |   URL: http://xml.apache.org/commons/#external
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) Apache Software Foundation (2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   |   +-org.apache.httpcomponents:httpcore:4.4.1
+  |   |   |   |   Name: Apache HttpCore
+  |   |   |   |   URL: http://hc.apache.org/httpcomponents-core-ga
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2005-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   +-org.apache.brooklyn:brooklyn-software-messaging:0.8.0-incubating
+  |   |   |   Name: Brooklyn Messaging Software Entities
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-software-messaging/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     commons-codec:commons-codec:jar:1.9 (compile, included, detail below)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-commons-codec:commons-codec:1.9
+  |   |   |   |   Name: Apache Commons Codec
+  |   |   |   |   URL: http://commons.apache.org/proper/commons-codec/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2002-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   +-org.apache.brooklyn:brooklyn-software-monitoring:0.8.0-incubating
+  |   |   |   Name: Brooklyn Monitoring Software Entities
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-software-monitoring/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   +-org.apache.brooklyn:brooklyn-software-database:0.8.0-incubating
+  |   |   |   Name: Brooklyn Database Software Entities
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-software-database/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   +-org.apache.brooklyn:brooklyn-software-osgi:0.8.0-incubating
+  |   |   |   Name: Brooklyn OSGi Software Entities
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-software-osgi/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.felix:org.apache.felix.framework:jar:4.4.0 (compile, included, detail below)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-org.apache.felix:org.apache.felix.framework:4.4.0
+  |   |   |   |   Name: Apache Felix Framework
+  |   |   |   |   URL: http://felix.apache.org/org.apache.felix.framework/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2006-2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   +-org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating
+  |   |   |   Name: Brooklyn NoSQL Data Store Software Entities
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-software-nosql/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-software-webapp:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-software-database:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |     com.google.code.gson:gson:jar:2.3 (compile, included, detail below)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.mongodb:mongo-java-driver:jar:2.11.4 (compile, included, detail below)
+  |   |   |     commons-logging:commons-logging:jar:1.2 (compile, included, detail below)
+  |   |   |     commons-codec:commons-codec:jar:1.9 (compile, included, from org.apache.brooklyn:brooklyn-software-messaging:0.8.0-incubating)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-com.google.code.gson:gson:2.3
+  |   |   |   |   Name: Gson
+  |   |   |   |   URL: http://code.google.com/p/google-gson/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) Google, Inc. (2008-2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   +-org.mongodb:mongo-java-driver:2.11.4
+  |   |   |   |   Name: MongoDB Java Driver
+  |   |   |   |   URL: http://www.mongodb.org
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) project contributors (2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   |   +-commons-logging:commons-logging:1.2
+  |   |   |   |   Name: Apache Commons Logging
+  |   |   |   |   URL: http://commons.apache.org/proper/commons-logging/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2001-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   +-org.apache.brooklyn:brooklyn-software-network:0.8.0-incubating
+  |   |   |   Name: Brooklyn Network Software Entities
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-software-network/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   +-org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating
+  |   |   |   Name: Brooklyn Launcher
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-launcher/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-rest-server:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |     org.apache.brooklyn:brooklyn-camp:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |     org.apache.brooklyn.camp:camp-base:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |     org.apache.brooklyn.camp:camp-server:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.felix:org.apache.felix.framework:jar:4.4.0 (compile, included, from org.apache.brooklyn:brooklyn-software-osgi:0.8.0-incubating)
+  |   |   |     com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.0_jdk5 (compile, included, detail below)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     com.sun.jersey:jersey-server:jar:1.18.1 (compile, included, detail below)
+  |   |   |     com.sun.jersey:jersey-servlet:jar:1.18.1 (compile, included, detail below)
+  |   |   |     org.eclipse.jetty:jetty-server:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |     org.eclipse.jetty:jetty-servlet:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |     org.eclipse.jetty:jetty-util:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |     org.eclipse.jetty:jetty-webapp:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |     org.eclipse.jetty.orbit:javax.servlet:jar:3.0.0.v201112011016 (compile, included, detail below)
+  |   |   |     org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-locations-jclouds:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating
+  |   |   |   |   Name: Brooklyn REST Server
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-rest-server/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.brooklyn:brooklyn-rest-api:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-camp:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn.camp:camp-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-rest-swagger:jar:0.8.0-incubating (compile, included, detail below)
+  |   |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.yaml:snakeyaml:jar:1.11 (compile, included, from org.apache.brooklyn:brooklyn-utils-common:0.8.0-incubating)
+  |   |   |   |     com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included, detail below)
+  |   |   |   |     org.reflections:reflections:jar:0.9.9-RC1 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     javax.ws.rs:jsr311-api:jar:1.1.1 (compile, included, detail below)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.sun.jersey:jersey-json:jar:1.18.1 (compile, included, detail below)
+  |   |   |   |     com.sun.jersey:jersey-core:jar:1.18.1 (compile, included, detail below)
+  |   |   |   |     com.sun.jersey:jersey-server:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     com.sun.jersey:jersey-servlet:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.eclipse.jetty:jetty-webapp:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.eclipse.jetty:jetty-server:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.eclipse.jetty:jetty-servlet:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     org.codehaus.jackson:jackson-jaxrs:jar:1.9.13 (compile, included, detail below)
+  |   |   |   |     org.codehaus.jackson:jackson-xc:jar:1.9.13 (compile, included, detail below)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.brooklyn:brooklyn-rest-api:0.8.0-incubating
+  |   |   |   |   |   Name: Brooklyn REST API
+  |   |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-rest-api/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |     com.sun.jersey.contribs:jersey-multipart:jar:1.18.1 (compile, included, from org.apache.brooklyn.camp:camp-server:0.8.0-incubating)
+  |   |   |   |   |     javax.validation:validation-api:jar:1.0.0.GA (compile, included, from org.apache.brooklyn.camp:camp-server:0.8.0-incubating)
+  |   |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |     commons-lang:commons-lang:jar:2.4 (compile, included, detail below)
+  |   |   |   |   |     com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     org.eclipse.jetty.orbit:javax.servlet:jar:3.0.0.v201112011016 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |   |     com.sun.jersey:jersey-core:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |   |     org.apache.brooklyn:brooklyn-utils-rest-swagger:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-commons-lang:commons-lang:2.4
+  |   |   |   |   |   |   Name: Commons Lang
+  |   |   |   |   |   |   URL: http://commons.apache.org/lang/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2001-2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   +-org.apache.brooklyn:brooklyn-utils-rest-swagger:0.8.0-incubating
+  |   |   |   |   |   Name: Brooklyn REST Swagger Apidoc Utilities
+  |   |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-utils-rest-swagger/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.eclipse.jetty:jetty-webapp:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |   |     com.sun.jersey:jersey-server:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |   |     com.sun.jersey:jersey-core:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |   |     com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     com.wordnik:swagger-jaxrs_2.9.1:jar:1.0.1 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.wordnik:swagger-jaxrs_2.9.1:1.0.1
+  |   |   |   |   |   |   Name: swagger-jaxrs
+  |   |   |   |   |   |   URL: https://github.com/wordnik/swagger-core/swagger-jaxrs_2.9.1
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     org.scala-lang:scala-library:jar:2.9.1-1 (compile, included, detail below)
+  |   |   |   |   |   |     com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |   |     javax.servlet:servlet-api:jar:2.5 (compile, excluded from build)
+  |   |   |   |   |   |     javax.ws.rs:jsr311-api:jar:1.1.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |   |     com.sun.jersey:jersey-json:jar:1.7 (compile, version 1.18.1 included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |   |     com.sun.jersey:jersey-client:jar:1.7 (compile, excluded from build)
+  |   |   |   |   |   |     com.sun.jersey:jersey-core:jar:1.7 (compile, version 1.18.1 included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |   |     com.sun.jersey:jersey-server:jar:1.7 (compile, version 1.18.1 included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   |   +-org.scala-lang:scala-library:2.9.1-1
+  |   |   |   |   |   |   |   Name: Scala Library
+  |   |   |   |   |   |   |   URL: http://www.scala-lang.org/
+  |   |   |   |   |   |   |   License: BSD
+  |   |   |   |   |   |   |   Copyright: Copyright (c) LAMP/EPFL (2002-2012)
+  |   |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   |   Dependencies: (none)
+  |   |   |   |   +-com.wordnik:swagger-core_2.9.1:1.0.1
+  |   |   |   |   |   Name: swagger-core
+  |   |   |   |   |   URL: https://github.com/wordnik/swagger-core/swagger-core_2.9.1
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     commons-lang:commons-lang:jar:2.4 (compile, included, from org.apache.brooklyn:brooklyn-rest-api:0.8.0-incubating)
+  |   |   |   |   |     org.slf4j:slf4j-log4j12:jar:1.6.3 (compile, excluded from build)
+  |   |   |   |   |     org.codehaus.jackson:jackson-jaxrs:jar:1.8.5 (compile, version 1.9.13 included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-core-asl:jar:1.8.5 (compile, version 1.9.13 included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-xc:jar:1.8.5 (compile, version 1.9.13 included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-mapper-asl:jar:1.8.5 (compile, version 1.9.13 included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   +-javax.ws.rs:jsr311-api:1.1.1
+  |   |   |   |   |   Name: jsr311-api
+  |   |   |   |   |   URL: https://jsr311.dev.java.net
+  |   |   |   |   |   License: CDDL License
+  |   |   |   |   |   Copyright: Copyright (c) Sun Microsystems, Inc (2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   +-com.sun.jersey:jersey-json:1.18.1
+  |   |   |   |   |   Name: jersey-json
+  |   |   |   |   |   URL: https://jersey.java.net/jersey-json/
+  |   |   |   |   |   License:
+  |   |   |   |   |     CDDL1.1
+  |   |   |   |   |     GPL2 w/ CPE
+  |   |   |   |   |   Copyright: Copyright (c) Oracle Corporation (2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.codehaus.jettison:jettison:jar:1.1 (compile, included, detail below)
+  |   |   |   |   |     com.sun.xml.bind:jaxb-impl:jar:2.2.3-1 (compile, excluded from build)
+  |   |   |   |   |     org.codehaus.jackson:jackson-core-asl:jar:1.9.2 (compile, version 1.9.13 included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-mapper-asl:jar:1.9.2 (compile, version 1.9.13 included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-jaxrs:jar:1.9.2 (compile, version 1.9.13 included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-xc:jar:1.9.2 (compile, version 1.9.13 included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |     com.sun.jersey:jersey-core:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.codehaus.jettison:jettison:1.1
+  |   |   |   |   |   |   Name: Jettison
+  |   |   |   |   |   |   License: <unknown>
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: stax:stax-api:jar:1.0.1 (compile, excluded from build)
+  |   |   |   |   +-com.sun.jersey:jersey-core:1.18.1
+  |   |   |   |   |   Name: jersey-core
+  |   |   |   |   |   URL: https://jersey.java.net/jersey-core/
+  |   |   |   |   |   License:
+  |   |   |   |   |     CDDL1.1
+  |   |   |   |   |     GPL2 w/ CPE
+  |   |   |   |   |   Copyright: Copyright (c) Oracle Corporation (2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   +-org.codehaus.jackson:jackson-jaxrs:1.9.13
+  |   |   |   |   |   Name: JAX-RS provider for JSON content type
+  |   |   |   |   |   URL: http://jackson.codehaus.org
+  |   |   |   |   |   License:
+  |   |   |   |   |     ASL2
+  |   |   |   |   |     LGPL2.1
+  |   |   |   |   |   Copyright: Copyright (c) FasterXML (2013)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   +-org.codehaus.jackson:jackson-xc:1.9.13
+  |   |   |   |   |   Name: Xml Compatibility extensions for Jackson
+  |   |   |   |   |   URL: http://jackson.codehaus.org
+  |   |   |   |   |   License:
+  |   |   |   |   |     ASL2
+  |   |   |   |   |     LGPL2.1
+  |   |   |   |   |   Copyright: Copyright (c) FasterXML (2013)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |   |     org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   +-org.apache.brooklyn:brooklyn-camp:0.8.0-incubating
+  |   |   |   |   Name: Brooklyn CAMP REST API
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-camp/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.brooklyn.camp:camp-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     commons-beanutils:commons-beanutils:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating)
+  |   |   |   |     commons-logging:commons-logging:jar:1.2 (compile, included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-commons-beanutils:commons-beanutils:1.9.1
+  |   |   |   |   |   Name: Apache Commons BeanUtils
+  |   |   |   |   |   URL: http://commons.apache.org/proper/commons-beanutils/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2000-2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     commons-logging:commons-logging:jar:1.1.1 (compile, version 1.2 included, from org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating)
+  |   |   |   |   |     commons-collections:commons-collections:jar:3.2.1 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-commons-collections:commons-collections:3.2.1
+  |   |   |   |   |   |   Name: Commons Collections
+  |   |   |   |   |   |   URL: http://commons.apache.org/collections/
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2001-2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   +-org.apache.brooklyn.camp:camp-base:0.8.0-incubating
+  |   |   |   |   Name: CAMP Base
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/camp-parent/camp-base/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     org.apache.commons:commons-lang3:jar:3.1 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     org.apache.commons:commons-compress:jar:1.4 (compile, included, detail below)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.commons:commons-compress:1.4
+  |   |   |   |   |   Name: Commons Compress
+  |   |   |   |   |   URL: http://commons.apache.org/compress/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.tukaani:xz:jar:1.0 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.tukaani:xz:1.0
+  |   |   |   |   |   |   Name: XZ for Java
+  |   |   |   |   |   |   URL: http://tukaani.org/xz/java.html
+  |   |   |   |   |   |   License: Public Domain
+  |   |   |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none)
+  |   |   |   +-org.apache.brooklyn.camp:camp-server:0.8.0-incubating
+  |   |   |   |   Name: CAMP Server
+  |   |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/camp-parent/camp-server/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.brooklyn.camp:camp-base:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included, detail below)
+  |   |   |   |     com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:jar:2.4.2 (compile, included, detail below)
+  |   |   |   |     com.sun.jersey:jersey-server:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     com.sun.jersey:jersey-servlet:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     com.sun.jersey:jersey-json:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |     com.sun.jersey.contribs:jersey-multipart:jar:1.18.1 (compile, included, detail below)
+  |   |   |   |     com.sun.jersey:jersey-core:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |     javax.validation:validation-api:jar:1.0.0.GA (compile, included, detail below)
+  |   |   |   |     org.eclipse.jetty:jetty-webapp:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.eclipse.jetty:jetty-server:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.eclipse.jetty:jetty-servlet:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.eclipse.jetty:jetty-util:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.eclipse.jetty.orbit:javax.servlet:jar:3.0.0.v201112011016 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-rest-swagger:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |   |     org.apache.commons:commons-lang3:jar:3.1 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included, from org.apache.brooklyn:brooklyn-core:0.8.0-incubating)
+  |   |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   |     com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-com.fasterxml.jackson.core:jackson-databind:2.4.2
+  |   |   |   |   |   Name: jackson-databind
+  |   |   |   |   |   URL: http://wiki.fasterxml.com/JacksonHome
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) FasterXML (2014-2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     com.fasterxml.jackson.core:jackson-annotations:jar:2.4.0 (compile, included, detail below)
+  |   |   |   |   |     com.fasterxml.jackson.core:jackson-core:jar:2.4.2 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.fasterxml.jackson.core:jackson-annotations:2.4.0
+  |   |   |   |   |   |   Name: Jackson-annotations
+  |   |   |   |   |   |   URL: http://wiki.fasterxml.com/JacksonHome
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) FasterXML (2014-2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   |   +-com.fasterxml.jackson.core:jackson-core:2.4.2
+  |   |   |   |   |   |   Name: Jackson-core
+  |   |   |   |   |   |   URL: http://wiki.fasterxml.com/JacksonHome
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) FasterXML (2014-2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   +-com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.4.2
+  |   |   |   |   |   Name: Jackson-JAXRS-JSON
+  |   |   |   |   |   URL: http://wiki.fasterxml.com/JacksonHome/jackson-jaxrs-json-provider
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) FasterXML (2014-2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:jar:2.4.2 (compile, included, detail below)
+  |   |   |   |   |     com.fasterxml.jackson.core:jackson-core:jar:2.4.2 (compile, included, from com.fasterxml.jackson.core:jackson-databind:2.4.2)
+  |   |   |   |   |     com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included, from org.apache.brooklyn.camp:camp-server:0.8.0-incubating)
+  |   |   |   |   |     com.fasterxml.jackson.module:jackson-module-jaxb-annotations:jar:2.4.2 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.4.2
+  |   |   |   |   |   |   Name: Jackson-JAXRS-base
+  |   |   |   |   |   |   URL: http://wiki.fasterxml.com/JacksonHome/jackson-jaxrs-base
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) FasterXML (2014-2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     com.fasterxml.jackson.core:jackson-core:jar:2.4.2 (compile, included, from com.fasterxml.jackson.core:jackson-databind:2.4.2)
+  |   |   |   |   |   |     com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included, from org.apache.brooklyn.camp:camp-server:0.8.0-incubating)
+  |   |   |   |   |   +-com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.4.2
+  |   |   |   |   |   |   Name: Jackson-module-JAXB-annotations
+  |   |   |   |   |   |   URL: http://wiki.fasterxml.com/JacksonJAXBAnnotations
+  |   |   |   |   |   |   License: ASL2
+  |   |   |   |   |   |   Copyright: Copyright (c) FasterXML (2014-2014)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies:
+  |   |   |   |   |   |     com.fasterxml.jackson.core:jackson-core:jar:2.4.2 (compile, included, from com.fasterxml.jackson.core:jackson-databind:2.4.2)
+  |   |   |   |   |   |     com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included, from org.apache.brooklyn.camp:camp-server:0.8.0-incubating)
+  |   |   |   |   +-com.sun.jersey.contribs:jersey-multipart:1.18.1
+  |   |   |   |   |   Name: jersey-multipart
+  |   |   |   |   |   URL: https://jersey.java.net/jersey-contribs/jersey-multipart/
+  |   |   |   |   |   License:
+  |   |   |   |   |     CDDL1.1
+  |   |   |   |   |     GPL2 w/ CPE
+  |   |   |   |   |   Copyright: Copyright (c) Oracle Corporation (2014)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.jvnet.mimepull:mimepull:jar:1.9.3 (compile, included, detail below)
+  |   |   |   |   |     com.sun.jersey:jersey-core:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.jvnet.mimepull:mimepull:1.9.3
+  |   |   |   |   |   |   Name: MIME streaming extension
+  |   |   |   |   |   |   URL: http://mimepull.java.net
+  |   |   |   |   |   |   License:
+  |   |   |   |   |   |     CDDL1.1
+  |   |   |   |   |   |     GPL2 w/ CPE
+  |   |   |   |   |   |   Copyright: Copyright (c) Oracle Corporation (2013)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   +-javax.validation:validation-api:1.0.0.GA
+  |   |   |   |   |   Name: Bean Validation API
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) project contributors (2007-2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none)
+  |   |   |   +-com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.0_jdk5
+  |   |   |   |   Name: ConcurrentLinkedHashMap
+  |   |   |   |   URL: http://code.google.com/p/concurrentlinkedhashmap
+  |   |   |   |   License: ASL
+  |   |   |   |   Copyright: Copyright (c) project contributors (2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   +-com.sun.jersey:jersey-server:1.18.1
+  |   |   |   |   Name: jersey-server
+  |   |   |   |   URL: https://jersey.java.net/jersey-server/
+  |   |   |   |   License:
+  |   |   |   |     CDDL1.1
+  |   |   |   |     GPL2 w/ CPE
+  |   |   |   |   Copyright: Copyright (c) Oracle Corporation (2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: com.sun.jersey:jersey-core:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating)
+  |   |   |   +-com.sun.jersey:jersey-servlet:1.18.1
+  |   |   |   |   Name: jersey-servlet
+  |   |   |   |   URL: https://jersey.java.net/jersey-servlet/
+  |   |   |   |   License:
+  |   |   |   |     CDDL1.1
+  |   |   |   |     GPL2 w/ CPE
+  |   |   |   |   Copyright: Copyright (c) Oracle Corporation (2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: com.sun.jersey:jersey-server:jar:1.18.1 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   +-org.eclipse.jetty:jetty-server:8.1.17.v20150415
+  |   |   |   |   Name: Jetty :: Server Core
+  |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   License:
+  |   |   |   |     ASL2
+  |   |   |   |     EPL1
+  |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.eclipse.jetty.orbit:javax.servlet:jar:3.0.0.v201112011016 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |     org.eclipse.jetty:jetty-continuation:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |   |     org.eclipse.jetty:jetty-http:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.eclipse.jetty:jetty-continuation:8.1.17.v20150415
+  |   |   |   |   |   Name: Jetty :: Continuation
+  |   |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   |   License:
+  |   |   |   |   |     ASL2
+  |   |   |   |   |     EPL1
+  |   |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   |   +-org.eclipse.jetty:jetty-http:8.1.17.v20150415
+  |   |   |   |   |   Name: Jetty :: Http Utility
+  |   |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   |   License:
+  |   |   |   |   |     ASL2
+  |   |   |   |   |     EPL1
+  |   |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.eclipse.jetty:jetty-io:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   |   +-org.eclipse.jetty:jetty-io:8.1.17.v20150415
+  |   |   |   |   |   |   Name: Jetty :: IO Utility
+  |   |   |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   |   |   License:
+  |   |   |   |   |   |     ASL2
+  |   |   |   |   |   |     EPL1
+  |   |   |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   |   Dependencies: org.eclipse.jetty:jetty-util:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   +-org.eclipse.jetty:jetty-servlet:8.1.17.v20150415
+  |   |   |   |   Name: Jetty :: Servlet Handling
+  |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   License:
+  |   |   |   |     ASL2
+  |   |   |   |     EPL1
+  |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.eclipse.jetty:jetty-security:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.eclipse.jetty:jetty-security:8.1.17.v20150415
+  |   |   |   |   |   Name: Jetty :: Security
+  |   |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   |   License:
+  |   |   |   |   |     ASL2
+  |   |   |   |   |     EPL1
+  |   |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.eclipse.jetty:jetty-server:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   +-org.eclipse.jetty:jetty-util:8.1.17.v20150415
+  |   |   |   |   Name: Jetty :: Utilities
+  |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   License:
+  |   |   |   |     ASL2
+  |   |   |   |     EPL1
+  |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none in report scope)
+  |   |   |   +-org.eclipse.jetty:jetty-webapp:8.1.17.v20150415
+  |   |   |   |   Name: Jetty :: Webapp Application Support
+  |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   License:
+  |   |   |   |     ASL2
+  |   |   |   |     EPL1
+  |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.eclipse.jetty:jetty-xml:jar:8.1.17.v20150415 (compile, included, detail below)
+  |   |   |   |     org.eclipse.jetty:jetty-servlet:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.eclipse.jetty:jetty-xml:8.1.17.v20150415
+  |   |   |   |   |   Name: Jetty :: XML utilities
+  |   |   |   |   |   URL: http://www.eclipse.org/jetty
+  |   |   |   |   |   License:
+  |   |   |   |   |     ASL2
+  |   |   |   |   |     EPL1
+  |   |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.eclipse.jetty:jetty-util:jar:8.1.17.v20150415 (compile, included, from org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating)
+  |   |   |   +-org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016
+  |   |   |   |   Name: Jetty Orbit :: Servlet API
+  |   |   |   |   URL: http://www.eclipse.org/jetty/jetty-orbit/javax.servlet
+  |   |   |   |   License:
+  |   |   |   |     ASL2
+  |   |   |   |     EPL1
+  |   |   |   |   Copyright: Copyright (c) Mort Bay Consulting (1995-2012)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: (none)
+  |   |   +-org.apache.brooklyn:brooklyn-cli:0.8.0-incubating
+  |   |   |   Name: Brooklyn Command Line Interface
+  |   |   |   URL: https://brooklyn.incubator.apache.org/brooklyn-parent/brooklyn-cli/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2012-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-launcher:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     io.airlift:airline:jar:0.6 (compile, included, detail below)
+  |   |   |     com.google.guava:guava:jar:17.0 (compile, included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   |     org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |     javax.inject:javax.inject:jar:1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |     org.slf4j:slf4j-api:jar:1.6.6 (compile, included, from org.apache.brooklyn:brooklyn-policy:0.8.0-incubating)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-io.airlift:airline:0.6
+  |   |   |   |   Name: cli
+  |   |   |   |   URL: https://github.com/airlift/airline
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) project contributors (2012-2014)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     javax.inject:javax.inject:jar:1 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |     com.google.guava:guava:jar:12.0 (compile, version 17.0 included, from org.apache.brooklyn:brooklyn-all:0.8.0-incubating)
+  |   |   +-org.apache.jclouds:jclouds-allcompute:1.9.1
+  |   |   |   Name: allcompute
+  |   |   |   URL: http://jclouds.apache.org/jclouds-allcompute/
+  |   |   |   License: ASL2
+  |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   Artifacts Included: jar (compile)
+  |   |   |   Dependencies:
+  |   |   |     org.apache.jclouds.provider:aws-ec2:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.api:openstack-nova-ec2:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.api:byon:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.api:ec2:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:gogrid:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:elastichosts-lon-p:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:elastichosts-sat-p:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:elastichosts-lon-b:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:openhosting-east1:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:serverlove-z1-man:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:skalicloud-sdg-my:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:go2cloud-jhb1:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:softlayer:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.api:cloudstack:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:hpcloud-compute:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:rackspace-cloudservers-us:jar:1.9.1 (compile, included, detail below)
+  |   |   |     org.apache.jclouds.provider:rackspace-cloudservers-uk:jar:1.9.1 (compile, included, detail below)
+  |   |   |   Dependencies pulled in here detail:
+  |   |   |   +-org.apache.jclouds.provider:aws-ec2:1.9.1
+  |   |   |   |   Name: jclouds Amazon EC2 provider
+  |   |   |   |   URL: http://jclouds.apache.org/aws-ec2/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds.api:ec2:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.api:openstack-nova:1.9.1
+  |   |   |   |   Name: Apache jclouds :: OpenStack :: Nova API
+  |   |   |   |   URL: http://jclouds.apache.org/openstack-nova/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.jclouds.api:openstack-keystone:1.9.1
+  |   |   |   |   |   Name: jclouds openstack-keystone api
+  |   |   |   |   |   URL: http://jclouds.apache.org/openstack-keystone/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |   |     com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   |   +-com.google.inject.extensions:guice-multibindings:3.0
+  |   |   |   |   |   Name: Google Guice - Extensions - MultiBindings
+  |   |   |   |   |   URL: http://code.google.com/p/google-guice/extensions-parent/guice-multibindings/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) Google, Inc. (2006-2012)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies:
+  |   |   |   |   |     com.google.inject:guice:jar:3.0 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   |   |     com.google.inject:guice:jar:no_deps:3.0 (compile, optional, project included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)
+  |   |   |   +-org.apache.jclouds.api:openstack-nova-ec2:1.9.1
+  |   |   |   |   Name: jclouds openstack-nova-ec2 api
+  |   |   |   |   URL: http://jclouds.apache.org/openstack-nova-ec2/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   |     org.apache.jclouds.api:ec2:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.api:byon:1.9.1
+  |   |   |   |   Name: jclouds bring your own node provider
+  |   |   |   |   URL: http://jclouds.apache.org/byon/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   |     org.yaml:snakeyaml:jar:1.11 (compile, included, from org.apache.brooklyn:brooklyn-utils-common:0.8.0-incubating)
+  |   |   |   +-org.apache.jclouds.api:ec2:1.9.1
+  |   |   |   |   Name: jclouds ec2 api
+  |   |   |   |   URL: http://jclouds.apache.org/ec2/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds.api:sts:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.jclouds.api:sts:1.9.1
+  |   |   |   |   |   Name: jclouds sts api
+  |   |   |   |   |   URL: http://jclouds.apache.org/sts/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:gogrid:1.9.1
+  |   |   |   |   Name: jclouds GoGrid provider
+  |   |   |   |   URL: http://jclouds.apache.org/gogrid/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   +-org.apache.jclouds.api:elasticstack:1.9.1
+  |   |   |   |   Name: jclouds elasticstack core
+  |   |   |   |   URL: http://jclouds.apache.org/elasticstack/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:elastichosts-lon-p:1.9.1
+  |   |   |   |   Name: jclouds ElasticHosts Peer1 London provider
+  |   |   |   |   URL: http://jclouds.apache.org/elastichosts-lon-p/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:elastichosts-sat-p:1.9.1
+  |   |   |   |   Name: jclouds ElasticHosts Peer1 San Antonio provider
+  |   |   |   |   URL: http://jclouds.apache.org/elastichosts-sat-p/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:elastichosts-lon-b:1.9.1
+  |   |   |   |   Name: jclouds ElasticHosts BlueSquare London provider
+  |   |   |   |   URL: http://jclouds.apache.org/elastichosts-lon-b/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:openhosting-east1:1.9.1
+  |   |   |   |   Name: jclouds Open Hosting East1 provider
+  |   |   |   |   URL: http://jclouds.apache.org/openhosting-east1/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:serverlove-z1-man:1.9.1
+  |   |   |   |   Name: jclouds Serverlove Manchester provider
+  |   |   |   |   URL: http://jclouds.apache.org/serverlove-z1-man/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:skalicloud-sdg-my:1.9.1
+  |   |   |   |   Name: jclouds SkaliCloud Malaysia provider
+  |   |   |   |   URL: http://jclouds.apache.org/skalicloud-sdg-my/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:go2cloud-jhb1:1.9.1
+  |   |   |   |   Name: jclouds Go2Cloud Johannesburg1 provider
+  |   |   |   |   URL: http://jclouds.apache.org/go2cloud-jhb1/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:softlayer:1.9.1
+  |   |   |   |   Name: jclouds SoftLayer core
+  |   |   |   |   URL: http://jclouds.apache.org/softlayer/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies: org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   +-org.apache.jclouds.api:cloudstack:1.9.1
+  |   |   |   |   Name: jclouds cloudstack core
+  |   |   |   |   URL: http://jclouds.apache.org/cloudstack/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-slf4j:1.9.1)
+  |   |   |   |     org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included, from org.apache.jclouds.driver:jclouds-sshj:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:hpcloud-compute:1.9.1
+  |   |   |   |   Name: jclouds HP Cloud Compute provider
+  |   |   |   |   URL: http://jclouds.apache.org/hpcloud-compute/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   |     com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:rackspace-cloudservers-us:1.9.1
+  |   |   |   |   Name: jclouds Rackspace Next Generation Cloud Servers US provider
+  |   |   |   |   URL: http://jclouds.apache.org/rackspace-cloudservers-us/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included, detail below)
+  |   |   |   |     org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   |     com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   |   Dependencies pulled in here detail:
+  |   |   |   |   +-org.apache.jclouds.api:rackspace-cloudidentity:1.9.1
+  |   |   |   |   |   Name: jclouds rackspace cloudidentity api
+  |   |   |   |   |   URL: http://jclouds.apache.org/rackspace-cloudidentity/
+  |   |   |   |   |   License: ASL2
+  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   |   Dependencies: org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
+  |   |   |   +-org.apache.jclouds.provider:rackspace-cloudservers-uk:1.9.1
+  |   |   |   |   Name: jclouds Rackspace Next Generation Cloud Servers provider
+  |   |   |   |   URL: http://jclouds.apache.org/rackspace-cloudservers-uk/
+  |   |   |   |   License: ASL2
+  |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2015)
+  |   |   |   |   Artifacts Included: jar (compile)
+  |   |   |   |   Dependencies:
+  |   |   |   |     org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included, from org.apache.jclouds.provider:rackspace-cloudservers-us:1.9.1)
+  |   |   |   |     org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allcompute:1.9.1)
+  |   |   |   |     com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)

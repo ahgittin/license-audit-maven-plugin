@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.heneveld.maven.license_audit</groupId>
+  <artifactId>test-brooklyn-pom</artifactId>
+  <version>0.1</version>
+  <packaging>jar</packaging>
+  <name>Test-Purposes Only Project Referencing Brooklyn</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.brooklyn</groupId>
+      <artifactId>brooklyn-dist</artifactId>
+      <version>0.8.0-incubating</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- doesn't work if we specify the group id
+        <groupId>org.heneveld.maven</groupId>
+         -->
+        <artifactId>license-audit-maven-plugin</artifactId>
+        <configuration>
+          <!-- Specify test parameters 
+          <outputDirectory>target/test-harness/project-to-test</outputDirectory>
+          -->
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

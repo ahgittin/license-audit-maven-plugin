@@ -330,10 +330,10 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
     }
 
     protected void output(String line) throws MojoExecutionException {
-        if (outputFileWriter!=null) {
+        if (outputWriter!=null) {
             try {
-                outputFileWriter.write(line);
-                outputFileWriter.write("\n");
+                outputWriter.write(line);
+                outputWriter.write("\n");
             } catch (IOException e) {
                 throw new MojoExecutionException("Error writing to "+outputFilePath, e);
             }

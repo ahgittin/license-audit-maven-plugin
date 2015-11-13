@@ -1,0 +1,90 @@
+package org.heneveld.maven.license_audit;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+
+import junit.framework.Assert;
+
+import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
+import com.google.common.io.Files;
+
+public class LicenseAuditMojoTest extends BetterAbstractMojoTestCase {
+
+    static public void fail(String message) {
+        System.err.println(message);
+        Assert.fail(message);
+    }
+    
+    protected String currentTestProjectSubdir;
+    protected StringWriter mojoOutputWriter;
+    
+    protected String getMojoOutput() {
+        return mojoOutputWriter.toString();
+    }
+    
+    protected File getTestFileInCurrentTestProject(String file) {
+        return getTestFile( "src/test/resources/org/heneveld/maven/license_audit/poms_to_test_mojo/"+currentTestProjectSubdir+"/"+file );
+    }
+
+    protected void assertOutputEqualsFileInCurrentTestProject(String file) {
+        File f = getTestFileInCurrentTestProject(file);
+        String expected;
+        try {
+            expected = Joiner.on("\n").join(Files.readLines(f, Charsets.ISO_8859_1));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (expected.trim().equals(mojoOutputWriter.toString().trim())) return;
+        
+        File f2 = new File(f.getAbsolutePath()+".current-test");
+        try {
+            FileWriter f2w = new FileWriter(f2);
+            f2w.write(getMojoOutput());
+            f2w.close();
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to write actual file, after test failure where output is different to expected", e);
+        }
+        fail("Output is different to what is expected. See the difference by running:\n\n"+
+            "    diff "+f.getAbsolutePath()+" "+f2.getAbsolutePath()+"\n");
+    }
+    
+    protected LicenseAuditMojo getMojo(String projectSubdir) throws Exception {
+        currentTestProjectSubdir = projectSubdir;
+        LicenseAuditMojo myMojo = (LicenseAuditMojo) lookupConfiguredMojo(
+            getTestFileInCurrentTestProject("pom.xml"),
+            "report");
+        assertNotNull( myMojo );
+        myMojo.outputWriter = mojoOutputWriter = new StringWriter();
+        return myMojo;
+    }
+    
+    public void testSimple() throws Exception {
+        LicenseAuditMojo mojo = getMojo("simple_pom");
+        mojo.execute();
+        System.out.println(getMojoOutput());
+        assertTrue("Output:\n"+getMojoOutput(), !getMojoOutput().contains("junit:junit:3.8.1"));
+        assertOutputEqualsFileInCurrentTestProject("expected-report.txt");
+    }
+
+    public void testSimpleTests() throws Exception {
+        LicenseAuditMojo mojo = getMojo("simple_pom");
+        mojo.includeDependencyScopes = "compile,runtime,test";
+        mojo.execute();
+        assertTrue("Output:\n"+getMojoOutput(), getMojoOutput().contains("junit:junit:4.8.2"));
+        assertOutputEqualsFileInCurrentTestProject("expected-report-test-scope.txt");
+    }
+
+    // TODO failing
+    public void testBrooklyn() throws Exception {
+        LicenseAuditMojo mojo = getMojo("brooklyn_pom");
+        mojo.execute();
+        assertTrue("Output:\n"+getMojoOutput(), getMojoOutput().contains("org.yaml:snakeyaml:jar:1.11 (compile, included, from org.apache.brooklyn:brooklyn-utils-common:0.8.0-incubating)"));
+        assertOutputEqualsFileInCurrentTestProject("expected-report.txt");
+        assertFalse("Output:\n"+getMojoOutput(), getMojoOutput().toLowerCase().contains("error"));
+        assertOutputEqualsFileInCurrentTestProject("expected-report.txt");
+    }
+
+}

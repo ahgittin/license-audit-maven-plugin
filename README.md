@@ -31,7 +31,7 @@ It should now be ready for use.
 
 To run the plugin and show dependency information, once it's installed,
 simply go to the directory of the project you're interested in, 
-and run:sort
+and run:
 
     mvn org.heneveld.maven:license-audit-maven-plugin:report
 
