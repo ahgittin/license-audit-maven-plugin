@@ -75,8 +75,9 @@ public class ProjectsOverrides {
         // wildcard for project trumps project and unversioned
         result = getUrl(Coords.of(p).unversioned()+":*");
         if (result!=null) return result;
+        
         // anything on project trumps something unversioned
-        result = p.getUrl();
+        result = MavenUtil.getDeclaredUrl(p);
         if (result!=null) return result;
         // next look up unversioned (as a default if nothing specified)
         result = getUrl(Coords.of(p).unversioned());

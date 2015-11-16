@@ -20,6 +20,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.project.MavenProject;
 import org.heneveld.maven.license_audit.util.Coords;
 import org.heneveld.maven.license_audit.util.LicenseCodes;
+import org.heneveld.maven.license_audit.util.MavenUtil;
 import org.heneveld.maven.license_audit.util.ProjectsOverrides;
 import org.heneveld.maven.license_audit.util.SimpleMultiMap;
 
@@ -231,7 +232,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
                 addFirstNonEmptyString(result, ((Map<?,?>)p).get("url"));
             } else if (p instanceof MavenProject) {
                 if (addFirstNonEmptyString(result, overrides.getOverridesForProject((MavenProject)p).get("url")));
-                else addFirstNonEmptyString(result, ((MavenProject)p).getUrl());
+                else addFirstNonEmptyString(result, MavenUtil.getDeclaredUrl( (MavenProject)p ));
             }
         }
         String commonRoot = longestRelevantUrl(groupId, result);

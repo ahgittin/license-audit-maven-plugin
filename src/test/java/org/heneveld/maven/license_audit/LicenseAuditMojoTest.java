@@ -77,13 +77,19 @@ public class LicenseAuditMojoTest extends BetterAbstractMojoTestCase {
         assertOutputEqualsFileInCurrentTestProject("expected-report-test-scope.txt");
     }
 
-    // TODO failing
     public void testBrooklyn() throws Exception {
         LicenseAuditMojo mojo = getMojo("brooklyn_pom");
         mojo.execute();
         assertTrue("Output:\n"+getMojoOutput(), getMojoOutput().contains("org.yaml:snakeyaml:jar:1.11 (compile, included, from org.apache.brooklyn:brooklyn-utils-common:0.8.0-incubating)"));
-        assertOutputEqualsFileInCurrentTestProject("expected-report.txt");
         assertFalse("Output:\n"+getMojoOutput(), getMojoOutput().toLowerCase().contains("error"));
+        
+        // we don't report inferred URL's, preferring their parent
+        assertEquals("https://brooklyn.incubator.apache.org/", mojo.overrides.getUrl(
+            mojo.projectByIdCache.get("org.apache.brooklyn:brooklyn-core:0.8.0-incubating") ));
+        // but when parent and child report a URL, prefer the child
+        assertEquals("http://commons.apache.org/proper/commons-logging/", mojo.overrides.getUrl(
+            mojo.projectByIdCache.get("commons-logging:commons-logging:1.2") ));
+        
         assertOutputEqualsFileInCurrentTestProject("expected-report.txt");
     }
 
