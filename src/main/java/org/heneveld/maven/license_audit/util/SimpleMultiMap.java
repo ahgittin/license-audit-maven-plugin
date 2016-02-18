@@ -44,5 +44,10 @@ public class SimpleMultiMap<K,V> {
             put(key, val);
         }
     }
+
+    @Override
+    public String toString() {
+        return real.toString();
+    }
     
 }

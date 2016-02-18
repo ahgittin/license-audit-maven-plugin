@@ -53,7 +53,6 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
     protected String outputFilePath;
     protected Writer outputWriter = null;
 
-
     @Parameter( defaultValue = "-1", property = "depth", required = true )
     protected int maxDepth;
 
@@ -235,10 +234,12 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
     }
 
     protected void addError(String id, Object error) {
-        Set<Object> ee = projectErrors.get(id);
-        if (ee==null) ee = new LinkedHashSet<Object>();
-        ee.add(error);
-        projectErrors.put(id, ee);
+        projectErrors.put(id, error);
+        if (error instanceof Throwable) {
+            getLog().warn("Error found in "+id+" (attempting to continue): "+error, (Throwable) error);
+        } else { 
+            getLog().warn("Error found in "+id+" (attempting to continue): "+error);
+        }
     }
     
     protected MavenProject getProject(String projectId) {
