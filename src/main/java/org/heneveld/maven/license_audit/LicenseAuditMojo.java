@@ -26,11 +26,13 @@ import org.heneveld.maven.license_audit.util.LicenseCodes;
 import org.heneveld.maven.license_audit.util.ProjectsOverrides;
 import org.heneveld.maven.license_audit.util.SimpleMultiMap;
 
+import com.google.common.annotations.VisibleForTesting;
+
 @Mojo( name = "report", defaultPhase = LifecyclePhase.COMPILE)
 public class LicenseAuditMojo extends AbstractLicensingMojo {
 
     @Parameter( defaultValue = "tree", property = "format", required = true )
-    private String format;
+    String format;
 
     @Parameter( defaultValue = "false", property = "suppressExcludedDependencies", required = true )
     private boolean suppressExcludedDependencies;
@@ -44,6 +46,10 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
     @Parameter( defaultValue = "false", property = "suppressLicenseInfo", required = true )
     private boolean suppressLicenseInfo;
 
+    /** Collects the data reported so we can report it. */
+    @VisibleForTesting
+    Map<String,Map<String,String>> reportedData = null;
+    
     protected void generateOutput() throws MojoExecutionException {
         if ("tree".equalsIgnoreCase(format)) {
             new TreeReport().run();
@@ -125,7 +131,19 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
         }
         
         public void endProject() throws MojoExecutionException {}
-        public abstract void addProjectEntry(String key, String value) throws MojoExecutionException;
+        public final void addProjectEntry(String key, String value) throws MojoExecutionException {
+            if (reportedData!=null) {
+                Map<String, String> x = reportedData.get(currentProject);
+                if (x==null) {
+                    x = new LinkedHashMap<String,String>();
+                    reportedData.put(currentProject, x);
+                }
+                x.put(key, value);
+            }
+            
+            onAddProjectEntry(key, value);
+        }
+        public abstract void onAddProjectEntry(String key, String value) throws MojoExecutionException;
         
         /** returns dependent projects and the level of detail required for each */
         protected SimpleMultiMap<String,DependencyDetail> runProject(String id) throws MojoExecutionException {
@@ -331,31 +349,73 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
                 String n = ni.next();
                 if (n.toLowerCase().indexOf("copyright")<0) ni.remove();
             }
+            
             if (!notices.isEmpty()) {
                 result = join(notices, "\n");
             } else if (p!=null) {
                 result = "Copyright (c)";
-                if (p.getOrganization()!=null && p.getOrganization().getName()!=null && p.getOrganization().getName().length()>0) {
-                    result += " " + p.getOrganization().getName();
-                } else {
-                    result += " " + "project contributors";
+                String copyrightHolder = null;
+                if (copyrightHolder==null) {
+                    copyrightHolder = (String) overrides.getOverridesForProject(projectId).get("copyright_by");
                 }
-
-                long releaseYear = -1;
-                Set<Artifact> arts;
-                if (p.getArtifact()!=null && p.getArtifact().getFile()!=null) {
-                    arts = Collections.singleton(p.getArtifact());
-                } else {
-                    arts = projectArtifacts.get(Coords.of(p).normal());
-                    if (arts==null || arts.isEmpty()) {
-                        arts = p.getArtifacts();
+                if (copyrightHolder==null) {
+                    copyrightHolder = (String) overrides.getOverridesForProject(projectId).get("organization");
+                }
+                if (copyrightHolder==null) {
+                    // organization determines the copyright, according to:
+                    // http://maven.apache.org/xsd/maven-4.0.0.xsd
+                    if (p.getOrganization()!=null && p.getOrganization().getName()!=null && p.getOrganization().getName().length()>0) {
+                        copyrightHolder = p.getOrganization().getName();
                     }
                 }
-                for (Artifact art: arts) {
-                    if (art.getFile()!=null && art.getFile().exists()) {
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(new Date(art.getFile().lastModified()));
-                        releaseYear = Math.max(releaseYear, calendar.get(Calendar.YEAR));
+
+                if (p!=null) {
+                    // now try unversioned
+                    if (copyrightHolder==null) {
+                        copyrightHolder = (String) overrides.getOverridesForProject(Coords.of(p).unversioned()).get("copyright_by");
+                    }
+                    if (copyrightHolder==null) {
+                        copyrightHolder = (String) overrides.getOverridesForProject(Coords.of(p).unversioned()).get("organization");
+                    }
+
+                    // then just groupId
+                    if (copyrightHolder==null) {
+                        copyrightHolder = (String) overrides.getOverridesForProject(p.getGroupId()).get("copyright_by");
+                    }
+                    if (copyrightHolder==null) {
+                        copyrightHolder = (String) overrides.getOverridesForProject(p.getGroupId()).get("organization");
+                    }
+                }
+                
+                if (copyrightHolder==null) {
+                    // fall back to something sensible
+                    copyrightHolder = "project contributors";
+                }
+                result += " " + copyrightHolder;
+
+                long releaseYear = getForcedReleaseYear();
+                if (releaseYear==-1) {
+                    Set<Artifact> arts;
+                    if (p.getArtifact()!=null && p.getArtifact().getFile()!=null) {
+                        arts = Collections.singleton(p.getArtifact());
+                    } else {
+                        arts = projectArtifacts.get(Coords.of(p).normal());
+                        if (arts==null || arts.isEmpty()) {
+                            arts = p.getArtifacts();
+                        }
+                    }
+                    // file date is not necessarily a valid indicator; often it is when the artifact was downloaded;
+                    // TODO should really be consulting the upstream for release date
+                    for (Artifact art: arts) {
+                        if (art.getFile()!=null && art.getFile().exists()) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(new Date(art.getFile().lastModified()));
+                            releaseYear = Math.max(releaseYear, calendar.get(Calendar.YEAR));
+                        }
+                    }
+                    if (releaseYear == -1 && projectId.equals(Coords.of(project).normal())) {
+                        // force current year for project in focus if not available
+                        releaseYear = Calendar.getInstance().get(Calendar.YEAR);
                     }
                 }
 
@@ -443,7 +503,7 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
         }
         
         @Override
-        public void addProjectEntry(String key, String value) throws MojoExecutionException {
+        public void onAddProjectEntry(String key, String value) throws MojoExecutionException {
             if (value==null) {
                 getLog().debug("Ignoring null entry for "+currentProject+" "+key);
                 return;
@@ -486,7 +546,7 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
         }
         
         @Override
-        public void addProjectEntry(String key, String value) throws MojoExecutionException {
+        public void onAddProjectEntry(String key, String value) throws MojoExecutionException {
         }
     }
 
@@ -533,7 +593,7 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
             
             Map<String, Object> data = overrides.getOverridesForProject(id);
             String version = data==null ? null : (String)data.get("version");
-            if (data==null && p!=null && p.getArtifact()!=null) {
+            if (version==null && p!=null && p.getArtifact()!=null) {
                 version = p.getArtifact().getBaseVersion();  
             }
             
@@ -553,7 +613,8 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
             allProjectsData.put(id, thisProjectData);
         }
         
-        public void addProjectEntry(String key, String value) {
+        @Override
+        public void onAddProjectEntry(String key, String value) {
             columns.add(key);
             
             if (value==null) {
@@ -724,7 +785,7 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
         public TreeReport() { super("  +-", "  | ", false); }
 
         @Override
-        public void addProjectEntry(String key, String value) throws MojoExecutionException {
+        public void onAddProjectEntry(String key, String value) throws MojoExecutionException {
             if (value==null) {
                 getLog().debug("Ignoring null entry for "+currentProject+" "+key);
                 return;
@@ -778,7 +839,7 @@ public class LicenseAuditMojo extends AbstractLicensingMojo {
         public SummaryReport() { super("+-", "| ", true); }
         
         @Override
-        public void addProjectEntry(String key, String value) {
+        public void onAddProjectEntry(String key, String value) {
         }
         
         @Override

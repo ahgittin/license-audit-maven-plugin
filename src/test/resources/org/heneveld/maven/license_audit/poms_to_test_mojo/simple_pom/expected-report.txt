@@ -1,6 +1,6 @@
 org.heneveld.maven.license_audit:test-brooklyn-pom:0.1
   Name: Test-Purposes Only Simple Project
   License: <unknown>
-  Copyright: Copyright (c) project contributors
+  Copyright: Copyright (c) project contributors (2016)
   Artifacts Included: (root)
   Dependencies: (none in report scope)

@@ -117,7 +117,7 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
     SimpleMultiMap<String,Object> projectErrors = new SimpleMultiMap<String,Object>();
     SimpleMultiMap<String,DependencyNode> depNodesByIdCache = new SimpleMultiMap<String,DependencyNode>();
 
-    
+    int forcedReleaseYear = -1;
 
     public void execute() throws MojoExecutionException {
         setupMojo();
@@ -538,6 +538,14 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
         return overrides.getLicense(idIfProjectMightBeNull);
     }
 
+    protected int getForcedReleaseYear() {
+        return forcedReleaseYear;
+    }
+    
+    /** For use in tests, where generated docs may have 2015 hard-coded. */
+    public void setForcedReleaseYear(int forcedReleaseYear) {
+        this.forcedReleaseYear = forcedReleaseYear;
+    }
     
     protected abstract void generateOutput() throws MojoExecutionException;
 

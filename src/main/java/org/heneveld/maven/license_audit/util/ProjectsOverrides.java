@@ -44,21 +44,31 @@ public class ProjectsOverrides {
         return result;
     }
     public Map<?, ?> getOverridesForProject(MavenProject p) {
-        return getOverridesForProject(Coords.of(p).normal());
+        Map<Object,Object> result = new LinkedHashMap<Object, Object>();
+        // wildcard can be specified for project and version trumps next
+        result.putAll(getOverridesForProject(p.getGroupId()+":*"+":*"));
+        // but that is trumped by wildcard specified for version trumps
+        result.putAll(getOverridesForProject(Coords.of(p).unversioned()+":*"));
+        // which is trumped by exact version match
+        result.putAll(getOverridesForProject(Coords.of(p).normal()));
+        
+        // (if no wildcards are specified, they aren't treated as overrides, 
+        // but they are treated as defaults, for things like license and urls)
+        
+        return result;
     }
     
     public List<License> getLicense(MavenProject p) {
         if (p==null) return null;
         List<License> result = null;
-        result = getLicense(Coords.of(p).normal());
+        result = parseAsLicenses(getOverridesForProject(p).get("license"));
         if (result!=null) return result;
-        // wildcard for project trumps project and unversioned
-        result = getLicense(Coords.of(p).unversioned()+":*");
-        if (result!=null) return result;
+        
         // anything on project trumps something unversioned
         result = p.getLicenses();
         // semantics of MavenProject is never to return null
         if (result!=null && !result.isEmpty()) return result;
+        
         // next look up unversioned (as a default if nothing specified)
         result = getLicense(Coords.of(p).unversioned());
         if (result!=null) return result;
@@ -70,10 +80,7 @@ public class ProjectsOverrides {
     public String getUrl(MavenProject p) {
         if (p==null) return null;
         String result = null;
-        result = getUrl(Coords.of(p).normal());
-        if (result!=null) return result;
-        // wildcard for project trumps project and unversioned
-        result = getUrl(Coords.of(p).unversioned()+":*");
+        result = (String)getOverridesForProject(p).get("url");
         if (result!=null) return result;
         
         // anything on project trumps something unversioned

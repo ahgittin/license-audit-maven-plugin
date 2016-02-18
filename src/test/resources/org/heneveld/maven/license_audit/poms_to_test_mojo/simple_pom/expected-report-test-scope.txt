@@ -1,7 +1,7 @@
 org.heneveld.maven.license_audit:test-brooklyn-pom:0.1
   Name: Test-Purposes Only Simple Project
   License: <unknown>
-  Copyright: Copyright (c) project contributors
+  Copyright: Copyright (c) project contributors (2016)
   Artifacts Included: (root)
   Dependencies: junit:junit:jar:4.8.2 (test, included, detail below)
   Dependencies pulled in here detail:
@@ -9,6 +9,6 @@ org.heneveld.maven.license_audit:test-brooklyn-pom:0.1
   |   Name: JUnit
   |   URL: http://junit.org
   |   License: CPL1
-  |   Copyright: Copyright (c) JUnit (2012)
+  |   Copyright: Copyright (c) JUnit (2016)
   |   Artifacts Included: jar (test)
   |   Dependencies: (none)

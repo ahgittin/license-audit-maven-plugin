@@ -1,0 +1,1763 @@
+ID,GroupId,ArtifactId,Version,Name,Description,URL,Organization,Contributors,Developers,License Code,License,License Name,License URL,Artifacts Included,Dependencies,Copyright
+"org.heneveld.maven.license_audit:test-brooklyn-pom:0.1","org.heneveld.maven.license_audit","test-brooklyn-pom","0.1","Test-Purposes Only Project Referencing Brooklyn","","","","","","","<no licenses>","","","(root)","org.apache.brooklyn:brooklyn-dist:jar:0.8.0-incubating (compile, included)","Copyright (c) project contributors (2016)"
+"org.apache.brooklyn:brooklyn-dist:0.8.0-incubating","org.apache.brooklyn","brooklyn-dist","0.8.0-incubating",Brooklyn Distribution,"Brooklyn redistributable package archive, includes all required
+        Jar files and scripts","https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-all:jar:0.8.0-incubating (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-all:0.8.0-incubating","org.apache.brooklyn","brooklyn-all","0.8.0-incubating",Brooklyn All Things,"A meta-dependency for all the major Brooklyn modules.","https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.google.guava:guava:jar:17.0 (compile, included)
+org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-locations-jclouds:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-webapp:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-messaging:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-monitoring:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-database:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-osgi:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-nosql:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-network:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-launcher:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-cli:jar:0.8.0-incubating (compile, included)
+org.apache.jclouds:jclouds-allcompute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"com.google.guava:guava:17.0","com.google.guava",guava,"17.0","Guava: Google Core Libraries for Java","Guava is a suite of core and expanded libraries that include
+    utility classes, google's collections, io classes, and much
+    much more.
+
+    Guava has only one code dependency - javax.annotation,
+    per the JSR-305 spec.","http://code.google.com/p/guava-libraries","","","Kevin Bourrillion / Google (http://www.google.com)",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.google.code.findbugs:jsr305:jar:1.3.9 (compile, optional, version 2.0.1 included)","Copyright (c) project contributors (2010-2016)"
+"org.apache.brooklyn:brooklyn-policy:0.8.0-incubating","org.apache.brooklyn","brooklyn-policy","0.8.0-incubating",Brooklyn Policies,General policies and enrichers for managing entities,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-core:0.8.0-incubating","org.apache.brooklyn","brooklyn-core","0.8.0-incubating",Brooklyn Core,"Entity implementation classes, events, and other core elements","https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included)
+io.cloudsoft.windows:winrm4j:jar:0.1.0 (compile, included)
+net.schmizz:sshj:jar:0.8.1 (compile, included)
+com.thoughtworks.xstream:xstream:jar:1.4.7 (compile, included)
+org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included)
+com.google.code.gson:gson:jar:2.3 (compile, included)
+commons-io:commons-io:jar:2.4 (compile, included)
+org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included)
+org.bouncycastle:bcprov-ext-jdk15on:jar:1.49 (compile, included)
+org.bouncycastle:bcpkix-jdk15on:jar:1.49 (compile, included)
+org.apache.felix:org.apache.felix.framework:jar:4.4.0 (compile, included)
+org.reflections:reflections:jar:0.9.9-RC1 (compile, included)
+org.freemarker:freemarker:jar:2.3.22 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.httpcomponents:httpcore:jar:4.4.1 (compile, included)
+xml-apis:xml-apis:jar:1.0.b2 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+com.maxmind.geoip2:geoip2:jar:0.8.1 (compile, included)
+org.apache.commons:commons-lang3:jar:3.1 (compile, included)
+com.jayway.jsonpath:json-path:jar:2.0.0 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"io.cloudsoft.windows:winrm4j:0.1.0","io.cloudsoft.windows",winrm4j,"0.1.0","Java / Jython wrapper for pyWinRM","A WinRM library for Java, which wraps and delegates to the pyWinRM library.","http://github.com/cloudsoft/winrm4j","","",Cloudsoft committers,ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.python:jython-standalone:jar:2.7-b3 (compile, included)","Copyright (c) project contributors (2016)"
+"org.python:jython-standalone:2.7-b3","org.python","jython-standalone","2.7-b3",Jython,"Jython is an implementation of the high-level, dynamic, object-oriented
+        language Python written in 100% Pure Java, and seamlessly integrated with
+        the Java platform. It thus allows you to run Python on any Java platform.","http://www.jython.org/","","",Frank Wierzbicki,"","Jython Software License (http://www.jython.org/Project/license.html)",Jython Software License,"http://www.jython.org/Project/license.html","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"net.schmizz:sshj:0.8.1","net.schmizz",sshj,"0.8.1",sshj,SSHv2 library for Java,"http://github.com/shikhar/sshj","","","Shikhar Bhushan (http://schmizz.net)",ASL2,"Apache 2 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.slf4j:slf4j-api:jar:1.6.1 (compile, version 1.6.6 included)","Copyright (c) project contributors (2009-2016)"
+"com.thoughtworks.xstream:xstream:1.4.7","com.thoughtworks.xstream",xstream,"1.4.7",XStream Core,"XStream is a serialization library from Java objects to XML and back.","http://codehaus.org/","XStream (http://xstream.codehaus.org)","","",BSD,"BSD style (http://xstream.codehaus.org/license.html)",BSD License,"http://opensource.org/licenses/BSD-2-Clause","jar (compile)","dom4j:dom4j:jar:1.6.1 (compile, optional, included)
+xmlpull:xmlpull:jar:1.1.3.1 (compile, included)
+xpp3:xpp3_min:jar:1.1.4c (compile, included)
+org.codehaus.jettison:jettison:jar:1.2 (compile, optional, version 1.1 included)","Copyright (c) XStream (2004-2016)"
+"xmlpull:xmlpull:1.1.3.1",xmlpull,xmlpull,"1.1.3.1",XML Pull Parsing API,"","http://www.xmlpull.org","","","","","Public Domain (http://www.xmlpull.org/v1/download/unpacked/LICENSE.txt)",Public Domain,"http://www.xmlpull.org/v1/download/unpacked/LICENSE.txt","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"xpp3:xpp3_min:1.1.4c",xpp3,"xpp3_min","1.1.4c","MXP1: Xml Pull Parser 3rd Edition (XPP3)","MXP1 is a stable XmlPull parsing engine that is based on ideas from XPP and in particular XPP2 but completely revised and rewritten to take the best advantage of latest JIT JVMs such as Hotspot in JDK 1.4+.","http://www.extreme.indiana.edu/xgws/xsoap/xpp/mxp1/","Extreme! Lab, Indiana University (http://www.extreme.indiana.edu/)","","","","Indiana University Extreme! Lab Software License, vesion 1.1.1 (http://www.extreme.indiana.edu/viewcvs/~checkout~/XPP3/java/LICENSE.txt); The license applies to the Xpp3 classes (all classes below the org.xmlpull package with exception of classes directly in package org.xmlpull.v1 )
+Public Domain (http://creativecommons.org/licenses/publicdomain); The license applies to the XmlPull API (all classes directly in the org.xmlpull.v1 package)","","","jar (compile)","(none)","Copyright (c) Extreme! Lab, Indiana University (2016)"
+"org.codehaus.jackson:jackson-mapper-asl:1.9.13","org.codehaus.jackson","jackson-mapper-asl","1.9.13",Data Mapper for Jackson,"Data Mapper package is a high-performance data binding package
+built on Jackson JSON processor","http://jackson.codehaus.org","FasterXML (http://fasterxml.com)","",Tatu Saloranta,ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included)","Copyright (c) FasterXML (2016)"
+"org.bouncycastle:bcprov-ext-jdk15on:1.49","org.bouncycastle","bcprov-ext-jdk15on","1.49",Bouncy Castle Provider,"The Bouncy Castle Crypto package is a Java implementation of cryptographic algorithms. This jar contains JCE provider and lightweight API for the Bouncy Castle Cryptography APIs for JDK 1.5 to JDK 1.7. Note: this package includes the IDEA and NTRU encryption algorithms.","http://www.bouncycastle.org/java.html","","",The Legion of the Bouncy Castle,"","Bouncy Castle Licence (http://www.bouncycastle.org/licence.html)",Bouncy Castle Licence,"http://www.bouncycastle.org/licence.html","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"org.bouncycastle:bcpkix-jdk15on:1.49","org.bouncycastle","bcpkix-jdk15on","1.49","Bouncy Castle PKIX, CMS, EAC, TSP, PKCS, OCSP, CMP, and CRMF APIs","The Bouncy Castle Java APIs for CMS, PKCS, EAC, TSP, CMP, CRMF, OCSP, and certificate generation. This jar contains APIs for JDK 1.5 to JDK 1.7. The APIs can be used in conjunction with a JCE/JCA provider such as the one provided with the Bouncy Castle Cryptography APIs.","http://www.bouncycastle.org/java.html","","",The Legion of the Bouncy Castle,"","Bouncy Castle Licence (http://www.bouncycastle.org/licence.html)",Bouncy Castle Licence,"http://www.bouncycastle.org/licence.html","jar (compile)","org.bouncycastle:bcprov-jdk15on:jar:1.49 (compile, excluded from build)","Copyright (c) project contributors (2016)"
+"org.reflections:reflections:0.9.9-RC1","org.reflections",reflections,"0.9.9-RC1",Reflections,"Reflections - a Java runtime metadata analysis","http://code.google.com/p/reflections/","","","","","WTFPL (http://www.wtfpl.net/)",WTFPL,"http://www.wtfpl.net/","jar (compile)","com.google.guava:guava:jar:11.0.2 (compile, version 17.0 included)
+org.javassist:javassist:jar:3.16.1-GA (compile, included)
+org.slf4j:slf4j-api:jar:1.6.1 (compile, optional, version 1.6.6 included)
+dom4j:dom4j:jar:1.6.1 (compile, included)
+com.google.code.gson:gson:jar:1.4 (compile, optional, version 2.3 included)","Copyright (c) project contributors (2016)"
+"org.javassist:javassist:3.16.1-GA","org.javassist",javassist,"3.16.1-GA",Javassist,"Javassist (JAVA programming ASSISTant) makes Java bytecode manipulation
+    simple.  It is a class library for editing bytecodes in Java.","http://www.javassist.org/","","","Shigeru Chiba / The Javassist Project (http://www.javassist.org/)
+Andrew Dinn / JBoss (http://www.jboss.org/)
+Kabir Khan / JBoss (http://www.jboss.org/)","","MPL 1.1 (http://www.mozilla.org/MPL/MPL-1.1.html)
+LGPL 2.1 (http://www.gnu.org/licenses/lgpl-2.1.html)
+Apache License 2.0 (http://www.apache.org/licenses/)","","","jar (compile)","(none in report scope)","Copyright (c) project contributors (2016)"
+"dom4j:dom4j:1.6.1",dom4j,dom4j,"1.6.1",dom4j,"dom4j: the flexible XML framework for Java","http://dom4j.org","MetaStuff Ltd. (http://sourceforge.net/projects/dom4j)","","Curt Arnold
+David Lucas
+David White
+Jakob Jenkov
+James Strachan / SpiritSoft, Inc.
+Laramie Crocker
+Maarten Coene / Cronos
+Michael Skells
+Nick Sanderson
+Steen Lehmann
+Tobias Rademacher
+Bob McWhirter
+Todd Wolff
+OuYang Chen
+Yuxin Ruan","","<no licenses>","","","jar (compile)","xml-apis:xml-apis:jar:1.0.b2 (compile, included)","Copyright (c) MetaStuff Ltd. (2001-2016)"
+"org.freemarker:freemarker:2.3.22","org.freemarker",freemarker,"2.3.22",FreeMarker,"FreeMarker is a ""template engine""; a generic tool to generate text output based on templates.","http://freemarker.org/","","","Attila Szegedi
+Daniel Dekany
+Jonathan Revusky",ASL2,"Apache License, Version 2.0 (http://freemarker.org/LICENSE.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"org.codehaus.jackson:jackson-core-asl:1.9.13","org.codehaus.jackson","jackson-core-asl","1.9.13",Jackson,"Jackson is a high-performance JSON processor (parser, generator)","http://jackson.codehaus.org","FasterXML (http://fasterxml.com)","",Tatu Saloranta,ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none)","Copyright (c) FasterXML (2016)"
+"com.maxmind.geoip2:geoip2:0.8.1","com.maxmind.geoip2",geoip2,"0.8.1",MaxMind GeoIP2 API,GeoIP2 webservice client and database reader,"http://dev.maxmind.com/geoip/geoip2/web-services","MaxMind, Inc. (http://www.maxmind.com/)","","Gregory J. Oschwald",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.maxmind.db:maxmind-db:jar:0.3.4 (compile, included)
+com.google.http-client:google-http-client:jar:1.18.0-rc (compile, included)
+com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included)","Copyright (c) MaxMind, Inc. (2016)"
+"com.maxmind.db:maxmind-db:0.3.4","com.maxmind.db","maxmind-db","0.3.4",MaxMind DB Reader,Reader for MaxMind DB,"http://dev.maxmind.com/","MaxMind, Inc. (http://www.maxmind.com/)","","Gregory J. Oschwald",ASL2,"Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included)","Copyright (c) MaxMind, Inc. (2016)"
+"com.google.http-client:google-http-client:1.18.0-rc","com.google.http-client","google-http-client","1.18.0-rc",Google HTTP Client Library for Java,"Google HTTP Client Library for Java. Functionality that works on all supported Java platforms,
+    including Java 5 (or higher) desktop (SE) and web (EE), Android, and Google App Engine.","http://code.google.com/p/google-http-java-client/","Google (http://www.google.com/)","","Yaniv Inbar / Google (http://www.google.com)",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.google.code.findbugs:jsr305:jar:1.3.9 (compile, version 2.0.1 included)
+org.apache.httpcomponents:httpclient:jar:4.0.1 (compile, version 4.4.1 included)","Copyright (c) Google (2011-2016)"
+"org.apache.commons:commons-lang3:3.1","org.apache.commons","commons-lang3","3.1",Commons Lang,"Commons Lang, a package of Java utility classes for the
+  classes that are in java.lang's hierarchy, or are considered to be so
+  standard as to justify existence in java.lang.","http://commons.apache.org/lang/","The Apache Software Foundation (http://www.apache.org/)","C. Scott Ananian
+Chris Audley
+Stephane Bailliez
+Michael Becke
+Benjamin Bentmann
+Ola Berg
+Nathan Beyer
+Stefan Bodewig
+Janek Bogucki
+Mike Bowler
+Sean Brown
+Alexander Day Chaffee
+Al Chou
+Greg Coladonato
+Maarten Coene
+Justin Couch
+Michael Davey
+Norm Deane
+Morgan Delagrange
+Ringo De Smet
+Russel Dittmar
+Steve Downey
+Matthias Eichel
+Christopher Elkins
+Chris Feldhacker
+Roland Foerther
+Pete Gieser
+Jason Gritman
+Matthew Hawthorne
+Michael Heuer
+Chris Hyzer
+Paul Jack
+Marc Johnson
+Shaun Kalley
+Tetsuya Kaneuchi
+Nissim Karpenstein
+Ed Korthof
+Holger Krauth
+Rafal Krupinski
+Rafal Krzewski
+David Leppik
+Eli Lindsey
+Sven Ludwig
+Craig R. McClanahan
+Rand McNeely
+Hendrik Maryns
+Dave Meikle
+Nikolay Metchev
+Kasper Nielsen
+Tim O'Brien
+Brian S O'Neill
+Andrew C. Oliver
+Alban Peignier
+Moritz Petersen
+Dmitri Plotnikov
+Neeme Praks
+Eric Pugh
+Stephen Putman
+Travis Reeder
+Antony Riley
+Valentin Rocher
+Scott Sanders
+Ralph Schaer
+Henning P. Schmiedehausen
+Sean Schofield
+Robert Scholte
+Reuben Sivan
+Ville Skytta
+David M. Sledge
+Michael A. Smith
+Jan Sorensen
+Glen Stampoultzis
+Scott Stanchfield
+Jon S. Stevens
+Sean C. Sullivan
+Ashwin Suresh
+Helge Tesgaard
+Arun Mammen Thomas
+Masato Tezuka
+Jeff Varszegi
+Chris Webb
+Mario Winterer
+Stepan Koltsov
+Holger Hoffstatte
+Derek C. Ashmore","Daniel Rall / CollabNet, Inc.
+Stephen Colebourne / SITA ATS Ltd
+Henri Yandell
+Steven Caswell
+Robert Burrell Donkin
+Gary D. Gregory
+Phil Steitz
+Fredrik Westermarck
+James Carman / Carman Consulting, Inc.
+Niall Pemberton
+Matt Benson
+Joerg Schaible
+Oliver Heger
+Paul Benedict",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2001-2016)"
+"com.jayway.jsonpath:json-path:2.0.0","com.jayway.jsonpath","json-path","2.0.0",Json Path,"Java port of Stefan Goessner JsonPath.","https://github.com/jayway/JsonPath","","",Kalle Stenflo,ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.slf4j:slf4j-api:jar:1.7.10 (compile, version 1.6.6 included)
+net.minidev:json-smart:jar:2.1.1 (compile, included)
+com.google.code.gson:gson:jar:2.3.1 (compile, optional, version 2.3 included)
+com.fasterxml.jackson.core:jackson-databind:jar:2.4.5 (compile, optional, version 2.4.2 included)","Copyright (c) project contributors (2016)"
+"net.minidev:json-smart:2.1.1","net.minidev","json-smart","2.1.1",JSON Small and Fast Parser,"JSON (JavaScript Object Notation) is a lightweight data-interchange format.
+    It is easy for humans to read and write. It is easy for machines to parse and generate.
+    It is based on a subset of the JavaScript Programming Language, Standard ECMA-262 3rd Edition
+    - December 1999. JSON is a text format that is completely language independent but uses
+    conventions that are familiar to programmers of the C-family of languages, including C, C++, C#,
+    Java, JavaScript, Perl, Python, and many others.
+    These properties make JSON an ideal data-interchange language.","http://www.minidev.net/","Chemouni Uriel (http://www.minidev.net/)","",Uriel Chemouni,ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt); All files under Apache 2","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","net.minidev:asm:jar:1.0.2 (compile, included)","Copyright (c) Chemouni Uriel (2016)"
+"net.minidev:asm:1.0.2","net.minidev",asm,"1.0.2",ASM helper Minidev,ASM Optimisation Package,"http://www.minidev.net/","Chemouni Uriel (http://www.minidev.net/)","",Uriel Chemouni,ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt); All files under Apache 2","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","asm:asm:jar:3.3.1 (compile, included)","Copyright (c) Chemouni Uriel (2016)"
+"asm:asm:3.3.1",asm,asm,"3.3.1",ASM Core,A very small and fast Java bytecode manipulation framework,"http://asm.objectweb.org/","ObjectWeb (http://www.objectweb.org/)","","Eric Bruneton
+Eugene Kuleshov
+Remi Forax",BSD,"BSD (http://asm.objectweb.org/license.html)",BSD License,"http://opensource.org/licenses/BSD-2-Clause","jar (compile)","(none)","Copyright (c) ObjectWeb (2000-2016)"
+"org.codehaus.groovy:groovy-all:2.3.4","org.codehaus.groovy","groovy-all","2.3.4",Groovy,"Groovy: A powerful, dynamic language for the JVM","http://groovy.codehaus.org/","The Codehaus (http://codehaus.org)","Joern Eyrich
+Robert Kuzelj
+Rod Cope
+Yuri Schimke
+James Birchfield
+Robert Fuller
+Sergey Udovenko
+Hallvard Traetteberg
+Peter Reilly
+Brian McCallister
+Richard Monson-Haefel
+Brian Larson
+Artur Biesiadowski
+Ivan Z. Ganza
+Arjun Nayyar
+Mark Chu-Carroll
+Mark Turansky
+Jean-Louis Berliet
+Graham Miller
+Marc Palmer
+Tugdual Grall
+Edwin Tellman
+Evan A Slatis
+Mike Dillon
+Bernhard Huber
+Marc DeXeT
+Dejan Bosanac
+Denver Dino
+Ted Naleid
+Chanwit Kaewkasi
+Brad Long
+John Bito
+Jim Jagielski
+John Hurst
+Merlyn Albery-Speyer
+jeremi Joslin
+UEHARA Junji
+NAKANO Yasuharu
+Dinko Srkoc
+Raffaele Cigni
+Alberto Vilches Raton
+Paulo Poiati
+Alexander Klein
+Adam Murdoch
+David Durham
+Daniel Henrique Alves Lima
+John Wagenleitner
+Colin Harrington
+Brian Alexander
+Jan Weitz
+Joachim Baumann
+David Sutherland
+Mattias Reichel
+David Lee","Guillaume Laforge
+bob mcwhirter
+James Strachan
+Joe Walnes
+Chris Stevenson
+Jamie McCrindle
+Matt Foemmel
+Sam Pullara
+Kasper Nielsen
+Travis Kay
+Zohar Melamed
+John Wilson
+Chris Poirier
+Christiaan ten Klooster
+Steve Goetze
+Bing Ran
+Jeremy Rayner
+John Stump
+Jochen Theodorou
+Russel Winder
+Pilho Kim
+Christian Stein
+Dierk Koenig
+Paul King
+Guillaume Alleon
+Jason Dillon
+Danno Ferrin
+James Williams
+Andres Almiray
+Marc Guillemot
+Jim White
+Peter Niederwieser
+Hamlet D'Arcy
+Cedric Champeau",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","commons-logging:commons-logging:jar:1.1.1 (compile, optional, version 1.2 included)
+com.thoughtworks.xstream:xstream:jar:1.4.7 (compile, optional, included)","Copyright (c) The Codehaus (2003-2016)"
+"org.apache.brooklyn:brooklyn-utils-common:0.8.0-incubating","org.apache.brooklyn","brooklyn-utils-common","0.8.0-incubating",Brooklyn Common Utilities,Utility classes and methods developed for Brooklyn but not dependendent on Brooklyn or much else,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.google.guava:guava:jar:17.0 (compile, included)
+ch.qos.logback:logback-classic:jar:1.0.7 (compile, included)
+org.slf4j:jul-to-slf4j:jar:1.6.6 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+commons-io:commons-io:jar:2.4 (compile, included)
+org.yaml:snakeyaml:jar:1.11 (compile, included)
+org.apache.brooklyn:brooklyn-logback-includes:jar:0.8.0-incubating (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.slf4j:jul-to-slf4j:1.6.6","org.slf4j","jul-to-slf4j","1.6.6",JUL to SLF4J bridge,JUL to SLF4J bridge,"http://www.slf4j.org","QOS.ch (http://www.qos.ch)","",Ceki Gulcu,MIT,"MIT License (http://www.opensource.org/licenses/mit-license.php)",The MIT License,"http://opensource.org/licenses/MIT","jar (compile)","org.slf4j:slf4j-api:jar:1.6.6 (compile, included)","Copyright (c) QOS.ch (2005-2016)"
+"org.yaml:snakeyaml:1.11","org.yaml",snakeyaml,"1.11",SnakeYAML,"YAML 1.1 parser and emitter for Java","http://www.snakeyaml.org","","","Andrey Somov
+Alexander Maslov",ASL2,"Apache License Version 2.0 (LICENSE.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) project contributors (2008-2016)"
+"org.apache.brooklyn:brooklyn-logback-includes:0.8.0-incubating","org.apache.brooklyn","brooklyn-logback-includes","0.8.0-incubating",Brooklyn Logback Includable Configuration,"This project contains various ""include"" files which can be included by logback configuration,
+        setting up logging for brooklyn. This project does *not* contain a logback.xml so is safe to
+        include without causing errors, and if it is included you can then include any of the files
+        provided here in your logback.xml.","https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","ch.qos.logback:logback-classic:jar:1.0.7 (compile, included)
+ch.qos.logback:logback-core:jar:1.0.7 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.slf4j:slf4j-api:1.6.6","org.slf4j","slf4j-api","1.6.6",SLF4J API Module,The slf4j API,"http://www.slf4j.org","QOS.ch (http://www.qos.ch)","",Ceki Gulcu,MIT,"MIT License (http://www.opensource.org/licenses/mit-license.php)",The MIT License,"http://opensource.org/licenses/MIT","jar (compile)","(none in report scope)","Copyright (c) QOS.ch (2005-2016)"
+"org.apache.brooklyn:brooklyn-utils-groovy:0.8.0-incubating","org.apache.brooklyn","brooklyn-utils-groovy","0.8.0-incubating",Brooklyn Groovy Utilities,Groovy extensions and utility classes and methods developed for Brooklyn but not dependendent on Brooklyn or much else,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-api:0.8.0-incubating","org.apache.brooklyn","brooklyn-api","0.8.0-incubating",Brooklyn API,API classes for Brooklyn,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating","org.apache.brooklyn","brooklyn-locations-jclouds","0.8.0-incubating",Brooklyn Jclouds Location Targets,Support jclouds API for provisioning cloud locations,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+com.google.inject:guice:jar:3.0 (compile, included)
+javax.inject:javax.inject:jar:1 (compile, included)
+commons-io:commons-io:jar:2.4 (compile, included)
+org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+javax.annotation:jsr250-api:jar:1.0 (compile, included)
+aopalliance:aopalliance:jar:1.0 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+org.apache.jclouds.driver:jclouds-slf4j:jar:1.9.1 (compile, included)
+org.apache.jclouds.driver:jclouds-bouncycastle:jar:1.9.1 (compile, included)
+org.apache.jclouds.driver:jclouds-sshj:jar:1.9.1 (compile, included)
+net.java.dev.jna:jna:jar:4.0.0 (compile, included)
+net.java.dev.jna:jna-platform:jar:4.0.0 (compile, included)
+org.apache.jclouds:jclouds-allblobstore:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-allcompute:jar:1.9.1 (compile, included)
+org.apache.jclouds.labs:abiquo:jar:1.9.1 (compile, included)
+org.apache.jclouds.labs:google-compute-engine:jar:1.9.1 (compile, included)
+org.apache.jclouds.labs:docker:jar:1.9.1 (compile, included)
+ch.qos.logback:logback-classic:jar:1.0.7 (compile, included)
+ch.qos.logback:logback-core:jar:1.0.7 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"com.google.code.findbugs:jsr305:2.0.1","com.google.code.findbugs",jsr305,"2.0.1","FindBugs-jsr305",JSR305 Annotations for Findbugs,"http://findbugs.sourceforge.net/","","","",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"com.google.inject:guice:3.0","com.google.inject",guice,"3.0","Google Guice - Core Library",Guice is a lightweight dependency injection framework for Java 5 and above,"http://code.google.com/p/google-guice/","Google, Inc. (http://www.google.com)","","",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","javax.inject:javax.inject:jar:1 (compile, included)
+aopalliance:aopalliance:jar:1.0 (compile, included)","Copyright (c) Google, Inc. (2006-2016)"
+"javax.inject:javax.inject:1","javax.inject","javax.inject",1,"javax.inject","The javax.inject API","http://code.google.com/p/atinject/","","","",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"commons-io:commons-io:2.4","commons-io","commons-io","2.4",Commons IO,"The Commons IO library contains utility classes, stream implementations, file filters, 
+file comparators, endian transformation classes, and much more.","http://commons.apache.org/io/","The Apache Software Foundation (http://www.apache.org/)","Rahul Akolkar
+Jason Anderson
+Nathan Beyer
+Emmanuel Bourg
+Chris Eldredge
+Magnus Grimsell
+Jim Harrington
+Thomas Ledoux
+Andy Lehane
+Marcelo Liberato
+Alban Peignier
+Ian Springer
+Masato Tezuka
+James Urie
+Frank W. Zammetti","Scott Sanders
+dIon Gillard
+Nicola Ken Barozzi
+Henri Yandell
+Stephen Colebourne
+Jeremias Maerki
+Matthew Hawthorne
+Martin Cooper
+Rob Oxspring
+Jochen Wiedmann
+Niall Pemberton
+Jukka Zitting
+Gary Gregory (http://www.garygregory.com)",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2002-2016)"
+"org.apache.httpcomponents:httpclient:4.4.1","org.apache.httpcomponents",httpclient,"4.4.1",Apache HttpClient,Apache HttpComponents Client,"http://hc.apache.org/httpcomponents-client","The Apache Software Foundation (http://www.apache.org/)","Julius Davies
+Andrea Selva
+Steffen Pingel
+Quintin Beukes
+Marc Beyerle
+James Abley
+Michajlo Matijkiw","Ortwin Glueck (http://www.odi.ch/)
+Oleg Kalnichevski
+Asankha C. Perera (http://www.adroitlogic.org/)
+Sebastian Bazley
+Erik Abele (http://www.codefaktor.de/)
+Ant Elder
+Paul Fremantle
+Roland Weber
+Sam Berlin
+Sean C. Sullivan
+Jonathan Moore
+Gary Gregory
+William Speirs
+Karl Wright
+Francois-Xavier Bonnet",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.httpcomponents:httpcore:jar:4.4.1 (compile, included)
+commons-logging:commons-logging:jar:1.2 (compile, included)
+commons-codec:commons-codec:jar:1.9 (compile, included)","Copyright (c) The Apache Software Foundation (1999-2016)"
+"javax.annotation:jsr250-api:1.0","javax.annotation","jsr250-api","1.0","JSR-250 Common Annotations for the JavaTM Platform","JSR-250 Reference Implementation by Glassfish","http://jcp.org/aboutJava/communityprocess/final/jsr250/index.html","","","",CDDL1,"COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 (https://glassfish.dev.java.net/public/CDDLv1.0.html)","Common Development and Distribution License, version 1.0","http://opensource.org/licenses/CDDL-1.0","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"aopalliance:aopalliance:1.0",aopalliance,aopalliance,"1.0",AOP alliance,AOP Alliance,"http://aopalliance.sourceforge.net","","","","",Public Domain,Public Domain,"","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"org.apache.jclouds.driver:jclouds-slf4j:1.9.1","org.apache.jclouds.driver","jclouds-slf4j","1.9.1",jclouds SLF4J Logging Module,jclouds SLF4J Logging Module,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.slf4j:slf4j-api:jar:1.7.2 (compile, version 1.6.6 included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds:jclouds-core:1.9.1","org.apache.jclouds","jclouds-core","1.9.1",jclouds Components Core,Core components to access jclouds services,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","javax.ws.rs:jsr311-api:jar:1.1.1 (compile, included)
+com.google.inject.extensions:guice-assistedinject:jar:3.0 (compile, included)
+com.google.inject:guice:jar:3.0 (compile, included)
+org.99soft.guice:rocoto:jar:6.2 (compile, included)
+javax.inject:javax.inject:jar:1 (compile, included)
+javax.annotation:jsr250-api:jar:1.0 (compile, included)
+com.google.code.gson:gson:jar:2.3 (compile, included)
+com.google.guava:guava:jar:16.0.1 (compile, version 17.0 included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"com.google.inject.extensions:guice-assistedinject:3.0","com.google.inject.extensions","guice-assistedinject","3.0","Google Guice - Extensions - AssistedInject",Guice is a lightweight dependency injection framework for Java 5 and above,"http://code.google.com/p/google-guice/","Google, Inc. (http://www.google.com)","","",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.google.inject:guice:jar:3.0 (compile, included)
+com.google.inject:guice:jar:no_deps:3.0 (compile, optional, project included)","Copyright (c) Google, Inc. (2006-2016)"
+"org.99soft.guice:rocoto:6.2","org.99soft.guice",rocoto,"6.2","99soft :: Rocoto","Add some spice to Google Guice through configuration files!","http://99soft.github.com/rocoto/","99 Software Foundation (http://www.99soft.org/)","Cody Ray
+Daniel Manzke (http://devsurf.wordpress.com/)
+Ioannis Canellos
+Marzia Forli
+Picpoc
+Stuart McCulloch","Davide Palmisano (http://davidepalmisano.com/)
+Marco Speranza (http://www.marcosperanza.org/)
+Simone Tripodi (http://simonetripodi.livejournal.com)",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","javax.inject:javax.inject:jar:1 (compile, included)
+com.google.inject:guice:jar:3.0 (compile, included)","Copyright (c) 99 Software Foundation (2010-2016)"
+"org.apache.jclouds.driver:jclouds-bouncycastle:1.9.1","org.apache.jclouds.driver","jclouds-bouncycastle","1.9.1",jclouds bouncycastle EncryptionService Module,jclouds bouncycastle EncryptionService Module,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.bouncycastle:bcprov-ext-jdk15on:jar:1.49 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.driver:jclouds-sshj:1.9.1","org.apache.jclouds.driver","jclouds-sshj","1.9.1",jclouds sshj ssh client,jclouds sshj ssh client,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.apache.jclouds.driver:jclouds-slf4j:jar:1.9.1 (compile, included)
+org.apache.jclouds.driver:jclouds-bouncycastle:jar:1.9.1 (compile, included)
+net.schmizz:sshj:jar:0.8.1 (compile, included)
+org.bouncycastle:bcpkix-jdk15on:jar:1.49 (compile, included)
+com.jcraft:jsch.agentproxy.sshj:jar:0.0.8 (compile, included)
+com.jcraft:jsch.agentproxy.connector-factory:jar:0.0.8 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds:jclouds-compute:1.9.1","org.apache.jclouds","jclouds-compute","1.9.1",jclouds compute core,jclouds components to access compute providers,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-scriptbuilder:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds:jclouds-scriptbuilder:1.9.1","org.apache.jclouds","jclouds-scriptbuilder","1.9.1",jclouds script builder,creates scripts that can be used to manage services,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"com.jcraft:jsch.agentproxy.sshj:0.0.8","com.jcraft","jsch.agentproxy.sshj","0.0.8","a library to use jsch-agent-proxy with sshj","a proxy to ssh-agent and Pageant in Java","http://www.jcraft.com/jsch-agent-proxy/","JCraft,Inc. (http://www.jcraft.com/)","","Atsuhiko Yamanaka / JCraft,Inc. (http://github.com/ymnk / http://www.jcraft.com/)","BSD-3-Clause","Revised BSD (http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt)","The BSD 3-Clause (New BSD) License","http://opensource.org/licenses/BSD-3-Clause","jar (compile)","net.schmizz:sshj:jar:[0.8.1,) (compile, version 0.8.1 included)
+com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included)","Copyright (c) JCraft,Inc. (2016)"
+"com.jcraft:jsch.agentproxy.core:0.0.8","com.jcraft","jsch.agentproxy.core","0.0.8","jsch-agent-proxy core library","a proxy to ssh-agent and Pageant in Java","http://www.jcraft.com/jsch-agent-proxy/","JCraft,Inc. (http://www.jcraft.com/)","","Atsuhiko Yamanaka / JCraft,Inc. (http://github.com/ymnk / http://www.jcraft.com/)","BSD-3-Clause","Revised BSD (http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt)","The BSD 3-Clause (New BSD) License","http://opensource.org/licenses/BSD-3-Clause","jar (compile)","(none)","Copyright (c) JCraft,Inc. (2016)"
+"com.jcraft:jsch.agentproxy.connector-factory:0.0.8","com.jcraft","jsch.agentproxy.connector-factory","0.0.8",a connector factory,"a proxy to ssh-agent and Pageant in Java","http://www.jcraft.com/jsch-agent-proxy/","JCraft,Inc. (http://www.jcraft.com/)","","Atsuhiko Yamanaka / JCraft,Inc. (http://github.com/ymnk / http://www.jcraft.com/)","BSD-3-Clause","Revised BSD (http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt)","The BSD 3-Clause (New BSD) License","http://opensource.org/licenses/BSD-3-Clause","jar (compile)","com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included)
+com.jcraft:jsch.agentproxy.usocket-jna:jar:0.0.8 (compile, included)
+com.jcraft:jsch.agentproxy.usocket-nc:jar:0.0.8 (compile, included)
+com.jcraft:jsch.agentproxy.sshagent:jar:0.0.8 (compile, included)
+com.jcraft:jsch.agentproxy.pageant:jar:0.0.8 (compile, included)","Copyright (c) JCraft,Inc. (2016)"
+"com.jcraft:jsch.agentproxy.usocket-jna:0.0.8","com.jcraft","jsch.agentproxy.usocket-jna","0.0.8",an implementation of USocketFactory using JNA,"a proxy to ssh-agent and Pageant in Java","http://www.jcraft.com/jsch-agent-proxy/","JCraft,Inc. (http://www.jcraft.com/)","","Atsuhiko Yamanaka / JCraft,Inc. (http://github.com/ymnk / http://www.jcraft.com/)","BSD-3-Clause","Revised BSD (http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt)","The BSD 3-Clause (New BSD) License","http://opensource.org/licenses/BSD-3-Clause","jar (compile)","com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included)
+net.java.dev.jna:jna:jar:4.1.0 (compile, version 4.0.0 included)
+net.java.dev.jna:jna-platform:jar:4.1.0 (compile, version 4.0.0 included)","Copyright (c) JCraft,Inc. (2016)"
+"com.jcraft:jsch.agentproxy.usocket-nc:0.0.8","com.jcraft","jsch.agentproxy.usocket-nc","0.0.8",an implementation of USocketFactory using netcat,"a proxy to ssh-agent and Pageant in Java","http://www.jcraft.com/jsch-agent-proxy/","JCraft,Inc. (http://www.jcraft.com/)","","Atsuhiko Yamanaka / JCraft,Inc. (http://github.com/ymnk / http://www.jcraft.com/)","BSD-3-Clause","Revised BSD (http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt)","The BSD 3-Clause (New BSD) License","http://opensource.org/licenses/BSD-3-Clause","jar (compile)","com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included)","Copyright (c) JCraft,Inc. (2016)"
+"com.jcraft:jsch.agentproxy.sshagent:0.0.8","com.jcraft","jsch.agentproxy.sshagent","0.0.8","a connector for ssh-agent","a proxy to ssh-agent and Pageant in Java","http://www.jcraft.com/jsch-agent-proxy/","JCraft,Inc. (http://www.jcraft.com/)","","Atsuhiko Yamanaka / JCraft,Inc. (http://github.com/ymnk / http://www.jcraft.com/)","BSD-3-Clause","Revised BSD (http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt)","The BSD 3-Clause (New BSD) License","http://opensource.org/licenses/BSD-3-Clause","jar (compile)","com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included)","Copyright (c) JCraft,Inc. (2016)"
+"com.jcraft:jsch.agentproxy.pageant:0.0.8","com.jcraft","jsch.agentproxy.pageant","0.0.8",a connector for Pageant using JNA,"a proxy to ssh-agent and Pageant in Java","http://www.jcraft.com/jsch-agent-proxy/","JCraft,Inc. (http://www.jcraft.com/)","","Atsuhiko Yamanaka / JCraft,Inc. (http://github.com/ymnk / http://www.jcraft.com/)","BSD-3-Clause","Revised BSD (http://www.jcraft.com/jsch-agent-proxy/LICENSE.txt)","The BSD 3-Clause (New BSD) License","http://opensource.org/licenses/BSD-3-Clause","jar (compile)","com.jcraft:jsch.agentproxy.core:jar:0.0.8 (compile, included)
+net.java.dev.jna:jna:jar:4.1.0 (compile, version 4.0.0 included)
+net.java.dev.jna:jna-platform:jar:4.1.0 (compile, version 4.0.0 included)","Copyright (c) JCraft,Inc. (2016)"
+"net.java.dev.jna:jna:4.0.0","net.java.dev.jna",jna,"4.0.0",Java Native Access,Java Native Access,"https://github.com/twall/jna","","",Timothy Wall,"","LGPL, version 2.1 (http://www.gnu.org/licenses/licenses.html)
+ASL, version 2 (http://www.apache.org/licenses/)","","","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"net.java.dev.jna:jna-platform:4.0.0","net.java.dev.jna","jna-platform","4.0.0",Java Native Access Platform,Java Native Access Platform,"https://github.com/twall/jna","","",Timothy Wall,"","LGPL, version 2.1 (http://www.gnu.org/licenses/licenses.html)
+ASL, version 2 (http://www.apache.org/licenses/)","","","jar (compile)","net.java.dev.jna:jna:jar:4.0.0 (compile, included)","Copyright (c) project contributors (2016)"
+"org.apache.jclouds:jclouds-allblobstore:1.9.1","org.apache.jclouds","jclouds-allblobstore","1.9.1",allblobstore,"Apache jclouds: Concurrent API for Cloud Services","http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:s3:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:aws-s3:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:azureblob:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:atmos:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:swift:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:rackspace-cloudfiles-us:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:rackspace-cloudfiles-uk:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:hpcloud-objectstorage:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:filesystem:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:s3:1.9.1","org.apache.jclouds.api",s3,"1.9.1",jclouds s3 api,jclouds components to access an implementation of S3,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.jamesmurty.utils:java-xmlbuilder:jar:1.1 (compile, included)
+org.apache.jclouds.api:sts:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"com.jamesmurty.utils:java-xmlbuilder:1.1","com.jamesmurty.utils","java-xmlbuilder","1.1","java-xmlbuilder",XML Builder is a utility that creates simple XML documents using relatively sparse Java code,"https://github.com/jmurty/java-xmlbuilder","","","James Murty (http://jamesmurty.com)",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","net.iharder:base64:jar:2.3.8 (compile, included)","Copyright (c) project contributors (2016)"
+"net.iharder:base64:2.3.8","net.iharder",base64,"2.3.8",base64,"A Java class providing very fast Base64 encoding and decoding 
+               in the form of convenience methods and input/output streams.","http://iharder.net/base64/","","","Robert Harder (http://iharder.net/)
+Owen O'Malley (http://people.apache.org/~omalley)","","Public domain; I have released this software into the Public Domain. That 
+               means you can do whatever you want with it. Really. You don't
+               have to match it up with any other open source license -
+               just use it. You can rename the files, move the Java packages,
+               whatever you want. If your lawyers say you have to have a 
+               license, contact me, and I'll make a special release to you 
+               under whatever reasonable license you desire: MIT, BSD, GPL, 
+               whatever.",Public domain,"","jar (compile)","(none in report scope)","Copyright (c) project contributors (2016)"
+"org.apache.jclouds:jclouds-blobstore:1.9.1","org.apache.jclouds","jclouds-blobstore","1.9.1",jclouds blobstore core,jclouds components to access blobstore,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:aws-s3:1.9.1","org.apache.jclouds.provider","aws-s3","1.9.1","jclouds Amazon Simple Storage Service (S3) provider","Simple Storage Service (S3) implementation targeted to Amazon Web Services","http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:s3:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:azureblob:1.9.1","org.apache.jclouds.provider",azureblob,"1.9.1",jclouds Azure Storage provider,jclouds components to access Azure Blob Service,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:atmos:1.9.1","org.apache.jclouds.api",atmos,"1.9.1",jclouds atmos components,"Apache jclouds: Concurrent API for Cloud Services","http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:swift:1.9.1","org.apache.jclouds.api",swift,"1.9.1",jclouds swift api,jclouds components to access an implementation of OpenStack Swift,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)
+org.apache.jclouds.common:openstack-common:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.common:openstack-common:1.9.1","org.apache.jclouds.common","openstack-common","1.9.1",jclouds OpenStack Components Core,jclouds Core components to access OpenStack apis,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:openstack-swift:1.9.1","org.apache.jclouds.api","openstack-swift","1.9.1","jclouds openstack-swift api",jclouds components to access an implementation of OpenStack Swift,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:rackspace-cloudfiles-us:1.9.1","org.apache.jclouds.provider","rackspace-cloudfiles-us","1.9.1",jclouds Rackspace Cloud Files US provider,OpenStack Object Storage implementation targeted to Rackspace Cloud Files US,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:rackspace-cloudfiles:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:rackspace-cloudfiles:1.9.1","org.apache.jclouds.api","rackspace-cloudfiles","1.9.1","jclouds rackspace-cloudfiles api",jclouds components to access Rackspace Cloud Files,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:rackspace-cloudfiles-uk:1.9.1","org.apache.jclouds.provider","rackspace-cloudfiles-uk","1.9.1",jclouds Rackspace Cloud Files UK provider,OpenStack Object Storage implementation targeted to Rackspace Cloud Files UK,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:rackspace-cloudfiles:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:hpcloud-objectstorage:1.9.1","org.apache.jclouds.provider","hpcloud-objectstorage","1.9.1",jclouds HP Cloud Object Storage,jclouds components to access HP Cloud Services Object Storage,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:swift:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:filesystem:1.9.1","org.apache.jclouds.api",filesystem,"1.9.1",jclouds filesystem core,jclouds components to access filesystem,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.labs:abiquo:1.9.1","org.apache.jclouds.labs",abiquo,"1.9.1",jclouds Abiquo api,jclouds components to access an implementation of Abiquo,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.labs:google-compute-engine:1.9.1","org.apache.jclouds.labs","google-compute-engine","1.9.1",jclouds Google Compute Engine provider,jclouds components to access GoogleCompute,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.apache.jclouds.labs:googlecloud:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.labs:googlecloud:1.9.1","org.apache.jclouds.labs",googlecloud,"1.9.1",jclouds Google Cloud Core,jclouds components common to Google Cloud products,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.labs:oauth:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.labs:oauth:1.9.1","org.apache.jclouds.labs",oauth,"1.9.1",jclouds OAuth core,jclouds components to access OAuth,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.labs:docker:1.9.1","org.apache.jclouds.labs",docker,"1.9.1",jclouds docker API,ComputeService binding to the Docker API,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)
+org.apache.jclouds.driver:jclouds-sshj:jar:1.9.1 (compile, included)
+org.apache.jclouds.driver:jclouds-bouncycastle:jar:1.9.1 (compile, included)
+org.apache.jclouds.driver:jclouds-okhttp:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.driver:jclouds-okhttp:1.9.1","org.apache.jclouds.driver","jclouds-okhttp","1.9.1",jclouds OkHttp Driver,OkHttp Driver,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+com.squareup.okhttp:okhttp:jar:2.2.0 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"com.squareup.okhttp:okhttp:2.2.0","com.squareup.okhttp",okhttp,"2.2.0",OkHttp,"An HTTP+SPDY client for Android and Java applications","https://github.com/square/okhttp","","","",ASL2,"Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.squareup.okio:okio:jar:1.2.0 (compile, included)","Copyright (c) project contributors (2016)"
+"com.squareup.okio:okio:1.2.0","com.squareup.okio",okio,"1.2.0",Okio,"A modern I/O API for Java","https://github.com/square/okio","","","",ASL2,"Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) project contributors (2016)"
+"ch.qos.logback:logback-classic:1.0.7","ch.qos.logback","logback-classic","1.0.7",Logback Classic Module,"logback-classic module","http://logback.qos.ch","QOS.ch (http://www.qos.ch)","","Ceki Gulcu
+Joern Huxhorn","","Eclipse Public License - v 1.0 (http://www.eclipse.org/legal/epl-v10.html)
+GNU Lesser General Public License (http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)","","","jar (compile)","ch.qos.logback:logback-core:jar:1.0.7 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.0.0 (compile, optional, version 2.3.4 included)","Copyright (c) QOS.ch (2005-2016)"
+"ch.qos.logback:logback-core:1.0.7","ch.qos.logback","logback-core","1.0.7",Logback Core Module,"logback-core module","http://logback.qos.ch","QOS.ch (http://www.qos.ch)","","Ceki Gulcu
+Joern Huxhorn","","Eclipse Public License - v 1.0 (http://www.eclipse.org/legal/epl-v10.html)
+GNU Lesser General Public License (http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)","","","jar (compile)","(none in report scope)","Copyright (c) QOS.ch (2005-2016)"
+"org.apache.brooklyn:brooklyn-software-webapp:0.8.0-incubating","org.apache.brooklyn","brooklyn-software-webapp","0.8.0-incubating",Brooklyn Web App Software Entities,Brooklyn entities for Web App software processes,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included)
+org.hibernate:jtidy:jar:r8-20060801 (compile, included)
+org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+xml-apis:xml-apis:jar:1.0.b2 (compile, included)
+org.apache.httpcomponents:httpcore:jar:4.4.1 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.hibernate:jtidy:r8-20060801","org.hibernate",jtidy,"r8-20060801",JTidy,"JTidy is a Java port of HTML Tidy, a HTML syntax checker and pretty printer. Like its non-Java cousin, JTidy can be used as a tool for cleaning up malformed and faulty HTML. In addition, JTidy provides a DOM parser for real-world HTML.","http://jtidy.sourceforge.net","","","","","Java HTML Tidy License (http://svn.sourceforge.net/viewvc/*checkout*/jtidy/trunk/jtidy/LICENSE.txt?revision=95)",Java HTML Tidy License,"http://svn.sourceforge.net/viewvc/*checkout*/jtidy/trunk/jtidy/LICENSE.txt?revision=95","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"org.apache.brooklyn:brooklyn-software-base:0.8.0-incubating","org.apache.brooklyn","brooklyn-software-base","0.8.0-incubating",Brooklyn Software Base,Base classes for Brooklyn software process entities,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-jmxmp-agent:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-jmxrmi-agent:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included)
+org.freemarker:freemarker:jar:2.3.22 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+com.google.code.gson:gson:jar:2.3 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+commons-io:commons-io:jar:2.4 (compile, included)
+org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-jmxmp-agent:0.8.0-incubating","org.apache.brooklyn","brooklyn-jmxmp-agent","0.8.0-incubating",Brooklyn Secure JMXMP Agent,"A JMX connector serving the JMXMP protocol for firewall connectivity with SSL (TLS) support","https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.glassfish.external:opendmk_jmxremote_optional_jar:jar:1.0-b01-ea (compile, included)
+org.bouncycastle:bcprov-ext-jdk15on:jar:1.49 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.glassfish.external:opendmk_jmxremote_optional_jar:1.0-b01-ea","org.glassfish.external","opendmk_jmxremote_optional_jar","1.0-b01-ea","opendmk_jmxremote_optional_jar","","","","","","","<no licenses>","","","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"org.apache.brooklyn:brooklyn-jmxrmi-agent:0.8.0-incubating","org.apache.brooklyn","brooklyn-jmxrmi-agent","0.8.0-incubating",Brooklyn JMX RMI Agent,A JMX connector for firewall connectivity with a fixed RMI server port,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"xml-apis:xml-apis:1.0.b2","xml-apis","xml-apis","1.0.b2",XML Commons External Components XML APIs,"xml-commons provides an Apache-hosted set of DOM, SAX, and 
+    JAXP interfaces for use in other xml-based projects. Our hope is that we 
+    can standardize on both a common version and packaging scheme for these 
+    critical XML standards interfaces to make the lives of both our developers 
+    and users easier. The External Components portion of xml-commons contains 
+    interfaces that are defined by external standards organizations. For DOM, 
+    that's the W3C; for SAX it's David Megginson and sax.sourceforge.net; for 
+    JAXP it's Sun.","http://xml.apache.org/commons/#external","Apache Software Foundation (http://www.apache.org/)","","",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none)","Copyright (c) Apache Software Foundation (2016)"
+"org.apache.httpcomponents:httpcore:4.4.1","org.apache.httpcomponents",httpcore,"4.4.1",Apache HttpCore,"Apache HttpComponents Core (blocking I/O)","http://hc.apache.org/httpcomponents-core-ga","The Apache Software Foundation (http://www.apache.org/)","Julius Davies
+Andrea Selva
+Steffen Pingel
+Quintin Beukes
+Marc Beyerle
+James Abley
+Michajlo Matijkiw","Ortwin Glueck (http://www.odi.ch/)
+Oleg Kalnichevski
+Asankha C. Perera (http://www.adroitlogic.org/)
+Sebastian Bazley
+Erik Abele (http://www.codefaktor.de/)
+Ant Elder
+Paul Fremantle
+Roland Weber
+Sam Berlin
+Sean C. Sullivan
+Jonathan Moore
+Gary Gregory
+William Speirs
+Karl Wright
+Francois-Xavier Bonnet",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2005-2016)"
+"org.apache.brooklyn:brooklyn-software-messaging:0.8.0-incubating","org.apache.brooklyn","brooklyn-software-messaging","0.8.0-incubating",Brooklyn Messaging Software Entities,Brooklyn entities for messaging software processes,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+commons-codec:commons-codec:jar:1.9 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"commons-codec:commons-codec:1.9","commons-codec","commons-codec","1.9",Apache Commons Codec,"The Apache Commons Codec package contains simple encoder and decoders for
+     various formats such as Base64 and Hexadecimal.  In addition to these
+     widely used encoders and decoders, the codec package also maintains a
+     collection of phonetic encoding utilities.","http://commons.apache.org/proper/commons-codec/","The Apache Software Foundation (http://www.apache.org/)","Christopher O'Brien
+Martin Redington
+Jeffery Dever
+Steve Zimmermann
+Benjamin Walstrum
+Oleg Kalnichevski
+Dave Dribin
+Alex Karasulu
+Matthew Inger
+Jochen Wiedmann
+Sebastian Bazley
+Matthew Pocock
+Colm Rice","Henri Yandell
+Tim OBrien
+Scott Sanders
+Rodney Waldhoff
+Daniel Rall
+Jon S. Stevens
+Gary Gregory (http://www.garygregory.com)
+David Graham
+Julius Davies (http://juliusdavies.ca/)
+Thomas Neidhart",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2002-2016)"
+"org.apache.brooklyn:brooklyn-software-monitoring:0.8.0-incubating","org.apache.brooklyn","brooklyn-software-monitoring","0.8.0-incubating",Brooklyn Monitoring Software Entities,Brooklyn entities for monitoring processes,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-software-database:0.8.0-incubating","org.apache.brooklyn","brooklyn-software-database","0.8.0-incubating",Brooklyn Database Software Entities,Brooklyn entitites for database software processes,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-software-osgi:0.8.0-incubating","org.apache.brooklyn","brooklyn-software-osgi","0.8.0-incubating",Brooklyn OSGi Software Entities,Brooklyn entities for OSGi container software processes,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+org.apache.felix:org.apache.felix.framework:jar:4.4.0 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.felix:org.apache.felix.framework:4.4.0","org.apache.felix","org.apache.felix.framework","4.4.0",Apache Felix Framework,"Apache Felix is an OSGi implementation.","http://felix.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2006-2016)"
+"org.apache.brooklyn:brooklyn-software-nosql:0.8.0-incubating","org.apache.brooklyn","brooklyn-software-nosql","0.8.0-incubating",Brooklyn NoSQL Data Store Software Entities,Brooklyn entities for NoSQL data store software entities,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-webapp:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-database:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-groovy:jar:0.8.0-incubating (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+com.google.code.gson:gson:jar:2.3 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+org.mongodb:mongo-java-driver:jar:2.11.4 (compile, included)
+commons-logging:commons-logging:jar:1.2 (compile, included)
+commons-codec:commons-codec:jar:1.9 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"com.google.code.gson:gson:2.3","com.google.code.gson",gson,"2.3",Gson,Google Gson library,"http://code.google.com/p/google-gson/","Google, Inc. (http://www.google.com)","","Inderjeet Singh / Trymph Inc.
+Joel Leitch / Google Inc.
+Jesse Wilson / Square Inc.",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) Google, Inc. (2008-2016)"
+"org.mongodb:mongo-java-driver:2.11.4","org.mongodb","mongo-java-driver","2.11.4",MongoDB Java Driver,The MongoDB Java driver,"http://www.mongodb.org","","","Various / 10gen",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"commons-logging:commons-logging:1.2","commons-logging","commons-logging","1.2",Apache Commons Logging,"Apache Commons Logging is a thin adapter allowing configurable bridging to other,
+    well known logging systems.","http://commons.apache.org/proper/commons-logging/","The Apache Software Foundation (http://www.apache.org/)","Matthew P. Del Buono
+Vince Eagen
+Peter Lawrey
+Berin Loritsch
+Philippe Mouawad
+Neeme Praks","Juozas Baliuka
+Morgan Delagrange / Apache
+Peter Donald
+Robert Burrell Donkin / The Apache Software Foundation
+Simon Kitching / The Apache Software Foundation
+Dennis Lundberg / The Apache Software Foundation
+Costin Manolache / The Apache Software Foundation
+Craig McClanahan / The Apache Software Foundation
+Thomas Neidhart / The Apache Software Foundation
+Scott Sanders / The Apache Software Foundation
+Richard Sitze / The Apache Software Foundation
+Brian Stansberry
+Rodney Waldhoff / The Apache Software Foundation",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2001-2016)"
+"org.apache.brooklyn:brooklyn-software-network:0.8.0-incubating","org.apache.brooklyn","brooklyn-software-network","0.8.0-incubating",Brooklyn Network Software Entities,Brooklyn entities for network service software processes,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-launcher:0.8.0-incubating","org.apache.brooklyn","brooklyn-launcher","0.8.0-incubating",Brooklyn Launcher,"This project contains a brooklyn.launcher.Main class
+        for command-line invocation, and includes the
+        Brooklyn WAR in its JAR for classpath-based starting.","https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-rest-server:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-camp:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn.camp:camp-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn.camp:camp-server:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.felix:org.apache.felix.framework:jar:4.4.0 (compile, included)
+com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.0_jdk5 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+com.sun.jersey:jersey-server:jar:1.18.1 (compile, included)
+com.sun.jersey:jersey-servlet:jar:1.18.1 (compile, included)
+org.eclipse.jetty:jetty-server:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-servlet:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-util:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-webapp:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty.orbit:javax.servlet:jar:3.0.0.v201112011016 (compile, included)
+org.apache.httpcomponents:httpclient:jar:4.4.1 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+org.apache.brooklyn:brooklyn-locations-jclouds:jar:0.8.0-incubating (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-rest-server:0.8.0-incubating","org.apache.brooklyn","brooklyn-rest-server","0.8.0-incubating",Brooklyn REST Server,Brooklyn REST Endpoint,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-rest-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-camp:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn.camp:camp-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-rest-swagger:jar:0.8.0-incubating (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+org.yaml:snakeyaml:jar:1.11 (compile, included)
+com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included)
+org.reflections:reflections:jar:0.9.9-RC1 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+javax.ws.rs:jsr311-api:jar:1.1.1 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+com.sun.jersey:jersey-json:jar:1.18.1 (compile, included)
+com.sun.jersey:jersey-core:jar:1.18.1 (compile, included)
+com.sun.jersey:jersey-server:jar:1.18.1 (compile, included)
+com.sun.jersey:jersey-servlet:jar:1.18.1 (compile, included)
+org.eclipse.jetty:jetty-webapp:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-server:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-servlet:jar:8.1.17.v20150415 (compile, included)
+org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included)
+org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included)
+org.codehaus.jackson:jackson-jaxrs:jar:1.9.13 (compile, included)
+org.codehaus.jackson:jackson-xc:jar:1.9.13 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.brooklyn:brooklyn-rest-api:0.8.0-incubating","org.apache.brooklyn","brooklyn-rest-api","0.8.0-incubating",Brooklyn REST API,Brooklyn REST API Classes,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included)
+org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included)
+com.sun.jersey.contribs:jersey-multipart:jar:1.18.1 (compile, included)
+javax.validation:validation-api:jar:1.0.0.GA (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+commons-lang:commons-lang:jar:2.4 (compile, included)
+com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included)
+org.eclipse.jetty.orbit:javax.servlet:jar:3.0.0.v201112011016 (compile, included)
+com.sun.jersey:jersey-core:jar:1.18.1 (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-rest-swagger:jar:0.8.0-incubating (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"commons-lang:commons-lang:2.4","commons-lang","commons-lang","2.4",Commons Lang,"Commons Lang, a package of Java utility classes for the
+        classes that are in java.lang's hierarchy, or are considered to be so
+        standard as to justify existence in java.lang.","http://commons.apache.org/lang/","The Apache Software Foundation (http://www.apache.org/)","C. Scott Ananian
+Chris Audley
+Stephane Bailliez
+Michael Becke
+Ola Berg
+Nathan Beyer
+Stefan Bodewig
+Janek Bogucki
+Mike Bowler
+Sean Brown
+Alexander Day Chaffee
+Al Chou
+Greg Coladonato
+Maarten Coene
+Justin Couch
+Michael Davey
+Norm Deane
+Ringo De Smet
+Russel Dittmar
+Steve Downey
+Matthias Eichel
+Christopher Elkins
+Chris Feldhacker
+Pete Gieser
+Jason Gritman
+Matthew Hawthorne
+Michael Heuer
+Oliver Heger
+Chris Hyzer
+Marc Johnson
+Shaun Kalley
+Tetsuya Kaneuchi
+Nissim Karpenstein
+Ed Korthof
+Holger Krauth
+Rafal Krupinski
+Rafal Krzewski
+Craig R. McClanahan
+Rand McNeely
+Dave Meikle
+Nikolay Metchev
+Kasper Nielsen
+Tim O'Brien
+Brian S O'Neill
+Andrew C. Oliver
+Alban Peignier
+Moritz Petersen
+Dmitri Plotnikov
+Neeme Praks
+Eric Pugh
+Stephen Putman
+Travis Reeder
+Antony Riley
+Scott Sanders
+Ralph Schaer
+Henning P. Schmiedehausen
+Sean Schofield
+Reuben Sivan
+Ville Skytta
+Jan Sorensen
+Glen Stampoultzis
+Scott Stanchfield
+Jon S. Stevens
+Sean C. Sullivan
+Ashwin Suresh
+Helge Tesgaard
+Arun Mammen Thomas
+Masato Tezuka
+Jeff Varszegi
+Chris Webb
+Mario Winterer
+Stepan Koltsov
+Holger Hoffstatte","Daniel Rall / CollabNet, Inc.
+Stephen Colebourne / SITA ATS Ltd
+Henri Yandell
+Steven Caswell
+Robert Burrell Donkin
+Gary D. Gregory / Seagull Software
+Phil Steitz
+Fredrik Westermarck
+James Carman / Carman Consulting, Inc.
+Niall Pemberton
+Matt Benson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2001-2016)"
+"org.apache.brooklyn:brooklyn-utils-rest-swagger:0.8.0-incubating","org.apache.brooklyn","brooklyn-utils-rest-swagger","0.8.0-incubating",Brooklyn REST Swagger Apidoc Utilities,Swagger REST API utility classes and methods developed for Brooklyn but not dependendent on Brooklyn,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.eclipse.jetty:jetty-webapp:jar:8.1.17.v20150415 (compile, included)
+com.sun.jersey:jersey-server:jar:1.18.1 (compile, included)
+com.sun.jersey:jersey-core:jar:1.18.1 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included)
+com.wordnik:swagger-jaxrs_2.9.1:jar:1.0.1 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"com.wordnik:swagger-jaxrs_2.9.1:1.0.1","com.wordnik","swagger-jaxrs_2.9.1","1.0.1","swagger-jaxrs","Sonatype helps open source projects to set up Maven repositories on https://oss.sonatype.org/","https://github.com/wordnik/swagger-core","","",Tony Tam,ASL2,"Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.scala-lang:scala-library:jar:2.9.1-1 (compile, included)
+com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included)
+javax.servlet:servlet-api:jar:2.5 (compile, excluded from build)
+javax.ws.rs:jsr311-api:jar:1.1.1 (compile, included)
+com.sun.jersey:jersey-json:jar:1.7 (compile, version 1.18.1 included)
+com.sun.jersey:jersey-client:jar:1.7 (compile, excluded from build)
+com.sun.jersey:jersey-core:jar:1.7 (compile, version 1.18.1 included)
+com.sun.jersey:jersey-server:jar:1.7 (compile, version 1.18.1 included)","Copyright (c) project contributors (2016)"
+"org.scala-lang:scala-library:2.9.1-1","org.scala-lang","scala-library","2.9.1-1",Scala Library,Standard library for the Scala Programming Language,"http://www.scala-lang.org/","LAMP/EPFL (http://lamp.epfl.ch/)","","EPFL LAMP
+Typesafe, Inc.",BSD,"BSD-like (http://www.scala-lang.org/downloads/license.html)",BSD License,"http://opensource.org/licenses/BSD-2-Clause","jar (compile)","(none)","Copyright (c) LAMP/EPFL (2002-2016)"
+"com.wordnik:swagger-core_2.9.1:1.0.1","com.wordnik","swagger-core_2.9.1","1.0.1","swagger-core","Sonatype helps open source projects to set up Maven repositories on https://oss.sonatype.org/","https://github.com/wordnik/swagger-core","","",Tony Tam,ASL2,"Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","commons-lang:commons-lang:jar:2.4 (compile, included)
+org.slf4j:slf4j-log4j12:jar:1.6.3 (compile, excluded from build)
+org.codehaus.jackson:jackson-jaxrs:jar:1.8.5 (compile, version 1.9.13 included)
+org.codehaus.jackson:jackson-core-asl:jar:1.8.5 (compile, version 1.9.13 included)
+org.codehaus.jackson:jackson-xc:jar:1.8.5 (compile, version 1.9.13 included)
+org.codehaus.jackson:jackson-mapper-asl:jar:1.8.5 (compile, version 1.9.13 included)","Copyright (c) project contributors (2016)"
+"javax.ws.rs:jsr311-api:1.1.1","javax.ws.rs","jsr311-api","1.1.1","jsr311-api","","https://jsr311.dev.java.net","Sun Microsystems, Inc (http://www.sun.com/)","","","","CDDL License (http://www.opensource.org/licenses/cddl1.php)",CDDL License,"http://www.opensource.org/licenses/cddl1.php","jar (compile)","(none in report scope)","Copyright (c) Sun Microsystems, Inc (2016)"
+"com.sun.jersey:jersey-json:1.18.1","com.sun.jersey","jersey-json","1.18.1","jersey-json","Jersey is the open source (under dual CDDL+GPL license) JAX-RS (JSR 311)
+        production quality Reference Implementation for building
+        RESTful Web services.","https://jersey.java.net/","Oracle Corporation (http://www.oracle.com/)","","","CDDL1.1","CDDL 1.1 (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+GPL2 w/ CPE (http://glassfish.java.net/public/CDDL+GPL_1_1.html)","Common Development and Distribution License, version 1.1","https://glassfish.java.net/public/CDDL+GPL_1_1.html","jar (compile)","org.codehaus.jettison:jettison:jar:1.1 (compile, included)
+com.sun.xml.bind:jaxb-impl:jar:2.2.3-1 (compile, excluded from build)
+org.codehaus.jackson:jackson-core-asl:jar:1.9.2 (compile, version 1.9.13 included)
+org.codehaus.jackson:jackson-mapper-asl:jar:1.9.2 (compile, version 1.9.13 included)
+org.codehaus.jackson:jackson-jaxrs:jar:1.9.2 (compile, version 1.9.13 included)
+org.codehaus.jackson:jackson-xc:jar:1.9.2 (compile, version 1.9.13 included)
+com.sun.jersey:jersey-core:jar:1.18.1 (compile, included)","Copyright (c) Oracle Corporation (2016)"
+"org.codehaus.jettison:jettison:1.1","org.codehaus.jettison",jettison,"1.1",Jettison,"A StAX implementation for JSON.","","","","","","<no licenses>","","","jar (compile)","stax:stax-api:jar:1.0.1 (compile, excluded from build)","Copyright (c) project contributors (2016)"
+"com.sun.jersey:jersey-core:1.18.1","com.sun.jersey","jersey-core","1.18.1","jersey-core","Jersey is the open source (under dual CDDL+GPL license) JAX-RS (JSR 311)
+        production quality Reference Implementation for building
+        RESTful Web services.","https://jersey.java.net/","Oracle Corporation (http://www.oracle.com/)","","","CDDL1.1","CDDL 1.1 (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+GPL2 w/ CPE (http://glassfish.java.net/public/CDDL+GPL_1_1.html)","Common Development and Distribution License, version 1.1","https://glassfish.java.net/public/CDDL+GPL_1_1.html","jar (compile)","(none in report scope)","Copyright (c) Oracle Corporation (2016)"
+"org.codehaus.jackson:jackson-jaxrs:1.9.13","org.codehaus.jackson","jackson-jaxrs","1.9.13","JAX-RS provider for JSON content type","Jax-RS provider for JSON content type, based on 
+Jackson JSON processor's data binding functionality.","http://jackson.codehaus.org","FasterXML (http://fasterxml.com)","",Tatu Saloranta,"","The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)
+GNU Lesser General Public License (LGPL), Version 2.1 (http://www.fsf.org/licensing/licenses/lgpl.txt)","","","jar (compile)","org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included)
+org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included)","Copyright (c) FasterXML (2016)"
+"org.codehaus.jackson:jackson-xc:1.9.13","org.codehaus.jackson","jackson-xc","1.9.13",Xml Compatibility extensions for Jackson,"Extensions that provide interoperability support for
+Jackson JSON processor's data binding functionality.","http://jackson.codehaus.org","FasterXML (http://fasterxml.com)","",Tatu Saloranta,"","The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)
+GNU Lesser General Public License (LGPL), Version 2.1 (http://www.fsf.org/licensing/licenses/lgpl.txt)","","","jar (compile)","org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included)
+org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13 (compile, included)","Copyright (c) FasterXML (2016)"
+"org.apache.brooklyn:brooklyn-camp:0.8.0-incubating","org.apache.brooklyn","brooklyn-camp","0.8.0-incubating",Brooklyn CAMP REST API,Brooklyn support for the Oasis CAMP server,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn.camp:camp-base:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-policy:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+commons-beanutils:commons-beanutils:jar:1.9.1 (compile, included)
+org.apache.brooklyn:brooklyn-software-base:jar:0.8.0-incubating (compile, included)
+commons-logging:commons-logging:jar:1.2 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"commons-beanutils:commons-beanutils:1.9.1","commons-beanutils","commons-beanutils","1.9.1",Apache Commons BeanUtils,"Apache Commons BeanUtils provides an easy-to-use but flexible wrapper around reflection and introspection.","http://commons.apache.org/proper/commons-beanutils/","The Apache Software Foundation (http://www.apache.org/)","Paul Jack
+Stephen Colebourne
+Berin Loritsch
+Alex Crown
+Marcus Zander
+Paul Hamamnt
+Rune Johannesen
+Clebert Suconic
+Norm Deane
+Ralph Schaer
+Chris Audley
+Rey François
+Gregor Raýman
+Jan Sorensen
+Eric Pabst
+Paulo Gaspar
+Michael Smith
+George Franciscus
+Erik Meade
+Tomas Viberg
+Yauheny Mikulski
+Michael Szlapa
+Juozas Baliuka","Robert Burrell Donkin / The Apache Software Foundation
+Dion Gillard / The Apache Software Foundation
+Craig McClanahan / The Apache Software Foundation
+Geir Magnusson Jr. / The Apache Software Foundation
+Scott Sanders / The Apache Software Foundation
+James Strachan / The Apache Software Foundation
+Rodney Waldhoff / The Apache Software Foundation
+Martin van den Bemt / The Apache Software Foundation
+Yoav Shapira / The Apache Software Foundation
+Niall Pemberton / The Apache Software Foundation
+Simon Kitching / The Apache Software Foundation
+James Carman / The Apache Software Foundation
+Benedikt Ritter / The Apache Software Foundation
+Tim O'Brien / The Apache Software Foundation
+David Eric Pugh / The Apache Software Foundation
+Morgan James Delagrange / The Apache Software Foundation
+John E. Conlon / The Apache Software Foundation
+Stephen Colebourne / The Apache Software Foundation",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","commons-logging:commons-logging:jar:1.1.1 (compile, version 1.2 included)
+commons-collections:commons-collections:jar:3.2.1 (compile, included)","Copyright (c) The Apache Software Foundation (2000-2016)"
+"commons-collections:commons-collections:3.2.1","commons-collections","commons-collections","3.2.1",Commons Collections,"Types that extend and augment the Java Collections Framework.","http://commons.apache.org/collections/","The Apache Software Foundation (http://www.apache.org/)","Rafael U. C. Afonso
+Max Rydahl Andersen
+Federico Barbieri
+Arron Bates
+Nicola Ken Barozzi
+Sebastian Bazley
+Matt Benson
+Ola Berg
+Christopher Berry
+Nathan Beyer
+Janek Bogucki
+Chuck Burdick
+Dave Bryson
+Julien Buret
+Jonathan Carlson
+Ram Chidambaram
+Steve Clark
+Eric Crampton
+Dimiter Dimitrov
+Peter Donald
+Steve Downey
+Rich Dougherty
+Tom Dunham
+Stefano Fornari
+Andrew Freeman
+Gerhard Froehlich
+Paul Jack
+Eric Johnson
+Kent Johnson
+Marc Johnson
+Nissim Karpenstein
+Shinobu Kawai
+Mohan Kishore
+Simon Kitching
+Thomas Knych
+Serge Knystautas
+Peter KoBek
+Jordan Krey
+Olaf Krische
+Guilhem Lavaux
+Paul Legato
+David Leppik
+Berin Loritsch
+Hendrik Maryns
+Stefano Mazzocchi
+Brian McCallister
+Steven Melzer
+Leon Messerschmidt
+Mauricio S. Moura
+Kasper Nielsen
+Stanislaw Osinski
+Alban Peignier
+Mike Pettypiece
+Steve Phelps
+Ilkka Priha
+Jonas Van Poucke
+Will Pugh
+Herve Quiroz
+Daniel Rall
+Robert Ribnitz
+Huw Roberts
+Henning P. Schmiedehausen
+Howard Lewis Ship
+Joe Raysa
+Thomas Schapitz
+Jon Schewe
+Andreas Schlosser
+Christian Siefkes
+Michael Smith
+Stephen Smith
+Jan Sorensen
+Jon S. Stevens
+James Strachan
+Leo Sutic
+Chris Tilden
+Neil O'Toole
+Jeff Turner
+Kazuya Ujihara
+Jeff Varszegi
+Ralph Wagner
+David Weinrich
+Dieter Wimberger
+Serhiy Yevtushenko
+Jason van Zyl","Stephen Colebourne
+Morgan Delagrange
+Matthew Hawthorne
+Geir Magnusson
+Craig McClanahan
+Phil Steitz
+Arun M. Thomas
+Rodney Waldhoff
+Henri Yandell
+James Carman
+Robert Burrell Donkin",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) The Apache Software Foundation (2001-2016)"
+"org.apache.brooklyn.camp:camp-base:0.8.0-incubating","org.apache.brooklyn.camp","camp-base","0.8.0-incubating",CAMP Base,Core base classes for CAMP server implementation,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+org.apache.commons:commons-lang3:jar:3.1 (compile, included)
+org.apache.commons:commons-compress:jar:1.4 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+com.google.code.findbugs:jsr305:jar:2.0.1 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"org.apache.commons:commons-compress:1.4","org.apache.commons","commons-compress","1.4",Commons Compress,"Apache Commons Compress software defines an API for working with compression and archive formats.
+These include: bzip2, gzip, pack200 and ar, cpio, jar, tar, zip, dump.","http://commons.apache.org/compress/","The Apache Software Foundation (http://www.apache.org/)","Wolfgang Glas
+Christian Kohlschütte
+Bear Giles
+Michael Kuss
+Lasse Collin
+John Kodis","Torsten Curdt
+Stefan Bodewig
+Sebastian Bazley
+Christian Grobmeier",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.tukaani:xz:jar:1.0 (compile, included)","Copyright (c) The Apache Software Foundation (2016)"
+"org.tukaani:xz:1.0","org.tukaani",xz,"1.0",XZ for Java,XZ data compression,"http://tukaani.org/xz/java.html","","Igor Pavlov (http://7-zip.org/)",Lasse Collin,"","Public Domain; You can do whatever you want with this package.",Public Domain,"","jar (compile)","(none)","Copyright (c) project contributors (2016)"
+"org.apache.brooklyn.camp:camp-server:0.8.0-incubating","org.apache.brooklyn.camp","camp-server","0.8.0-incubating",CAMP Server,REST Server classes for CAMP server implementation,"https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn.camp:camp-base:jar:0.8.0-incubating (compile, included)
+com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included)
+com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:jar:2.4.2 (compile, included)
+com.sun.jersey:jersey-server:jar:1.18.1 (compile, included)
+com.sun.jersey:jersey-servlet:jar:1.18.1 (compile, included)
+com.sun.jersey:jersey-json:jar:1.18.1 (compile, included)
+com.sun.jersey.contribs:jersey-multipart:jar:1.18.1 (compile, included)
+com.sun.jersey:jersey-core:jar:1.18.1 (compile, included)
+javax.validation:validation-api:jar:1.0.0.GA (compile, included)
+org.eclipse.jetty:jetty-webapp:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-server:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-servlet:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-util:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty.orbit:javax.servlet:jar:3.0.0.v201112011016 (compile, included)
+org.apache.brooklyn:brooklyn-utils-rest-swagger:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+org.apache.commons:commons-lang3:jar:3.1 (compile, included)
+org.codehaus.jackson:jackson-core-asl:jar:1.9.13 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)
+com.wordnik:swagger-core_2.9.1:jar:1.0.1 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"com.fasterxml.jackson.core:jackson-databind:2.4.2","com.fasterxml.jackson.core","jackson-databind","2.4.2","jackson-databind","General data-binding functionality for Jackson: works on core streaming API","http://wiki.fasterxml.com/JacksonHome","FasterXML (http://fasterxml.com/)",Simone Tripodi,"Christopher Currie
+Paul Brown
+Tatu Saloranta",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.fasterxml.jackson.core:jackson-annotations:jar:2.4.0 (compile, included)
+com.fasterxml.jackson.core:jackson-core:jar:2.4.2 (compile, included)","Copyright (c) FasterXML (2014-2016)"
+"com.fasterxml.jackson.core:jackson-annotations:2.4.0","com.fasterxml.jackson.core","jackson-annotations","2.4.0","Jackson-annotations","Core annotations used for value types, used by Jackson data binding package.","http://wiki.fasterxml.com/JacksonHome","FasterXML (http://fasterxml.com/)",Simone Tripodi,"Christopher Currie
+Paul Brown
+Tatu Saloranta",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) FasterXML (2014-2016)"
+"com.fasterxml.jackson.core:jackson-core:2.4.2","com.fasterxml.jackson.core","jackson-core","2.4.2","Jackson-core","Core Jackson abstractions, basic JSON streaming API implementation","http://wiki.fasterxml.com/JacksonHome","FasterXML (http://fasterxml.com/)",Simone Tripodi,"Christopher Currie
+Paul Brown
+Tatu Saloranta",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none in report scope)","Copyright (c) FasterXML (2014-2016)"
+"com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.4.2","com.fasterxml.jackson.jaxrs","jackson-jaxrs-json-provider","2.4.2","Jackson-JAXRS-JSON","Functionality to handle JSON input/output for JAX-RS implementations (like Jersey and RESTeasy) using standard Jackson data binding.","http://wiki.fasterxml.com/JacksonHome","FasterXML (http://fasterxml.com/)",Simone Tripodi,"Christopher Currie
+Paul Brown
+Tatu Saloranta",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:jar:2.4.2 (compile, included)
+com.fasterxml.jackson.core:jackson-core:jar:2.4.2 (compile, included)
+com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included)
+com.fasterxml.jackson.module:jackson-module-jaxb-annotations:jar:2.4.2 (compile, included)","Copyright (c) FasterXML (2014-2016)"
+"com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.4.2","com.fasterxml.jackson.jaxrs","jackson-jaxrs-base","2.4.2","Jackson-JAXRS-base","Pile of code that is shared by all Jackson-based JAX-RS
+providers.","http://wiki.fasterxml.com/JacksonHome","FasterXML (http://fasterxml.com/)",Simone Tripodi,"Christopher Currie
+Paul Brown
+Tatu Saloranta",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.fasterxml.jackson.core:jackson-core:jar:2.4.2 (compile, included)
+com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included)","Copyright (c) FasterXML (2014-2016)"
+"com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.4.2","com.fasterxml.jackson.module","jackson-module-jaxb-annotations","2.4.2","Jackson-module-JAXB-annotations","Support for using JAXB annotations as an alternative to ""native"" Jackson annotations, for configuring data binding.","http://wiki.fasterxml.com/JacksonJAXBAnnotations","FasterXML (http://fasterxml.com/)",Simone Tripodi,"Christopher Currie
+Paul Brown
+Tatu Saloranta",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.fasterxml.jackson.core:jackson-core:jar:2.4.2 (compile, included)
+com.fasterxml.jackson.core:jackson-databind:jar:2.4.2 (compile, included)","Copyright (c) FasterXML (2014-2016)"
+"com.sun.jersey.contribs:jersey-multipart:1.18.1","com.sun.jersey.contribs","jersey-multipart","1.18.1","jersey-multipart","Projects that provide additional functionality to jersey, like integration
+        with other projects/frameworks.","https://jersey.java.net/","Oracle Corporation (http://www.oracle.com/)","","","CDDL1.1","CDDL 1.1 (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+GPL2 w/ CPE (http://glassfish.java.net/public/CDDL+GPL_1_1.html)","Common Development and Distribution License, version 1.1","https://glassfish.java.net/public/CDDL+GPL_1_1.html","jar (compile)","org.jvnet.mimepull:mimepull:jar:1.9.3 (compile, included)
+com.sun.jersey:jersey-core:jar:1.18.1 (compile, included)","Copyright (c) Oracle Corporation (2016)"
+"org.jvnet.mimepull:mimepull:1.9.3","org.jvnet.mimepull",mimepull,"1.9.3",MIME streaming extension,"Provides a streaming API to access attachments parts in a MIME message.","http://mimepull.java.net","Oracle Corporation (http://www.oracle.com/)","","Jitendra Kotamraju / Oracle Corporation
+Martin Grebac / Oracle Corporation","CDDL1.1","CDDL 1.1 (https://glassfish.java.net/public/CDDL+GPL_1_1.html)
+GPL2 w/ CPE (https://glassfish.java.net/public/CDDL+GPL_1_1.html)","Common Development and Distribution License, version 1.1","https://glassfish.java.net/public/CDDL+GPL_1_1.html","jar (compile)","(none in report scope)","Copyright (c) Oracle Corporation (2016)"
+"javax.validation:validation-api:1.0.0.GA","javax.validation","validation-api","1.0.0.GA",Bean Validation API,"Bean Validation (JSR-303) API.","","","","Emmanuel Bernard / JBoss, a division of Red Hat (http://in.relation.to/Bloggers/Emmanuel)
+Hardy Ferentschik / JBoss, a division of Red Hat (http://in.relation.to/Bloggers/Hardy)",ASL2,"Apache License, Version 2.0 (license.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","(none)","Copyright (c) project contributors (2007-2016)"
+"com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.0_jdk5","com.googlecode.concurrentlinkedhashmap","concurrentlinkedhashmap-lru","1.0_jdk5",ConcurrentLinkedHashMap,"A high performance version of java.util.LinkedHashMap for use as a software cache.","http://code.google.com/p/concurrentlinkedhashmap","","","",ASL,"Apache (http://www.apache.org/licenses/LICENSE-2.0.txt)",Apache License,"http://www.apache.org/licenses","jar (compile)","(none in report scope)","Copyright (c) project contributors (2016)"
+"com.sun.jersey:jersey-server:1.18.1","com.sun.jersey","jersey-server","1.18.1","jersey-server","Jersey is the open source (under dual CDDL+GPL license) JAX-RS (JSR 311)
+        production quality Reference Implementation for building
+        RESTful Web services.","https://jersey.java.net/","Oracle Corporation (http://www.oracle.com/)","","","CDDL1.1","CDDL 1.1 (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+GPL2 w/ CPE (http://glassfish.java.net/public/CDDL+GPL_1_1.html)","Common Development and Distribution License, version 1.1","https://glassfish.java.net/public/CDDL+GPL_1_1.html","jar (compile)","com.sun.jersey:jersey-core:jar:1.18.1 (compile, included)","Copyright (c) Oracle Corporation (2016)"
+"com.sun.jersey:jersey-servlet:1.18.1","com.sun.jersey","jersey-servlet","1.18.1","jersey-servlet","Jersey is the open source (under dual CDDL+GPL license) JAX-RS (JSR 311)
+        production quality Reference Implementation for building
+        RESTful Web services.","https://jersey.java.net/","Oracle Corporation (http://www.oracle.com/)","","","CDDL1.1","CDDL 1.1 (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+GPL2 w/ CPE (http://glassfish.java.net/public/CDDL+GPL_1_1.html)","Common Development and Distribution License, version 1.1","https://glassfish.java.net/public/CDDL+GPL_1_1.html","jar (compile)","com.sun.jersey:jersey-server:jar:1.18.1 (compile, included)","Copyright (c) Oracle Corporation (2016)"
+"org.eclipse.jetty:jetty-server:8.1.17.v20150415","org.eclipse.jetty","jetty-server","8.1.17.v20150415","Jetty :: Server Core","The core jetty server artifact.","http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","org.eclipse.jetty.orbit:javax.servlet:jar:3.0.0.v201112011016 (compile, included)
+org.eclipse.jetty:jetty-continuation:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-http:jar:8.1.17.v20150415 (compile, included)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty:jetty-continuation:8.1.17.v20150415","org.eclipse.jetty","jetty-continuation","8.1.17.v20150415","Jetty :: Continuation",Asynchronous API,"http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","(none in report scope)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty:jetty-http:8.1.17.v20150415","org.eclipse.jetty","jetty-http","8.1.17.v20150415","Jetty :: Http Utility",Administrative parent pom for Jetty modules,"http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","org.eclipse.jetty:jetty-io:jar:8.1.17.v20150415 (compile, included)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty:jetty-io:8.1.17.v20150415","org.eclipse.jetty","jetty-io","8.1.17.v20150415","Jetty :: IO Utility",Administrative parent pom for Jetty modules,"http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","org.eclipse.jetty:jetty-util:jar:8.1.17.v20150415 (compile, included)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty:jetty-servlet:8.1.17.v20150415","org.eclipse.jetty","jetty-servlet","8.1.17.v20150415","Jetty :: Servlet Handling",Jetty Servlet Container,"http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","org.eclipse.jetty:jetty-security:jar:8.1.17.v20150415 (compile, included)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty:jetty-security:8.1.17.v20150415","org.eclipse.jetty","jetty-security","8.1.17.v20150415","Jetty :: Security",Jetty security infrastructure,"http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","org.eclipse.jetty:jetty-server:jar:8.1.17.v20150415 (compile, included)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty:jetty-util:8.1.17.v20150415","org.eclipse.jetty","jetty-util","8.1.17.v20150415","Jetty :: Utilities",Utility classes for Jetty,"http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","(none in report scope)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty:jetty-webapp:8.1.17.v20150415","org.eclipse.jetty","jetty-webapp","8.1.17.v20150415","Jetty :: Webapp Application Support",Jetty web application support,"http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","org.eclipse.jetty:jetty-xml:jar:8.1.17.v20150415 (compile, included)
+org.eclipse.jetty:jetty-servlet:jar:8.1.17.v20150415 (compile, included)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty:jetty-xml:8.1.17.v20150415","org.eclipse.jetty","jetty-xml","8.1.17.v20150415","Jetty :: XML utilities","The jetty xml utilities.","http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","Athena Yao / Webtide (http://www.webtide.com)
+David Yu / Webtide (http://www.webtide.com)
+Nik Gonzalez
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Tim Vernum
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jules Gosnell","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Simone Bordet
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy
+Thomas Becker / Webtide, LLC (http://www.webtide.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","org.eclipse.jetty:jetty-util:jar:8.1.17.v20150415 (compile, included)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016","org.eclipse.jetty.orbit","javax.servlet","3.0.0.v201112011016","Jetty Orbit :: Servlet API","This artifact originates from the Orbit Project at Eclipse, 
+    it is an osgi bundle and is signed as well.","http://www.eclipse.org/jetty","Mort Bay Consulting (http://www.mortbay.com)","","Greg Wilkins / Mort Bay Consulting (http://www.mortbay.com/mortbay/people/gregw / http://www.mortbay.com)
+Jan Bartel / Mort Bay Consulting (http://www.mortbay.com/people/janb / http://www.mortbay.com)
+Jules Gosnell
+James Strachan / Logic Blaze (http://www.logicblaze.com)
+Simone Bordet
+Tim Vernum
+Nik Gonzalez
+Jeanfrancois Arcand / Sun Microsystems (http://www.sun.com)
+Jesse McConnell / Webtide, LLC (http://www.webtide.com)
+David Jencks / IBM
+David Yu / Webtide (http://www.webtide.com)
+Athena Yao / Webtide (http://www.webtide.com)
+Joakim Erdfelt / Intalio Inc. (http://www.intalio.com)
+Hugues Malphettes / Intalio.com (http://www.intalio.com)
+Michael Gorovoy / Intalio Inc. (http://www.intalio.com)","","Apache Software License - Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Eclipse Public License - Version 1.0 (http://www.eclipse.org/org/documents/epl-v10.php)","","","jar (compile)","(none)","Copyright (c) Mort Bay Consulting (1995-2016)"
+"org.apache.brooklyn:brooklyn-cli:0.8.0-incubating","org.apache.brooklyn","brooklyn-cli","0.8.0-incubating",Brooklyn Command Line Interface,"This project contains a org.apache.brooklyn.cli.Main class
+        for command-line invocation.","https://brooklyn.incubator.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","",ASL2,"Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.brooklyn:brooklyn-api:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-core:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-launcher:jar:0.8.0-incubating (compile, included)
+org.apache.brooklyn:brooklyn-utils-common:jar:0.8.0-incubating (compile, included)
+io.airlift:airline:jar:0.6 (compile, included)
+com.google.guava:guava:jar:17.0 (compile, included)
+org.codehaus.groovy:groovy-all:jar:2.3.4 (compile, included)
+javax.inject:javax.inject:jar:1 (compile, included)
+org.slf4j:slf4j-api:jar:1.6.6 (compile, included)","Copyright (c) The Apache Software Foundation (2012-2016)"
+"io.airlift:airline:0.6","io.airlift",airline,"0.6",cli,"Airline is a Java annotation-based framework for parsing Git like command line structures.","https://github.com/airlift/airline","","",Dain Sundstrom,ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","javax.inject:javax.inject:jar:1 (compile, included)
+com.google.guava:guava:jar:12.0 (compile, version 17.0 included)","Copyright (c) project contributors (2012-2016)"
+"org.apache.jclouds:jclouds-allcompute:1.9.1","org.apache.jclouds","jclouds-allcompute","1.9.1",allcompute,"Apache jclouds: Concurrent API for Cloud Services","http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.provider:aws-ec2:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-nova-ec2:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:byon:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:ec2:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:gogrid:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:elastichosts-lon-p:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:elastichosts-sat-p:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:elastichosts-lon-b:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:openhosting-east1:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:serverlove-z1-man:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:skalicloud-sdg-my:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:go2cloud-jhb1:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:softlayer:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:cloudstack:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:hpcloud-compute:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:rackspace-cloudservers-us:jar:1.9.1 (compile, included)
+org.apache.jclouds.provider:rackspace-cloudservers-uk:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:aws-ec2:1.9.1","org.apache.jclouds.provider","aws-ec2","1.9.1",jclouds Amazon EC2 provider,EC2 implementation targeted to Amazon Web Services,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:ec2:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:openstack-nova:1.9.1","org.apache.jclouds.api","openstack-nova","1.9.1","Apache jclouds :: OpenStack :: Nova API",jclouds components to access an implementation of OpenStack Nova,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)
+com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included)
+org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:openstack-keystone:1.9.1","org.apache.jclouds.api","openstack-keystone","1.9.1","jclouds openstack-keystone api",jclouds components to access an implementation of OpenStack Keystone,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"com.google.inject.extensions:guice-multibindings:3.0","com.google.inject.extensions","guice-multibindings","3.0","Google Guice - Extensions - MultiBindings",Guice is a lightweight dependency injection framework for Java 5 and above,"http://code.google.com/p/google-guice/","Google, Inc. (http://www.google.com)","","",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","com.google.inject:guice:jar:3.0 (compile, included)
+com.google.inject:guice:jar:no_deps:3.0 (compile, optional, project included)","Copyright (c) Google, Inc. (2006-2016)"
+"org.apache.jclouds.api:openstack-nova-ec2:1.9.1","org.apache.jclouds.api","openstack-nova-ec2","1.9.1","jclouds openstack-nova-ec2 api",EC2 interface to OpenStack Nova,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:ec2:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:byon:1.9.1","org.apache.jclouds.api",byon,"1.9.1",jclouds bring your own node provider,"Apache jclouds: Concurrent API for Cloud Services","http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)
+org.yaml:snakeyaml:jar:1.11 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:ec2:1.9.1","org.apache.jclouds.api",ec2,"1.9.1",jclouds ec2 api,jclouds components to access an implementation of EC2,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:sts:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:sts:1.9.1","org.apache.jclouds.api",sts,"1.9.1",jclouds sts api,"jclouds components to access an implementation of Security Token Service (STS)","http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:gogrid:1.9.1","org.apache.jclouds.provider",gogrid,"1.9.1",jclouds GoGrid provider,ComputeService implementation of GoGrid datacenters,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:elasticstack:1.9.1","org.apache.jclouds.api",elasticstack,"1.9.1",jclouds elasticstack core,jclouds components to access elasticstack,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:elastichosts-lon-p:1.9.1","org.apache.jclouds.provider","elastichosts-lon-p","1.9.1",jclouds ElasticHosts Peer1 London provider,ElasticHosts implementation targeted to Peer1 London,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:elastichosts-sat-p:1.9.1","org.apache.jclouds.provider","elastichosts-sat-p","1.9.1",jclouds ElasticHosts Peer1 San Antonio provider,ElasticHosts implementation targeted to Peer1 San Antonio,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:elastichosts-lon-b:1.9.1","org.apache.jclouds.provider","elastichosts-lon-b","1.9.1",jclouds ElasticHosts BlueSquare London provider,ElasticHosts implementation targeted to BlueSquare London,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:openhosting-east1:1.9.1","org.apache.jclouds.provider","openhosting-east1","1.9.1",jclouds Open Hosting East1 provider,Open Hosting implementation targeted to East1,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:serverlove-z1-man:1.9.1","org.apache.jclouds.provider","serverlove-z1-man","1.9.1",jclouds Serverlove Manchester provider,Serverlove implementation targeted to Manchester,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:skalicloud-sdg-my:1.9.1","org.apache.jclouds.provider","skalicloud-sdg-my","1.9.1",jclouds SkaliCloud Malaysia provider,SkaliCloud implementation targeted to Malaysia,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:go2cloud-jhb1:1.9.1","org.apache.jclouds.provider","go2cloud-jhb1","1.9.1",jclouds Go2Cloud Johannesburg1 provider,Go2Cloud implementation targeted to Johannesburg1,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:elasticstack:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:softlayer:1.9.1","org.apache.jclouds.provider",softlayer,"1.9.1",jclouds SoftLayer core,jclouds components to access SoftLayer,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:cloudstack:1.9.1","org.apache.jclouds.api",cloudstack,"1.9.1",jclouds cloudstack core,jclouds components to access cloudstack,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-core:jar:1.9.1 (compile, included)
+org.apache.jclouds:jclouds-compute:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:hpcloud-compute:1.9.1","org.apache.jclouds.provider","hpcloud-compute","1.9.1",jclouds HP Cloud Compute provider,OpenStack Nova implementation targeted to HP Cloud Compute,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included)
+com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:rackspace-cloudservers-us:1.9.1","org.apache.jclouds.provider","rackspace-cloudservers-us","1.9.1",jclouds Rackspace Next Generation Cloud Servers US provider,OpenStack Nova implementation targeted to Rackspace Next Generation Cloud Servers US,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included)
+com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.api:rackspace-cloudidentity:1.9.1","org.apache.jclouds.api","rackspace-cloudidentity","1.9.1",jclouds rackspace cloudidentity api,jclouds components to access an implementation of Rackspace Cloud Identity,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+"org.apache.jclouds.provider:rackspace-cloudservers-uk:1.9.1","org.apache.jclouds.provider","rackspace-cloudservers-uk","1.9.1",jclouds Rackspace Next Generation Cloud Servers provider,OpenStack Nova implementation targeted to Rackspace Next Generation Cloud Servers,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
+Andrew Bayer
+Andrew Gaul
+Andrew Phillips
+Becca Woods
+Everett Toews
+Ignasi Barrera
+Ioannis Canellos
+Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:rackspace-cloudidentity:jar:1.9.1 (compile, included)
+org.apache.jclouds.api:openstack-nova:jar:1.9.1 (compile, included)
+com.google.inject.extensions:guice-multibindings:jar:3.0 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
