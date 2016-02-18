@@ -257,9 +257,14 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
             ProjectBuildingResult res = projectBuilder.build(mda, true, mavenSession.getProjectBuildingRequest());
             p = res.getProject();
         } catch (ProjectBuildingException e) {
-            getLog().error("Unable to load project of "+mda+": "+e);
-            addError(projectId, e);
-            return null;
+            if (e.getResults().size()==1) {
+                getLog().warn("Error loading maven project/model for "+mda+" (but got a result so ignoring): "+e);
+                p = e.getResults().get(0).getProject();
+            } else {
+                getLog().error("Errors loading maven project/model for "+mda+": "+e);
+                addError(projectId, e);
+                return null;
+            }
         }
         if (p==null) {
             addError(projectId, "Failure with no data when trying to load project");
