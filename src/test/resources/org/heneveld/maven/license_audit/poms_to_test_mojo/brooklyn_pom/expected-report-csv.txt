@@ -536,8 +536,7 @@ org.apache.jclouds.api:swift:jar:1.9.1 (compile, included)
 org.apache.jclouds.api:openstack-swift:jar:1.9.1 (compile, included)
 org.apache.jclouds.provider:rackspace-cloudfiles-us:jar:1.9.1 (compile, included)
 org.apache.jclouds.provider:rackspace-cloudfiles-uk:jar:1.9.1 (compile, included)
-org.apache.jclouds.provider:hpcloud-objectstorage:jar:1.9.1 (compile, included)
-org.apache.jclouds.api:filesystem:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
+org.apache.jclouds.provider:hpcloud-objectstorage:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
 "org.apache.jclouds.api:s3:1.9.1","org.apache.jclouds.api",s3,"1.9.1",jclouds s3 api,jclouds components to access an implementation of S3,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
 Andrew Bayer
 Andrew Gaul
@@ -674,15 +673,6 @@ Ignasi Barrera
 Ioannis Canellos
 Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds.api:swift:jar:1.9.1 (compile, included)
 org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
-"org.apache.jclouds.api:filesystem:1.9.1","org.apache.jclouds.api",filesystem,"1.9.1",jclouds filesystem core,jclouds components to access filesystem,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
-Andrew Bayer
-Andrew Gaul
-Andrew Phillips
-Becca Woods
-Everett Toews
-Ignasi Barrera
-Ioannis Canellos
-Matt Stephenson",ASL2,"The Apache Software License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)","Apache License, version 2.0","http://www.apache.org/licenses/LICENSE-2.0","jar (compile)","org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included)","Copyright (c) The Apache Software Foundation (2009-2016)"
 "org.apache.jclouds.labs:abiquo:1.9.1","org.apache.jclouds.labs",abiquo,"1.9.1",jclouds Abiquo api,jclouds components to access an implementation of Abiquo,"http://jclouds.apache.org/","The Apache Software Foundation (http://www.apache.org/)","","Adrian Cole
 Andrew Bayer
 Andrew Gaul

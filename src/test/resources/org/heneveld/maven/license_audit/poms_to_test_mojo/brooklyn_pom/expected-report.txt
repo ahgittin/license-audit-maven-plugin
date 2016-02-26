@@ -621,7 +621,6 @@ org.heneveld.maven.license_audit:test-brooklyn-pom:0.1
   |   |   |   |     org.apache.jclouds.provider:rackspace-cloudfiles-us:jar:1.9.1 (compile, included, detail below)
   |   |   |   |     org.apache.jclouds.provider:rackspace-cloudfiles-uk:jar:1.9.1 (compile, included, detail below)
   |   |   |   |     org.apache.jclouds.provider:hpcloud-objectstorage:jar:1.9.1 (compile, included, detail below)
-  |   |   |   |     org.apache.jclouds.api:filesystem:jar:1.9.1 (compile, included, detail below)
   |   |   |   |   Dependencies pulled in here detail:
   |   |   |   |   +-org.apache.jclouds.api:s3:1.9.1
   |   |   |   |   |   Name: jclouds s3 api
@@ -749,13 +748,6 @@ org.heneveld.maven.license_audit:test-brooklyn-pom:0.1
   |   |   |   |   |   Dependencies:
   |   |   |   |   |     org.apache.jclouds.api:swift:jar:1.9.1 (compile, included, from org.apache.jclouds:jclouds-allblobstore:1.9.1)
   |   |   |   |   |     org.apache.jclouds.api:openstack-keystone:jar:1.9.1 (compile, included, from org.apache.jclouds.api:openstack-nova:1.9.1)
-  |   |   |   |   +-org.apache.jclouds.api:filesystem:1.9.1
-  |   |   |   |   |   Name: jclouds filesystem core
-  |   |   |   |   |   URL: http://jclouds.apache.org/
-  |   |   |   |   |   License: ASL2
-  |   |   |   |   |   Copyright: Copyright (c) The Apache Software Foundation (2009-2016)
-  |   |   |   |   |   Artifacts Included: jar (compile)
-  |   |   |   |   |   Dependencies: org.apache.jclouds:jclouds-blobstore:jar:1.9.1 (compile, included, from org.apache.jclouds.api:s3:1.9.1)
   |   |   |   +-org.apache.jclouds.labs:abiquo:1.9.1
   |   |   |   |   Name: jclouds Abiquo api
   |   |   |   |   URL: http://jclouds.apache.org/
