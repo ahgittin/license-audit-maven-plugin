@@ -145,7 +145,11 @@ public class ProjectsOverrides {
     }
 
     public static License parseSingleLicense(Object l) {
-        if (l instanceof String) return LicenseCodes.lookupCode((String)l);
+        if (l instanceof String) {
+            final License lookup = LicenseCodes.lookupCode((String) l);
+            if (null != lookup) return lookup;
+            throw new IllegalArgumentException("Invalid license; it should be a map or a known code (string), not "+l);
+        }
         if (l instanceof Map) {
             Map<?, ?> lmap = ((Map<?,?>)l);
             return LicenseCodes.newLicense(getRequired(lmap, String.class, "name"), (String)lmap.get("url"), (String)lmap.get("comments"));

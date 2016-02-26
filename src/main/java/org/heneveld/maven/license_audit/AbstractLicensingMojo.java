@@ -534,8 +534,11 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
         }
         // now see if there is a code for this one
         li = licenses.iterator();
-        String code = LicenseCodes.getLicenseCode(li.next().getName());
-        if (isNonEmpty(code)) return code;
+        final License next = li.next();
+        if (null != next) {
+            String code = LicenseCodes.getLicenseCode(next.getName());
+            if (isNonEmpty(code)) return code;
+        }
         return null;
     }
     
