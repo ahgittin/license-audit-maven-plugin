@@ -20,7 +20,7 @@
   <build>
     <plugins>
       <plugin>
-        <!-- doesn't work if we specify the group id
+        <!-- doesn't work in test if we specify the group id; but if running from CLI to test you'll need this
         <groupId>org.heneveld.maven</groupId>
          -->
         <artifactId>license-audit-maven-plugin</artifactId>

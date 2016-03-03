@@ -98,6 +98,9 @@ public class LicenseAuditMojoTest extends BetterAbstractMojoTestCase {
         LicenseAuditMojo mojo = getMojo("brooklyn_pom");
         mojo.overridesFile = getTestFileInCurrentTestProject("overrides.yaml").getAbsolutePath();
         mojo.execute();
+        assertFalse(
+            "Detected jclouds.api:filesystem dependency included. This occurs with JDK1.7; test assumes Java 8 and this dependency not included",
+            getMojoOutput().contains("jclouds.api:filesystem"));
         assertTrue("Output:\n"+getMojoOutput(), getMojoOutput().contains("org.yaml:snakeyaml:jar:1.11 (compile, included, from org.apache.brooklyn:brooklyn-utils-common:0.8.0-incubating)"));
         assertFalse("Output:\n"+getMojoOutput(), getMojoOutput().toLowerCase().contains("error"));
         

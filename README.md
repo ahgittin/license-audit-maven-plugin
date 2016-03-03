@@ -22,7 +22,7 @@ This project is not currently uploaded to maven central, so you'll need to downl
 
     mvn clean install
 
-It should now be ready for use.
+Note Java 8 is required (only for tests to run). After a successful run it should be ready for use.
 
 
 # Usage Examples
