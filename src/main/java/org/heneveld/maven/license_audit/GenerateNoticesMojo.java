@@ -2,7 +2,6 @@ package org.heneveld.maven.license_audit;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,11 +11,15 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.maven.model.License;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.heneveld.maven.license_audit.util.Coords;
 import org.heneveld.maven.license_audit.util.LicenseCodes;
@@ -29,8 +32,17 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
 
     private static final String URL_REGEX = "(\\w+:)?//([a-zA-Z0-9\\-]+\\.[a-zA-Z0-9\\-]+)+(\\:[0-9]+)?(/.*)?";
     
+    @Parameter( defaultValue = "false", property = "outputYaml", required = true )
+    protected boolean outputYaml;
+    
+    protected Map<String,Map<String,Object>> yamlFull = new LinkedHashMap<>();
+    protected Map<String,Object> yamlCurrent = null;
+
     @Override
     protected void generateOutput() throws MojoExecutionException {
+        // load extras
+        ProjectsOverrides extras = loadExtras();
+        
         SimpleMultiMap<String, Object> projectsByGroup = new SimpleMultiMap<String, Object>();
         
         if (!projectErrors.isEmpty()) {
@@ -39,12 +51,57 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
         
         for (String id: projectByIdCache.keySet()) {
             MavenProject p = projectByIdCache.get(id);
-            String groupId = p.getGroupId();
+            String groupId = p.getGroupId()+":"+p.getVersion();
             projectsByGroup.put(groupId, p);
         }
         
-        // load extras
-        ProjectsOverrides extras = loadExtras();
+        // switch to artifact name where it is the only thing in the group
+        SimpleMultiMap<String, Object> projectsByGroupOld = projectsByGroup;
+        projectsByGroup = new SimpleMultiMap<String, Object>();
+        for (String groupingId: projectsByGroupOld.keySet()) {
+            Set<Object> pp = projectsByGroupOld.get(groupingId);
+            if (pp.size()==1) {
+                MavenProject p = (MavenProject) pp.iterator().next();
+                String id = p.getGroupId();
+                if (!id.endsWith(p.getArtifactId())) id += "."+p.getArtifactId();
+                id += ":"+p.getVersion();
+                projectsByGroup.put(id, p);
+            } else {
+                projectsByGroup.putAll(groupingId, pp);
+            }
+        }
+        
+        
+        // merge up where there is an existing entry
+        projectsByGroupOld = projectsByGroup;
+        projectsByGroup = new SimpleMultiMap<String, Object>();
+        for (String groupingId: projectsByGroupOld.keySet()) {
+            Set<Object> pp = projectsByGroupOld.get(groupingId);
+            MavenProject p = (MavenProject) pp.iterator().next();
+            String groupId = p.getGroupId();
+            int i = groupId.indexOf('.');
+            String parentGroup = null;
+            while (i>0) {
+                String candidateParentGroup = groupId.substring(0, i);
+                Map<String, Object> parentOverrides = overrides.getOverridesForProjectExactlyOrNull(candidateParentGroup+":"+p.getVersion());
+                if (parentOverrides==null) {
+                    parentOverrides = overrides.getOverridesForProjectExactlyOrNull(candidateParentGroup);
+                }
+                Set<Object> cpp = projectsByGroupOld.get(candidateParentGroup+":"+p.getVersion());
+                if (parentOverrides!=null || (cpp!=null && !cpp.isEmpty())) {
+                    parentGroup = candidateParentGroup;
+                    break;
+                }
+                i = groupId.indexOf('.', i+1);
+            }
+            if (parentGroup!=null) {
+                projectsByGroup.putAll(parentGroup+":"+p.getVersion(), pp);
+            } else {
+                projectsByGroup.putAll(groupingId, pp);
+            }
+        }
+        
+        // add extras
         for (String id: extras.getProjects()) {
             Map<String, Object> projectOverrides = overrides.getOverridesForProject(id);
             Map<String, Object> projectData = new LinkedHashMap<String,Object>(extras.getOverridesForProject(id));
@@ -55,24 +112,6 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
                 projectData = projectOverrides;
             }
             projectsByGroup.put(id, projectData);
-        }
-        
-        // if the overrides declares a parent project, prefer it:
-        // TODO allow overrides to be subsumed; only include if it is subsuming.
-        for (String overrideId: overrides.getProjects()) {
-            Set<Object> projectsMatchingPrefix = new LinkedHashSet<Object>();
-            Iterator<String> pki = projectsByGroup.keySet().iterator();
-            while (pki.hasNext()) {
-                String pk = pki.next();
-                if (pk.startsWith(overrideId+".")) {
-                    projectsMatchingPrefix.addAll(projectsByGroup.get(pk));
-                    pki.remove();
-                }
-            }
-            if (!projectsMatchingPrefix.isEmpty()) {
-                projectsByGroup.put(overrideId, overrides.getOverridesForProject(overrideId));
-                projectsByGroup.putAll(overrideId, projectsMatchingPrefix);
-            }
         }
         
         List<String> ids = new ArrayList<String>();
@@ -90,51 +129,194 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
         
         for (String id: ids) {
             Set<Object> projects = projectsByGroup.get(id);
-            Set<String> internal = getFields(projects, "internal");
+            Set<String> internal = getFields(id, projects, "internal");
             if (!internal.isEmpty() && "true".equalsIgnoreCase(internal.iterator().next())) {
                 continue;
             }
             
             if (projects==null) 
                 throw new MojoExecutionException("Could not find project '"+id+"'.");
-            String name = join(getFields(projects, "name"), " / ");
-            if (name==null || name.length()==0) name = id;
             
-            output("This project includes the software: "+name);
+            onProjectStart(id);
             
-            outputIfLastNonEmpty("  Available at: ", getUrls(id, projects));
-            outputIfLastNonEmpty("  Developed by: ", getOrganizations(projects));
-            String files = joinOr(getFields(projects, "files"), "; ", null);
-            if (files==null) {
+            onProjectDetailIfNonEmptyPreferInline("Project", 
+                getFields(id, projects, "name", p->p.getName()), 
+                set -> join(set, " / ") );
+            
+            onProjectDetailIfNonEmptyPreferInline("Version", getVersions(id, projects), (set) -> joinOr(set, "; ", null));
+            onProjectDetailIfNonEmptyPreferInline("Available at", getUrls(id, projects), (set) -> join(set, " "));
+            onProjectDetailIfNonEmptyPreferInline("Developed by", getOrganizations(projects), (set) -> join(set, " "));
+            
+            Set<String> files = getFields(id, projects, "files");
+            String filesS = joinOr(files, "; ", null);
+            if (filesS==null) {
                 // if not listed, assume it's the id; but empty string means never show
-                files=id;
+                filesS=id;
             }
-            if (!name.equals(files)) {
+            if (!id.equals(filesS)) {
                 // don't show if it's the same as what we just showed
-                outputIfLastNonEmpty("  Inclusive of: ", files);
+                onProjectDetailIfNonEmptyPreferInline("Inclusive of", files, (set) -> joinOr(set, "; ", null));
             }
-            outputIfLastNonEmpty("  Version used: ", joinOr(getVersions(id, projects), "; ", null));
             
-            Set<String> l = getLicenses(id, projects);
-            output("  Used under the following license"+(l.size()>1 ? "s:\n    " : ": ") + join(l, "\n    "));
+            Set<Map<String, String>> ll = getLicenses(id, projects);
+            if (!ll.isEmpty()) {
+                if (ll.size()==1) {
+                    Map<String, String> l = ll.iterator().next();
+                    String name = l.get("name");
+                    if (isEmpty(name)) name = l.get("code");
+                    if (isNonEmpty(name)) {
+                        onProjectDetailIfNonEmptyPreferInline("License name", name, (x) -> x);
+                    }
+                    String url = l.get("url");
+                    if (isNonEmpty(url)) {
+                        onProjectDetailIfNonEmptyPreferInline("License URL", url, (x) -> x);
+                    }
+                } else {
+                    Set<Map<String, String>> ll2 = new LinkedHashSet<>();
+                    for (Map<String, String> l: ll) {
+                        Map<String, String> m2 = new LinkedHashMap<>();
+                        String name = l.get("name");
+                        if (isEmpty(name)) {
+                            name = l.get("url");
+                            if (!isEmpty(name)) name = "License from "+name;
+                        }
+                        putIfNotNull(m2, "License name", l.get("name"));
+                        putIfNotNull(m2, "License URL", l.get("url"));
+                        putIfNotNull(m2, "Comment", l.get("comment"));
+                        ll2.add(m2);
+                    }
+                    onProjectDetailIfNonEmptyPreferInline("License" + (ll2.size()!=1 ? "s" : ""), ll2, 
+                        (set) -> joinOr(set, (m) -> {
+                                String result = m.get("License name");
+                                if (isNonEmpty(m.get("License URL"))) {
+                                    if (isEmpty(result)) result = m.get("License URL");
+                                    else result += " ("+m.get("License URL")+")";
+                                }
+                                if (isEmpty(result)) result = "<no info on license>";
+                                return result;
+                            }, "; ", null));
+                }
+            }
             
-            List<String> notices = getFieldsAsList(projects, "notice");
-            notices.addAll(getFieldsAsList(projects, "notices"));
+            Set<String> notices = new TreeSet<>();
+            notices.addAll(getFields(id, projects, "notice"));
+            notices.addAll(getFields(id, projects, "notices"));
+            notices.addAll(getFields(id, projects, "copyright_by").stream().map(s -> "Copyright (c) "+s).collect(Collectors.toList()));
             if (!notices.isEmpty()) {
-                // TODO currently requires note entries to be one per line;
-                // ideally accept long lines and maps, both formatted nicely.
-                output("  "+join(notices, "\n  "));
+                onProjectDetailIfNonEmptyPreferInline("Notice", notices, set -> join(set, "\n    "));
             }
-            output("");
+            
+            if (!outputYaml) output("");
+        }
+        
+        if (outputYaml) {
+            dumpYamlForNotice(yamlFull, "");
+        }
+    }
+
+    private void dumpYamlForNotice(Object obj, String prefix) throws MojoExecutionException {
+        if (obj instanceof Map) {
+            @SuppressWarnings("unchecked")
+            Map<String, Object> m = (Map<String,Object>)obj;
+            for (String k: m.keySet()) {
+                String kk = prefix+k+":";
+                Object v = m.get(k);
+                kk += " ";
+                if (v instanceof String) {
+                    String vs = (String)v;
+                    vs = ((String) v).trim();
+                    if (vs.indexOf("\n")==-1) {
+                        if ("  ".equals(prefix)) {
+                            kk = extraSpacesToLength(kk, 16);
+                        }
+                        output(kk+vs);
+                    } else {
+                        output(kk+"|");
+                        for (String line: vs.split("\n")) {
+                            output(prefix+"  "+line);
+                        }
+                    }
+                } else {
+                    output(kk);
+                    dumpYamlForNotice(v, prefix+"  ");
+                    if (prefix.length()==0) output("");
+                }
+            }
+        } else if (obj instanceof Iterable) {
+            for (Object v: ((Iterable<?>)obj)) {
+                if (v instanceof String) {
+                    String vs = (String)v;
+                    vs = ((String) v).trim();
+                    if (vs.indexOf("\n")==-1) {
+                        output(prefix+"- "+vs);
+                    } else {
+                        output(prefix+"- |");
+                        for (String line: vs.split("\n")) {
+                            output(prefix+"  "+line);
+                        }
+                    }
+                } else {
+                    output(prefix+"-");
+                    dumpYamlForNotice(v, prefix+"  ");
+                }                
+            }
+        } else {
+            output(prefix+obj);
+        }
+    }
+
+    private static <T,U> void putIfNotNull(Map<T, U> map, T key, U value) {
+        if (value!=null) map.put(key, value);
+    }
+    
+    protected void onProjectStart(String name) throws MojoExecutionException {
+        if (outputYaml) {
+            yamlCurrent = new LinkedHashMap<>();
+            yamlFull.put(name, yamlCurrent);
+        } else {
+            output("This project includes the software: "+name);
         }
     }
     
+    protected <T> void onProjectDetailIfNonEmptyPreferInline(String key, T value, Function<T,String> stringer) throws MojoExecutionException {
+        String v = stringer.apply(value);
+        if (isNonEmpty(v)) { 
+            if (outputYaml) {
+                if (value instanceof Collection<?>) {
+                    int size = ((Collection<?>)value).size();
+                    if (size==0) return;
+                    if (size==1) {
+                        yamlCurrent.put(key, ((Collection<?>)value).iterator().next());
+                        return;
+                    }
+                }
+                yamlCurrent.put(key, value);
+            } else {
+                if (v.indexOf("\n")>=0) {
+                    output("  "+key+":");
+                    output("    "+v);
+                } else {
+                    output(extraSpacesToLength("  "+key+": ", 16) + v);
+                }
+            }
+        }
+    }
+    
+    private static String extraSpacesToLength(String s, int len) {
+        while (s.length()<len) s+=" ";
+        return s;
+    }
+    
     private static String joinOr(Set<String> fields, String separator, String ifNone) {
+        return joinOr(fields, (x) -> x, separator, ifNone);
+    }
+    
+    private static <T> String joinOr(Set<T> fields, Function<T,String> itemString, String separator, String ifNone) {
         if (fields==null || fields.isEmpty()) return ifNone;
-        return join(fields, separator);
+        return join(fields.stream().map(itemString).collect(Collectors.toList()), separator);
     }
 
-    protected Set<String> getLicenses(String groupId, Set<Object> projects) {
+    protected Set<Map<String,String>> getLicenses(String groupId, Set<Object> projects) {
         List<License> overrideLic = overrides.getLicense(groupId);
         if (overrideLic!=null && !overrideLic.isEmpty()) {
             // replace projects with the singleton set of the override
@@ -142,7 +324,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
             projects.add(overrides.getOverridesForProject(groupId));
         }
         
-        Set<String> result = new LinkedHashSet<String>();
+        Set<Map<String,String>> result = new LinkedHashSet<Map<String,String>>();
         for (Object p: projects) {
             List<License> lics;
             if (p instanceof MavenProject) lics = overrides.getLicense((MavenProject)p);
@@ -152,54 +334,64 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
                 if (lics==null) continue;
             }
             String singleCode = licensesCode(lics);
-            String url;
+            String url = null;
             if (singleCode!=null) {
                 // look for a url declared in a license
-                url = lics.iterator().next().getUrl();
+                for (License lic: lics) {
+                    if (singleCode.equals(licensesCode(Collections.singleton(lic))) && lic.getUrl()!=null) {
+                        url = lic.getUrl();
+                        break;
+                    } else if (url==null) {
+                        url = lic.getUrl();
+                    }
+                }
+                License code = LicenseCodes.lookupCode(singleCode);
                 if (url==null) {
-                    url = LicenseCodes.lookupCode(singleCode).getUrl();
+                    // take url from code otherwise
+                    url = code.getUrl();
                 } else {
                     if (!url.matches(URL_REGEX)) {
                         // not a valid URL; assume in project
                         url = "in-project reference: "+url;
                     }
                 }
-                result.add(LicenseCodes.lookupCode(singleCode).getName()+" ("+url+")");
+                Map<String,String> lm = new LinkedHashMap<>();
+                lm.put("name", code.getName());
+                lm.put("url", url);
+                result.add(lm);
             } else {
-                result.addAll(Arrays.asList(licensesString(lics, false).split("\n")));
+                for (License l: lics) {
+                    result.add(licenseMap(l));
+                }
             }
         }
-        if (result.isEmpty() && !projects.isEmpty())
-            result.addAll(Arrays.asList(licensesString(null, false).split("\n")));
         return result;
     }
 
-    protected Set<String> getFields(Set<Object> projects, String field) {
-        Set<String> result = new LinkedHashSet<String>();
+    protected Set<String> getFields(String id, Set<Object> projects, String field) {
+        return getFields(id, projects, field, (p)->null);
+    }
+    
+    protected Set<String> getFields(String id, Set<Object> projects, String field, Function<MavenProject,String> f) {
+        Set<String> result = new TreeSet<String>();
+        Map<?, ?> lo = overrides.getOverridesForProject(id);
+        if (lo.containsKey(field)) {
+            addAllNonEmptyStrings(result, lo.get(field));
+            return result;
+        }
         for (Object o: projects) {
             if (o instanceof Map) {
                 addAllNonEmptyStrings(result, ((Map<?,?>)o).get(field));
-            } else {
-                // MavenProject -- no notices to include
+            } else if (o instanceof MavenProject) {
+                lo = overrides.getOverridesForProject((MavenProject)o);
+                if (lo.containsKey(field)) {
+                    addAllNonEmptyStrings(result, lo.get(field));
+                } else {
+                    addAllNonEmptyStrings(result, f.apply((MavenProject)o));
+                }
             }
         }
         return result;
-    }
-
-    protected List<String> getFieldsAsList(Set<Object> projects, String field) {
-        List<String> result = new ArrayList<String>();
-        for (Object o: projects) {
-            if (o instanceof Map) {
-                addAllNonEmptyStrings(result, ((Map<?,?>)o).get(field));
-            } else {
-                // MavenProject -- no notices to include
-            }
-        }
-        return result;
-    }
-
-    private void outputIfLastNonEmpty(String leader, String tail) throws MojoExecutionException {
-        if (isNonEmpty(tail)) output(leader + tail);
     }
 
     private Set<String> getVersions(String groupId, Set<Object> projects) throws MojoExecutionException {
@@ -208,7 +400,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
             return Collections.singleton(overrideUrl.toString());
         }
         
-        Set<String> result = new LinkedHashSet<String>();
+        Set<String> result = new TreeSet<String>();
         for (Object p: projects) {
             if (p instanceof Map) {
                 addFirstNonEmptyString(result, ((Map<?,?>)p).get("version"));
@@ -220,13 +412,15 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
         return result;
     }
 
-    private String getUrls(String groupId, Set<Object> projects) throws MojoExecutionException {
+    private Set<String> getUrls(String groupId, Set<Object> projects) throws MojoExecutionException {
+        Set<String> result = new TreeSet<String>();
+        
         Object overrideUrl = overrides.getOverridesForProject(groupId).get("url");
         if (overrideUrl!=null && overrideUrl.toString().length()>0) {
-            return overrideUrl.toString();
+            result.add(overrideUrl.toString());
+            return result;
         }
         
-        Set<String> result = new LinkedHashSet<String>();
         for (Object p: projects) {
             if (p instanceof Map) {
                 addFirstNonEmptyString(result, ((Map<?,?>)p).get("url"));
@@ -237,7 +431,11 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
         }
         String commonRoot = longestRelevantUrl(groupId, result);
         getLog().debug("Analysing URLs for "+groupId+": from "+result+" found common root "+commonRoot);
-        if (commonRoot!=null) return commonRoot;
+        if (commonRoot!=null) {
+            result.clear();
+            result.add(commonRoot);
+            return result;
+        }
 
         // else if any are prefixes of others, remove the longest ones
         // (maven has an annoying habit of appending artifactId's to inherited url's, meaning we get URL/parent/art1 URL/parent/art2 !)
@@ -254,7 +452,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
             else if (r.startsWith("www.")) result2.add("http://"+r);
             else result2.add("(invalid url reported: "+r+")");
         }
-        return join(result2, " ");
+        return result2;
     }
 
     static String longestRelevantUrl(String groupId, Iterable<String> urls) {
@@ -295,7 +493,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
         return null;
     }
 
-    private String getOrganizations(Set<Object> projects) throws MojoExecutionException {
+    private Set<String> getOrganizations(Set<Object> projects) throws MojoExecutionException {
         Set<String> result = new LinkedHashSet<String>();
         for (Object p: projects) {
             addFirstNonEmptyString(result,
@@ -303,7 +501,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
                 organizationString(p instanceof MavenProject ? overrides.getOverridesForProject(Coords.of((MavenProject)p).normal()) : null), 
                 organizationString(p));
         }
-        return join(result, " ");
+        return result;
     }
 
     private boolean addFirstNonEmptyString(Collection<String> target, Object ...objects) {

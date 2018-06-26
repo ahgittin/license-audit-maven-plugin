@@ -257,7 +257,8 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
             ProjectBuildingResult res = projectBuilder.build(mda, true, mavenSession.getProjectBuildingRequest());
             p = res.getProject();
         } catch (ProjectBuildingException e) {
-            if (e.getResults().size()==1) {
+
+            if (e.getResults()!=null && e.getResults().size()==1) {
                 getLog().warn("Error loading maven project/model for "+mda+" (but got a result so ignoring): "+e);
                 p = e.getResults().get(0).getProject();
             } else {
@@ -343,8 +344,12 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
         return join(Arrays.asList(multiLineString.split("\n")), separator, true);
     }
     
+    static boolean isEmpty(String s) {
+        return (s==null || s.length()==0);
+    }
+
     static boolean isNonEmpty(String s) {
-        return (s!=null && s.length()>0);
+        return !isEmpty(s);
     }
 
     // cheap and cheerful pretty-printing
@@ -456,19 +461,36 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
         return licensesStringInternal(licenses, false, true, includeComments);
     }
 
+    protected static Map<String,String> licenseMap(License l) {
+        // NB: subtly different messages if things are empty
+        Map<String,String> result = new LinkedHashMap<>(); 
+        if (l!=null) {
+            if (isNonEmpty(l.getName())) {
+                result.put("name", l.getName());
+                String code = LicenseCodes.getLicenseCode(l.getName());
+                if (isNonEmpty(code)) result.put("code", code);
+            }
+            if (isNonEmpty(l.getUrl())) {
+                result.put("url", l.getUrl());
+            }
+            if (isNonEmpty(l.getComments())) {
+                result.put("comment", l.getComments());
+            }
+        }
+        return result;
+    }
+
     private static String licensesStringInternal(Iterable<? extends License> licenses, boolean preferSummaryCodeOverName, boolean includeUrl, boolean includeComments) {
         // NB: subtly different messages if things are empty 
         if (licenses==null) return "<no license info>";
         Set<String> result = new LinkedHashSet<String>();
         for (License l: licenses) {
+            Map<String, String> lm = licenseMap(l);
             StringBuilder ri = new StringBuilder();
-            if (isNonEmpty(l.getName())) {
-                if (preferSummaryCodeOverName) {
-                    String code = LicenseCodes.getLicenseCode(l.getName());
-                    ri.append(isNonEmpty(code) ? code : l.getName());
-                } else {
-                    ri.append(l.getName());
-                }
+            if (preferSummaryCodeOverName && lm.containsKey("code")) {
+                ri.append(lm.get("code"));
+            } else if (lm.containsKey("name")) {
+                ri.append(lm.get("name"));
             }
             if (isNonEmpty(l.getUrl())) {
                 if (ri.length()>0) {
@@ -496,7 +518,7 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
         if (result.size()>0) return join(result, "\n");
         return "<no licenses>";
     }
-
+    
     protected static String licensesSummaryString(Iterable<? extends License> licenses) {
         String summary = licensesStringInternal(licenses, true, false, false);
         String code = LicenseCodes.getLicenseCode(summary);

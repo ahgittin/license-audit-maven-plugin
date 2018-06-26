@@ -32,6 +32,9 @@ public class LicenseCodeTest extends TestCase {
         assertEquals("CDDL1.1", LicenseCodes.getLicenseCode("\nCDDL 1.1 "));
         
         assertEquals("BSD-2-Clause", LicenseCodes.getLicenseCode("simplified (freebsd) bsd 2 clause license"));
+        
+        assertEquals("Public-Domain", LicenseCodes.getLicenseCode("Public domain"));
+        assertEquals("Public-Domain", LicenseCodes.getLicenseCode("Public Domain"));
     }
 
     public void testGetCodesFromRegexLookupKnownNames() {

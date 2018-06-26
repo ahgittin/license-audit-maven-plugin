@@ -94,63 +94,61 @@ public class LicenseCodes {
 //    BSD 2-Clause "Simplified" or "FreeBSD" license
     
     static {
-        addCodeFromMainNamePattern("ASL2", "2.0", "Apache License, version 2.0", "http://www.apache.org/licenses/LICENSE-2.0",  
+        addCodeFromMainNamePattern("Apache-2.0", "2.0", "Apache License, version 2.0", "http://www.apache.org/licenses/LICENSE-2.0",  
             "apache"+anyNumberOf(anyOf(" public", " software")));
-        addCodeFromMainNamePattern("ASL", null, "Apache License", "http://www.apache.org/licenses",  
-            "apache"+anyNumberOf(anyOf(" public", " software")));
+//        addCodeFromMainNamePattern("Apache", null, "Apache License", "http://www.apache.org/licenses/LICENSE-2.0",  
+//            "apache"+anyNumberOf(anyOf(" public", " software")));
         
-        addCodeFromMainNamePattern("EPL1", "1.0", "Eclipse Public License, version 1.0", "http://www.eclipse.org/legal/epl-v10.html",  
-            "eclipse"+anyNumberOf(anyOf(" public", " software")));
-        addCodeFromMainNamePattern("EPL", null, "Eclipse Public License", "http://www.eclipse.org/legal/epl-v10.html",  
+        addCodeFromMainNamePattern("EPL-1.0", "1.0", "Eclipse Public License, version 1.0", "http://www.eclipse.org/legal/epl-v10.html",  
             "eclipse"+anyNumberOf(anyOf(" public", " software")));
 
-        addCodeFromMainNamePattern("CPL1", "1.0", "Common Public License, version 1.0", "http://opensource.org/licenses/cpl1.0.php",  
-            "common public"+anyNumberOf(anyOf(" software")));
-        addCodeFromMainNamePattern("CPL", null, "Common Public License", "http://opensource.org/licenses/cpl1.0.php",  
+        addCodeFromMainNamePattern("CPL-1.0", "1.0", "Common Public License, version 1.0", "https://spdx.org/licenses/CPL-1.0.html",  
             "common public"+anyNumberOf(anyOf(" software")));
 
-        addCodeFromMainNamePattern("MIT", null, "The MIT License", "http://opensource.org/licenses/MIT",  
+        addCodeFromMainNamePattern("MIT", null, "MIT License", "https://spdx.org/licenses/MIT.html",  
             "MIT"+anyNumberOf(anyOf(" software")));
         
-        addCodeFromMainNamePattern("CDDL1.1", "1.1", "Common Development and Distribution License, version 1.1", "https://glassfish.java.net/public/CDDL+GPL_1_1.html", 
+        addCodeFromMainNamePattern("CDDL-1.1", "1.1", "Common Development and Distribution License, version 1.1", "https://spdx.org/licenses/CDDL-1.1.html", 
             "common development"+anyNumberOf(anyOf("\\+", "\\-", "/", " ", "&", "and"))+"distribution");
-        addCodeFromMainNamePattern("CDDL1", "1.0", "Common Development and Distribution License, version 1.0", "http://opensource.org/licenses/CDDL-1.0",  
+        addCodeFromMainNamePattern("CDDL-1.0", "1.0", "Common Development and Distribution License, version 1.0", "https://spdx.org/licenses/CDDL-1.0.html",  
             "common development"+anyNumberOf(anyOf("\\+", "\\-", "/", " ", "&", "and"))+"distribution");
-        addCodeFromMainNamePattern("CDDL", null, "Common Development and Distribution License", "http://opensource.org/licenses/CDDL-1.0",  
-            "common development"+anyNumberOf(anyOf("\\+", "\\-", "/", " ", "&", "and"))+"distribution");
-
-        addCodeFromMainNamePattern("GPL3", "3.0", "GNU General Public License, version 3.0", "http://www.gnu.org/licenses/gpl-3.0.html",  
+//        addCodeFromMainNamePattern("CDDL", "1.1", "Common Development and Distribution License, version 1.1", "https://spdx.org/licenses/CDDL-1.1.html", 
+//            "common development"+anyNumberOf(anyOf("\\+", "\\-", "/", " ", "&", "and"))+"distribution");
+        
+        addCodeFromMainNamePattern("GPL-3.0", "3.0", "GNU General Public License, version 3.0", "http://www.gnu.org/licenses/gpl-3.0.html",  
             "gnu"+anyNumberOf(anyOf(" general", " public")));
-        addCodeFromMainNamePattern("GPL2", "2.0", "GNU General Public License, version 2.0", "http://www.gnu.org/licenses/gpl-2.0.html",  
+        addCodeFromMainNamePattern("GPL-2.0", "2.0", "GNU General Public License, version 2.0", "http://www.gnu.org/licenses/gpl-2.0.html",  
             "gnu"+anyNumberOf(anyOf(" general", " public")));
-        addCodeFromMainNamePattern("GPL", null, "GNU General Public License", "http://www.gnu.org/licenses/gpl.html",  
-            "gnu"+anyNumberOf(anyOf(" general", " public")));
+//        addCodeFromMainNamePattern("GPL", null, "GNU General Public License, version 2.0", "http://www.gnu.org/licenses/gpl-2.0.html",  
+//            "gnu"+anyNumberOf(anyOf(" general", " public")));
 
-        addCodeFromMainNamePattern("LGPL3", "3.0", "GNU Lesser General Public License, version 3.0", "http://www.gnu.org/licenses/lgpl-3.0.html",  
+        addCodeFromMainNamePattern("LGPL-3.0", "3.0", "GNU Lesser General Public License, version 3.0", "http://www.gnu.org/licenses/lgpl-3.0.html",  
             orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
-        addCodeFromMainNamePattern("LGPL2.1", "2.1", "GNU Lesser General Public License, version 2.1", "http://www.gnu.org/licenses/lgpl-2.0.html",  
+        addCodeFromMainNamePattern("LGPL-2.1", "2.1", "GNU Lesser General Public License, version 2.1", "http://www.gnu.org/licenses/lgpl-2.0.html",  
             orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
-        addCodeFromMainNamePattern("LGPL2", "2.0", "GNU Lesser General Public License, version 2.0", "http://www.gnu.org/licenses/lgpl-2.0.html",  
+        addCodeFromMainNamePattern("LGPL-2.0", "2.0", "GNU Lesser General Public License, version 2.0", "http://www.gnu.org/licenses/lgpl-2.0.html",  
             orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
-        addCodeFromMainNamePattern("LGPL", null, "GNU Lesser General Public License", "http://www.gnu.org/licenses/lgpl.html",  
-            orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
+//        addCodeFromMainNamePattern("LGPL", null, "GNU Lesser General Public License", "http://www.gnu.org/licenses/lgpl.html",  
+//            orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
 
-        addCodeFromMainNamePattern("MPL2", "2.0", "Mozilla Public License, version 2.0", "https://www.mozilla.org/MPL/2.0/",  
+        addCodeFromMainNamePattern("MPL-2.0", "2.0", "Mozilla Public License, version 2.0", "https://www.mozilla.org/MPL/2.0/",  
             "mozilla"+anyNumberOf(anyOf(" public", " software")));
-        addCodeFromMainNamePattern("MPL", null, "Mozilla Public License", "https://www.mozilla.org/MPL/",  
-            "mozilla"+anyNumberOf(anyOf(" public", " software")));
+//        addCodeFromMainNamePattern("MPL", null, "Mozilla Public License", "https://www.mozilla.org/MPL/",  
+//            "mozilla"+anyNumberOf(anyOf(" public", " software")));
+        
+        addCodeFromMainNamePattern("Public-Domain", null, "Public Domain", null, "public domain");
         
         String bsd3Words = anyOf("3"+SEPARATOR_PATTERN+"clause", "new", "revised", "modified");
         String bsd2Words = anyOf("2"+SEPARATOR_PATTERN+"clause", "simplified", "freebsd");
         String bsdPadding = anyNumberOf(anyOf(SEPARATOR_PATTERN, "like", "style", "bsd"));
         String bsd3Padding = anyNumberOf(anyOf(bsdPadding, bsd3Words));
         String bsd2Padding = anyNumberOf(anyOf(bsdPadding, bsd2Words));
-        addCodeWithRegex("BSD-3-Clause", newLicense("The BSD 3-Clause (New BSD) License", "http://opensource.org/licenses/BSD-3-Clause", null),
+        addCodeWithRegex("BSD-3-Clause", newLicense("BSD 3-Clause (New BSD) License", "https://spdx.org/licenses/BSD-3-Clause.html", null),
             bsd3Padding+theLicense(bsd3Padding+orReversed("bsd", SEPARATOR_PATTERN, bsd3Words)+bsd3Padding)+bsd3Padding);
-        addCodeWithRegex("BSD-2-Clause", newLicense("The BSD 2-Clause (FreeBSD) License", "http://opensource.org/licenses/BSD-2-Clause", null),
+        addCodeWithRegex("BSD-2-Clause", newLicense("BSD 2-Clause (Simplified or FreeBSD) License", "https://spdx.org/licenses/BSD-2-Clause.html", null),
             bsd2Padding+theLicense(bsd2Padding+anyOf("freebsd", orReversed("bsd", SEPARATOR_PATTERN, bsd2Words))+bsd2Padding)+bsd2Padding);
-        addCodeWithRegex("BSD", newLicense("BSD License", "http://opensource.org/licenses/BSD-2-Clause", null),
-            bsdPadding+theLicense(bsdPadding+"bsd"+bsdPadding)+bsdPadding+optionally(NO_VERSION_REGEX));
+//        addCodeWithRegex("BSD", newLicense("BSD License", "https://spdx.org/licenses/BSD-2-Clause.html", null),
+//            bsdPadding+theLicense(bsdPadding+"bsd"+bsdPadding)+bsdPadding+optionally(NO_VERSION_REGEX));
     }
     
     public static Map<String, String> getKnownLicenseCodesWithRegexes() {

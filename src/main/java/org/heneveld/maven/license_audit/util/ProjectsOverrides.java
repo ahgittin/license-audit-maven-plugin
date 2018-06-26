@@ -38,9 +38,28 @@ public class ProjectsOverrides {
     }
 
     public Map<String,Object> getOverridesForProject(String projectId) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        
+        String idBase = projectId;
+        while (true) {
+            Map<String, Object> lo = getOverridesForProjectExactlyOrNull(idBase);
+            if (lo!=null) {
+                lo = new LinkedHashMap<>(lo);
+                lo.putAll(result);
+                result = lo;
+            }
+            int li = idBase.lastIndexOf(':');
+            if (li>0) {
+                idBase = idBase.substring(0, li);
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+    public Map<String,Object> getOverridesForProjectExactlyOrNull(String projectId) {
         if (projectId==null) return null;
         Map<String, Object> result = overridesByProject.get(projectId.trim());
-        if (result==null) return Collections.emptyMap();
         return result;
     }
     public Map<?, ?> getOverridesForProject(MavenProject p) {
@@ -104,10 +123,10 @@ public class ProjectsOverrides {
                 throw new IllegalArgumentException("Invalid entry; entry should be a YAML map (not "+entry.getClass()+": "+entry+")");
             }
             @SuppressWarnings("unchecked")
-            Map<String,Object> emap = (Map<String,Object>)entry;
+            Map<String,Object> emap = new LinkedHashMap<>( (Map<String,Object>)entry );
             String id = (String)emap.get("id");
             @SuppressWarnings("unchecked")
-            Iterable<String> ids = (Iterable<String>)emap.get("ids");
+            Iterable<String> ids = (Iterable<String>)emap.remove("ids");
             if (id!=null) {
                 if (ids!=null) throw new IllegalArgumentException("Invalid entry; entry cannot contain 'id' and 'ids' ("+id+")");
                 ids = Collections.singletonList(id);

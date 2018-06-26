@@ -197,7 +197,7 @@ This plugin supports the following additional configuration:
 * `extrasFile` - allow info for additional projects to be supplied from a file
   and included in the report;
   useful if you want to include non-java dependencies;
-  the format is the same as for `overridesFile`, but `name` and `version` are also supported
+  the format of the file is the same as for `overridesFile`, but `name` and `version` are also supported
 * `extrasFiles` - as `extrasFile` but allowing a list (using the system's path separator character) 
 * `onlyExtras` - whether only to show info for items in `extraFile` or `extraFiles`, 
   i.e. ignoring maven dependencies (no tree/dependency structure will be shown);
