@@ -12,9 +12,9 @@ public class ProjectsOverridesTest extends TestCase {
 
     public void testParse() {
         ProjectsOverrides l = ProjectsOverrides.fromReader(new InputStreamReader(getClass().getResourceAsStream("overrides-sample-1.yaml")));
-        assertEquals("ASL2", LicenseCodes.getLicenseCode(l.getLicense("foo.group:code:1.0").get(0).getName()));
-        assertEquals("ASL2", LicenseCodes.getLicenseCode(l.getLicense("foo.group:code:1.1").get(0).getName()));
-        assertEquals("ASL2", LicenseCodes.getLicenseCode(l.getLicense("foo.group:code:1.2").get(0).getName()));
+        assertEquals("Apache-2.0", LicenseCodes.getLicenseCode(l.getLicense("foo.group:code:1.0").get(0).getName()));
+        assertEquals("Apache-2.0", LicenseCodes.getLicenseCode(l.getLicense("foo.group:code:1.1").get(0).getName()));
+        assertEquals("Apache-2.0", LicenseCodes.getLicenseCode(l.getLicense("foo.group:code:1.2").get(0).getName()));
         assertEquals("http://group.foo/code", l.getUrl("foo.group:code:1.0"));
         assertNull(l.getLicense("foo.group:code:0.9"));
         assertEquals("Custom License", l.getLicense("foo.group:map:1.0").get(0).getName());
@@ -25,8 +25,8 @@ public class ProjectsOverridesTest extends TestCase {
     public void testParseReadmeExample() {
         // wildcard chars have no significance here but the caller might pass them
         ProjectsOverrides l = ProjectsOverrides.fromReader(new InputStreamReader(getClass().getResourceAsStream("overrides-sample-2.yaml")));
-        assertEquals("ASL2", LicenseCodes.getLicenseCode(l.getLicense("org.codehaus.jettison:jettison").get(0).getName()));
-        assertEquals("BSD", LicenseCodes.getLicenseCode(l.getLicense("dom4j:dom4j:*").get(0).getName()));
+        assertEquals("Apache-2.0", LicenseCodes.getLicenseCode(l.getLicense("org.codehaus.jettison:jettison").get(0).getName()));
+        assertEquals("BSD-2-Clause", LicenseCodes.getLicenseCode(l.getLicense("dom4j:dom4j:*").get(0).getName()));
         assertEquals("http://dom4j.sourceforge.net/", l.getUrl("dom4j:dom4j-core:1.4-dev-8"));
         assertNull("http://dom4j.sourceforge.net/", l.getUrl("dom4j:dom4j-core:1.4-dev-null"));
         
@@ -49,7 +49,7 @@ public class ProjectsOverridesTest extends TestCase {
 
     public void testMultipleEntries() {
         ProjectsOverrides l = ProjectsOverrides.fromReader(new StringReader(
-            "[{ id: one, license: ASL2 }]"));
+            "[{ id: one, license: Apache-2.0 }]"));
         l.addFromYaml(new StringReader(
             "[{ id: one, url: \"http://foo\" }]"));
         assertEquals(1, l.getLicense("one").size());

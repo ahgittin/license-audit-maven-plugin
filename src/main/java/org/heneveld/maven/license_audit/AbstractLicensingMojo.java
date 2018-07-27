@@ -178,7 +178,7 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
                 overrides.addFromYaml(fr);
                 fr.close();
             } catch (Exception e) {
-                throw new MojoExecutionException("Error reading "+file+": "+e);
+                throw new MojoExecutionException("Error reading "+file+": "+e, e);
             }
         }
     }
@@ -416,6 +416,9 @@ public abstract class AbstractLicensingMojo extends AbstractMojo {
                 } else if (org2 instanceof Map) {
                     org3.setName(toStringPoorMans(((Map<?,?>)org2).get("name")));
                     org3.setUrl(toStringPoorMans(((Map<?,?>)org2).get("url")));
+                    if (org3.getUrl()==null) {
+                        org3.setUrl(toStringPoorMans(((Map<?,?>)org2).get("email")));
+                    }
                 }
             }
             return organizationString(org3);

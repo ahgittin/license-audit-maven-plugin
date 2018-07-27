@@ -201,7 +201,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
             Set<String> notices = new TreeSet<>();
             notices.addAll(getFields(id, projects, "notice"));
             notices.addAll(getFields(id, projects, "notices"));
-            notices.addAll(getFields(id, projects, "copyright_by").stream().map(s -> "Copyright (c) "+s).collect(Collectors.toList()));
+            notices.addAll(getFields(id, projects, "copyright_by").stream().map(s -> s.toLowerCase().startsWith("copyright") || s.toLowerCase().startsWith("(c)") ? s : "Copyright (c) "+s).collect(Collectors.toList()));
             if (!notices.isEmpty()) {
                 onProjectDetailIfNonEmptyPreferInline("Notice", notices, set -> join(set, "\n    "));
             }
@@ -417,7 +417,13 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
         
         Object overrideUrl = overrides.getOverridesForProject(groupId).get("url");
         if (overrideUrl!=null && overrideUrl.toString().length()>0) {
-            result.add(overrideUrl.toString());
+            if (overrideUrl instanceof Collection<?>) {
+                for (Object url: ((Collection<?>)overrideUrl)) {
+                    result.add(url.toString());
+                }
+            } else {
+                result.add(overrideUrl.toString());
+            }
             return result;
         }
         

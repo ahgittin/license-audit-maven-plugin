@@ -59,7 +59,7 @@ public class LicenseAuditMojoTest extends BetterAbstractMojoTestCase {
         // run this for more info, and replace with `cp` if your output is better:  
         // for x in `find . -name *.current-test` ; do diff $x ${x%%.current-test}; done
         fail("Output is different to what is expected. See test for instructions. See the difference by running:\n\n"+
-            "    diff "+f.getAbsolutePath()+" "+f2.getAbsolutePath()+"\n");
+            "    diff "+f2.getAbsolutePath()+" "+f.getAbsolutePath()+"\n");
     }
     
     protected LicenseAuditMojo getMojo(String projectSubdir) throws Exception {
@@ -89,7 +89,7 @@ public class LicenseAuditMojoTest extends BetterAbstractMojoTestCase {
         mojo.execute();
         assertTrue("Output:\n"+getMojoOutput(), getMojoOutput().contains("junit:junit:4.8.2"));
         
-        assertEquals("CPL1", getMojoReportedData("junit:junit:4.8.2", "License"));
+        assertEquals("CPL-1.0", getMojoReportedData("junit:junit:4.8.2", "License"));
 
         assertOutputEqualsFileInCurrentTestProject("expected-report-test-scope.txt");
     }

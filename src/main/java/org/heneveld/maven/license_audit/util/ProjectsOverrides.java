@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.maven.model.License;
 import org.apache.maven.project.MavenProject;
@@ -118,6 +120,7 @@ public class ProjectsOverrides {
         if (!(data instanceof Iterable)) {
             throw new IllegalArgumentException("Input data invalid; file should be a YAML list (not "+data.getClass()+"), each containing an 'entry' map");
         }
+        Set<String> projectsToValidate = new LinkedHashSet<>();
         for (Object entry: ((Iterable<?>)data)) {
             if (!(entry instanceof Map)) {
                 throw new IllegalArgumentException("Invalid entry; entry should be a YAML map (not "+entry.getClass()+": "+entry+")");
@@ -140,13 +143,27 @@ public class ProjectsOverrides {
                         overridesByProject.put(projectId, result);
                     }
                     result.putAll(emap);
-                    // do this to ensure it is the right type (retrieval will throw if malformed)
-                    getLicense(projectId);
+                    projectsToValidate.add(projectId);
                 }
             } else {
                 throw new IllegalArgumentException("Invalid entry; entry must contain 'id' or 'ids' "+emap);
             }
         }
+        
+        // do this after in case invalid licenses are overridden, and collect all errors
+        List<String> errors = new ArrayList<>();
+        for (String projectId: projectsToValidate) {
+            // do this to ensure it is the right type (retrieval will throw if malformed)
+            try {
+                getLicense(projectId);
+            } catch (Exception e) {
+                errors.add(projectId+": "+e);
+            }
+        }
+        if (!errors.isEmpty()) {
+            throw new IllegalArgumentException("One or more projects was invalid.\n  - "+String.join("\n  - ", errors));
+        }
+
         return this;
     }
     

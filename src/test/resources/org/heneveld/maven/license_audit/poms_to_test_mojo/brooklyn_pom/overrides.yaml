@@ -25,10 +25,10 @@
 
 - id: org.codehaus.jettison:jettison
   url: https://github.com/codehaus/jettison
-  license: ASL2 
+  license: Apache-2.0 
 - id: org.glassfish.external:opendmk_jmxremote_optional_jar
   url: https://opendmk.java.net/
-  license: CDDL
+  license: CDDL-1.0
 - id: javax.validation:validation-api
   url: http://beanvalidation.org/
 
@@ -116,13 +116,13 @@
   files: swagger.js
   version: 1.0.1
   url: https://github.com/wordnik/swagger-js
-  license: ASL2
+  license: Apache-2.0
 
 - id: Swagger UI
   files: swagger-ui.js, swagger.js, jquery.{slideto,wiggle}*.js
   version: 1.0.1
   url: https://github.com/wordnik/swagger-ui
-  license: ASL2
+  license: Apache-2.0
   notice: Copyright (c) SmartBear Software (2011-2015), portions WonderGroup and Jordan Thomas (2010)
   # jquery.wiggle is from WonderGroup/JT, defunct URL http://labs.wondergroup.com/demos/mini-ui/index.html
 
@@ -156,7 +156,7 @@
   version: 2.0.4
   url: http://twitter.github.com/bootstrap/javascript.html#transitions
   notice: Copyright (c) Twitter, Inc (2012)
-  license: ASL2
+  license: Apache-2.0
   
 - id: underscore.js
   version: 1.4.4

@@ -49,12 +49,13 @@ public class LicenseCodes {
         return result;
     }
 
-    protected static String licenseNameRegex(String code, String namePattern, @Nullable String version) {
+    protected static String licenseNameRegex(String code, String namePattern, @Nullable String version, boolean allowUnversioned) {
         String codeWithoutVersion = code;
         if (version!=null) {
             for (int i=0; i<code.length(); i++) {
                 if (code.substring(i).matches(version(version))) {
                     codeWithoutVersion = code.substring(0, i);
+                    if (codeWithoutVersion.endsWith("-")) codeWithoutVersion=codeWithoutVersion.substring(0, codeWithoutVersion.length()-1);
                     break;
                 }
             }
@@ -63,7 +64,9 @@ public class LicenseCodes {
             "\\(?"+codeWithoutVersion+(version==null || version.isEmpty() ? "" : optionally(version(version)))+"\\)?");
         return
             anyOf(codeWithoutVersion, namePattern + optionalParenthesizedCode)
-            + (version==null || version.isEmpty() ? optionally(NO_VERSION_REGEX) : version(version)) + optionalParenthesizedCode;
+            + (version==null || version.isEmpty() ? optionally(NO_VERSION_REGEX) : 
+                allowUnversioned ? "("+optionally(NO_VERSION_REGEX)+"|"+version(version)+")" : version(version)
+            ) + optionalParenthesizedCode;
     }
 
     protected static String theLicense(String mainName) {
@@ -79,12 +82,15 @@ public class LicenseCodes {
     }
 
     public static void addCodeFromMainNamePattern(String code, String version, String name, String url, String mainName) {
-        addCodeWithRegex(code, newLicense(name, url, null), licenseNameRegex(code, theLicense(mainName), version));        
+        addCodeFromMainNamePattern(code, version, name, url, mainName, false);
+    }
+    public static void addCodeFromMainNamePattern(String code, String version, String name, String url, String mainName, boolean allowUnversioned) {
+        addCodeWithRegex(code, newLicense(name, url, null), licenseNameRegex(code, theLicense(mainName), version, allowUnversioned));        
     }
 
     // see http://opensource.org/licenses
 //    Apache License 2.0
-//    Eclipse Public License
+//    Eclipse Public License 
 //    Common Development and Distribution License
 //    MIT license
 //    GNU General Public License (GPL)
@@ -95,12 +101,10 @@ public class LicenseCodes {
     
     static {
         addCodeFromMainNamePattern("Apache-2.0", "2.0", "Apache License, version 2.0", "http://www.apache.org/licenses/LICENSE-2.0",  
-            "apache"+anyNumberOf(anyOf(" public", " software")));
-//        addCodeFromMainNamePattern("Apache", null, "Apache License", "http://www.apache.org/licenses/LICENSE-2.0",  
-//            "apache"+anyNumberOf(anyOf(" public", " software")));
+            "apache"+anyNumberOf(anyOf(" public", " software")), true);
         
         addCodeFromMainNamePattern("EPL-1.0", "1.0", "Eclipse Public License, version 1.0", "http://www.eclipse.org/legal/epl-v10.html",  
-            "eclipse"+anyNumberOf(anyOf(" public", " software")));
+            "eclipse"+anyNumberOf(anyOf(" public", " software")), true);
 
         addCodeFromMainNamePattern("CPL-1.0", "1.0", "Common Public License, version 1.0", "https://spdx.org/licenses/CPL-1.0.html",  
             "common public"+anyNumberOf(anyOf(" software")));
@@ -116,31 +120,25 @@ public class LicenseCodes {
 //            "common development"+anyNumberOf(anyOf("\\+", "\\-", "/", " ", "&", "and"))+"distribution");
         
         addCodeFromMainNamePattern("GPL-3.0", "3.0", "GNU General Public License, version 3.0", "http://www.gnu.org/licenses/gpl-3.0.html",  
-            "gnu"+anyNumberOf(anyOf(" general", " public")));
+            "gnu"+anyNumberOf(anyOf(" general", " public")), true);
         addCodeFromMainNamePattern("GPL-2.0", "2.0", "GNU General Public License, version 2.0", "http://www.gnu.org/licenses/gpl-2.0.html",  
             "gnu"+anyNumberOf(anyOf(" general", " public")));
-//        addCodeFromMainNamePattern("GPL", null, "GNU General Public License, version 2.0", "http://www.gnu.org/licenses/gpl-2.0.html",  
-//            "gnu"+anyNumberOf(anyOf(" general", " public")));
 
         addCodeFromMainNamePattern("LGPL-3.0", "3.0", "GNU Lesser General Public License, version 3.0", "http://www.gnu.org/licenses/lgpl-3.0.html",  
-            orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
+            orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")), true);
         addCodeFromMainNamePattern("LGPL-2.1", "2.1", "GNU Lesser General Public License, version 2.1", "http://www.gnu.org/licenses/lgpl-2.0.html",  
             orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
         addCodeFromMainNamePattern("LGPL-2.0", "2.0", "GNU Lesser General Public License, version 2.0", "http://www.gnu.org/licenses/lgpl-2.0.html",  
             orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
-//        addCodeFromMainNamePattern("LGPL", null, "GNU Lesser General Public License", "http://www.gnu.org/licenses/lgpl.html",  
-//            orReversed("lesser", " ", "gnu")+anyNumberOf(anyOf(" general", " public")));
 
         addCodeFromMainNamePattern("MPL-2.0", "2.0", "Mozilla Public License, version 2.0", "https://www.mozilla.org/MPL/2.0/",  
-            "mozilla"+anyNumberOf(anyOf(" public", " software")));
-//        addCodeFromMainNamePattern("MPL", null, "Mozilla Public License", "https://www.mozilla.org/MPL/",  
-//            "mozilla"+anyNumberOf(anyOf(" public", " software")));
+            "mozilla"+anyNumberOf(anyOf(" public", " software")), true);
         
         addCodeFromMainNamePattern("Public-Domain", null, "Public Domain", null, "public domain");
         
         String bsd3Words = anyOf("3"+SEPARATOR_PATTERN+"clause", "new", "revised", "modified");
         String bsd2Words = anyOf("2"+SEPARATOR_PATTERN+"clause", "simplified", "freebsd");
-        String bsdPadding = anyNumberOf(anyOf(SEPARATOR_PATTERN, "like", "style", "bsd"));
+        String bsdPadding = anyNumberOf(anyOf(SEPARATOR_PATTERN, "like", "style", "or", "bsd"));
         String bsd3Padding = anyNumberOf(anyOf(bsdPadding, bsd3Words));
         String bsd2Padding = anyNumberOf(anyOf(bsdPadding, bsd2Words));
         addCodeWithRegex("BSD-3-Clause", newLicense("BSD 3-Clause (New BSD) License", "https://spdx.org/licenses/BSD-3-Clause.html", null),
