@@ -214,14 +214,21 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
         }
     }
 
+    private String escapedYamlIfNeeded(String s) {
+        if (s==null) return s;
+        if (s.indexOf(": ")>=0 || s.startsWith("@")) {
+            s = s.replace("\\", "\\\"").replace("\"", "\\\"");
+            return "\"" + s + "\"";
+        }
+        return s;
+    }
     private void dumpYamlForNotice(Object obj, String prefix) throws MojoExecutionException {
         if (obj instanceof Map) {
             @SuppressWarnings("unchecked")
             Map<String, Object> m = (Map<String,Object>)obj;
             for (String k: m.keySet()) {
-                String kk = prefix+k+":";
                 Object v = m.get(k);
-                kk += " ";
+                String kk = prefix + escapedYamlIfNeeded(k) + ": ";
                 if (v instanceof String) {
                     String vs = (String)v;
                     vs = ((String) v).trim();
@@ -229,7 +236,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
                         if ("  ".equals(prefix)) {
                             kk = extraSpacesToLength(kk, 16);
                         }
-                        output(kk+vs);
+                        output(kk+escapedYamlIfNeeded(vs));
                     } else {
                         output(kk+"|");
                         for (String line: vs.split("\n")) {
@@ -248,7 +255,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
                     String vs = (String)v;
                     vs = ((String) v).trim();
                     if (vs.indexOf("\n")==-1) {
-                        output(prefix+"- "+vs);
+                        output(prefix+"- "+escapedYamlIfNeeded(vs));
                     } else {
                         output(prefix+"- |");
                         for (String line: vs.split("\n")) {
@@ -261,7 +268,7 @@ public class GenerateNoticesMojo extends AbstractLicensingMojo {
                 }                
             }
         } else {
-            output(prefix+obj);
+            output(prefix+escapedYamlIfNeeded(""+obj));
         }
     }
 
