@@ -592,7 +592,7 @@ org.heneveld.maven.license_audit:test-brooklyn-pom:0.1
   |   |   |   |   URL: https://github.com/twall/jna
   |   |   |   |   License:
   |   |   |   |     LGPL-2.1
-  |   |   |   |     ASL, version 2
+  |   |   |   |     Apache-2.0
   |   |   |   |   Copyright: Copyright (c) project contributors (2016)
   |   |   |   |   Artifacts Included: jar (compile)
   |   |   |   |   Dependencies: (none)
@@ -601,7 +601,7 @@ org.heneveld.maven.license_audit:test-brooklyn-pom:0.1
   |   |   |   |   URL: https://github.com/twall/jna
   |   |   |   |   License:
   |   |   |   |     LGPL-2.1
-  |   |   |   |     ASL, version 2
+  |   |   |   |     Apache-2.0
   |   |   |   |   Copyright: Copyright (c) project contributors (2016)
   |   |   |   |   Artifacts Included: jar (compile)
   |   |   |   |   Dependencies: net.java.dev.jna:jna:jar:4.0.0 (compile, included, from org.apache.brooklyn:brooklyn-locations-jclouds:0.8.0-incubating)

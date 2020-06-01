@@ -26,6 +26,9 @@ public class LicenseCodes {
             result += "|"+patterns[i];
         return result+")";
     }
+    protected static String oneOrMore(String ...patterns) {
+        return anyOf(patterns)+anyNumberOf(anyOf(anyOf(patterns), " ", "\\-", "license"));
+    }
     protected static String anyNumberOf(String pattern) {
         return "("+pattern+")*";
     }
@@ -101,10 +104,14 @@ public class LicenseCodes {
     
     static {
         addCodeFromMainNamePattern("Apache-2.0", "2.0", "Apache License, version 2.0", "http://www.apache.org/licenses/LICENSE-2.0",  
-            "apache"+anyNumberOf(anyOf(" public", " software")), true);
+            oneOrMore("apache"+anyNumberOf(anyOf(" public", " software")), "asl"), true);
         
         addCodeFromMainNamePattern("EPL-1.0", "1.0", "Eclipse Public License, version 1.0", "http://www.eclipse.org/legal/epl-v10.html",  
+            "eclipse"+anyNumberOf(anyOf(" public", " software")), false);
+        addCodeFromMainNamePattern("EPL-2.0", "2.0", "Eclipse Public License, version 2.0", "http://www.eclipse.org/legal/epl-2.0",  
             "eclipse"+anyNumberOf(anyOf(" public", " software")), true);
+        addCodeFromMainNamePattern("EDL-1.0", "1.0", "Eclipse Distribution License, version 1.0", "https://www.eclipse.org/org/documents/edl-v10.php",  
+            "eclipse distribution"+anyNumberOf(anyOf(" ", "software")), true);
 
         addCodeFromMainNamePattern("CPL-1.0", "1.0", "Common Public License, version 1.0", "https://spdx.org/licenses/CPL-1.0.html",  
             "common public"+anyNumberOf(anyOf(" software")));
