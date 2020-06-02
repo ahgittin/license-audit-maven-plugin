@@ -104,7 +104,7 @@ public class LicenseCodes {
     
     static {
         addCodeFromMainNamePattern("Apache-2.0", "2.0", "Apache License, version 2.0", "http://www.apache.org/licenses/LICENSE-2.0",  
-            oneOrMore("apache"+anyNumberOf(anyOf(" public", " software")), "asl"), true);
+            oneOrMore("ALv2", "apache"+anyNumberOf(anyOf(" public", " software")), "asl"), true);
         
         addCodeFromMainNamePattern("EPL-1.0", "1.0", "Eclipse Public License, version 1.0", "http://www.eclipse.org/legal/epl-v10.html",  
             "eclipse"+anyNumberOf(anyOf(" public", " software")), false);
