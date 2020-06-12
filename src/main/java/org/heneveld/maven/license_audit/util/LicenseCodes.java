@@ -113,6 +113,9 @@ public class LicenseCodes {
         addCodeFromMainNamePattern("EDL-1.0", "1.0", "Eclipse Distribution License, version 1.0", "https://www.eclipse.org/org/documents/edl-v10.php",  
             "eclipse distribution"+anyNumberOf(anyOf(" ", "software")), true);
 
+        addCodeFromMainNamePattern("EPL-2.0", "2.0", "Eclipse Public License, version 2.0", "http://www.eclipse.org/legal/epl-v20.html",
+                "eclipse"+anyNumberOf(anyOf(" public", " software")), true);
+
         addCodeFromMainNamePattern("CPL-1.0", "1.0", "Common Public License, version 1.0", "https://spdx.org/licenses/CPL-1.0.html",  
             "common public"+anyNumberOf(anyOf(" software")));
 
